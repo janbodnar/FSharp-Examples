@@ -10,7 +10,7 @@ printfn "%d" (add 2 3)
 // isEven  is a nested fun, List.filter is a library function
 let evens vals =
     let isEven x = x % 2 = 0
-    List.filter isEven vals
+    List.filter isEven vals // The last line produces the returned value
 
 let oneToFive = [1; 2; 3; 4; 5]
 
