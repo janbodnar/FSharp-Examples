@@ -11,3 +11,7 @@ in 2005.
 Turn off telemetry  
 
 `export DOTNET_CLI_TELEMETRY_OPTOUT=1`  
+
+Run F# scripts  
+
+`$ dotnet fsi simple.fsx`  
