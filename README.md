@@ -20,7 +20,6 @@ Algorithm to calculate powers; F# script with
 #time directive  
 
 ```
-// exponentiation
 let rec power x n: bigint =
     if n = 0I then 1I
     else x * (power x (n-1I))
@@ -28,13 +27,13 @@ let rec power x n: bigint =
 // more efficient algorithm
 let rec power2 x n: bigint =
     if n = 0I then 1I
-    //if n is even
+    // if n is even
     elif (n % 2I = 0I) then ((power2 x (n/2I)) * (power2 x (n/2I)))
-     //if n is odd
+     // if n is odd
     else x * (power2 x (n-1I))
 
 #time
-//printfn "%A" (power 1254I 29000I)
-printfn "%A" (power2 1254I 29000I)
+//printfn "%A" (power 1254I 29_000I)
+printfn "%A" (power2 1254I 29_000I)
 #time
 ```
