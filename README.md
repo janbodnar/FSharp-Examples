@@ -34,7 +34,7 @@ let rec power2 x n: bigint =
     else x * (power2 x (n-1I))
 
 #time
-//printfn "%A" (power 1254I 290I)
-printfn "%A" (power 1254I 29000I)
+//printfn "%A" (power 1254I 29000I)
+printfn "%A" (power2 1254I 29000I)
 #time
 ```
