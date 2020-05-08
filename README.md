@@ -37,3 +37,25 @@ let rec power2 x n: bigint =
 printfn "%A" (power2 1254I 29_000I)
 #time
 ```
+
+Custom timing fun with StopWatch  
+
+```
+open System.Diagnostics
+open System.Threading
+
+
+let time f =
+
+  let stopwatch = Stopwatch.StartNew()
+
+  f()
+
+  stopwatch.Stop()
+  
+  printfn "%O" stopwatch.Elapsed
+
+
+time (fun () -> Thread.Sleep(2000))
+```
+
