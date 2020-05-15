@@ -7,7 +7,7 @@ type MyForm() as this =
     
     do
         this.ClientSize <- Size(600, 400)
-        this.Title <- "Table Layout"
+        this.Title <- "ComboBox"
 
         let dropdown = new DropDown()
         let label = new Label(Text = "...")
