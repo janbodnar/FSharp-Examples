@@ -2,7 +2,7 @@ GUI examples with the Eto library
 
 
 
-app.fsproj  
+`app.fsproj`   
 
 ```
 <Project Sdk="Microsoft.NET.Sdk">
