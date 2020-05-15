@@ -1,6 +1,6 @@
 GUI examples with the Eto library  
 
-`$ dotnet new -i "Eto.Forms.Templates::*"`  
+`$ dotnet new -i "Eto.Forms.Templates::*"`  # installs Eto template pack  
 `$ dotnet new etoapp --help  # shows project creation options`  
 
 `app.fsproj`   
