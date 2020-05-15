@@ -7,16 +7,18 @@ type MyForm() as this =
     
     do
         this.ClientSize <- Size(600, 400)
-        this.Title <- "ComboBox"
+        this.Title <- "DropDown"
 
         let dropdown = new DropDown()
-        let label = new Label(Text = "...")
+        let label = new Label(Text = "cloud")
         
         ["falcon"; "rock"; "sky"; "cloud"]  |> List.iter dropdown.Items.Add
+        dropdown.SelectedKey <- "cloud" 
 
         dropdown.SelectedValueChanged.Add(fun e -> 
             label.Text <- dropdown.SelectedValue.ToString()
-            )
+            Console.WriteLine dropdown.SelectedValue
+            Console.WriteLine dropdown.SelectedIndex
 
         let layout = 
             new TableLayout(
