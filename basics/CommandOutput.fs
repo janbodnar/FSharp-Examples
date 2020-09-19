@@ -10,7 +10,6 @@ let main argv =
     p.StartInfo.UseShellExecute <- false
     p.Start() |> ignore 
 
-    printfn "result %A" (p.StandardOutput.ReadToEnd())
-    printfn "done"
-
+    printfn "%s" (p.StandardOutput.ReadToEnd())
+    
     0 
