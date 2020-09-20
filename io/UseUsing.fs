@@ -1,15 +1,15 @@
-open System
 open System.IO
 
 let readFile path = 
     use r = new StreamReader(new FileStream(path, FileMode.Open))
-    Console.WriteLine(r.ReadToEnd())
+    printfn "%s" (r.ReadToEnd())
 
 let readFile2 path = 
     using (new StreamReader(new FileStream(path, FileMode.Open)))  
-        (fun r -> Console.WriteLine(r.ReadToEnd()))
+        (fun r -> printfn "%s" (r.ReadToEnd()))
 
 readFile "words.txt"
+printfn "----------------------------"
 readFile2 "words.txt"
 
 // The using function and the use binding are nearly equivalent ways to
@@ -18,4 +18,4 @@ readFile2 "words.txt"
 // function or lambda expression; when you use the use keyword, Dispose is
 // called at the end of the containing code block. In general, you should prefer
 // to use use instead of the using function.
-// https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/dd233240(v=vs.100)
+// https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/dd233240(v=vs.100)?redirectedfrom=MSDN
