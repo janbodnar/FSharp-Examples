@@ -16,6 +16,9 @@ Run F# scripts
 
 `$ dotnet fsi simple.fsx`  
 
+Run F# script in preview version  
+`$ dotnet fsi --langversion:preview simple.fsx`  
+
 Algorithm to calculate powers; F# script with  
 #time directive  
 
