@@ -28,7 +28,16 @@ let data =
 
 printfn "%A" data
 
-data |> List.iter (printfn "%O")
+printfn "------------------------"
+
+for row in data do
+    let city, population = row
+    printfn "%s %d" city population
+
+printfn "------------------------"
+
+
+data |> List.iter (fun row -> (printfn "%s %d" (fst row) (snd row)))
 
 
 (* copy SQLite.Interop.dll  from 
