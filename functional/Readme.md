@@ -1,3 +1,5 @@
+
+**Currying**
 Every function in F# has one parameter and returns one value. That value can
 be of type unit, designated by (), which is similar in concept to void in
 some other languages.
