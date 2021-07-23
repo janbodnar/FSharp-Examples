@@ -62,3 +62,15 @@ let time f =
 time (fun () -> Thread.Sleep(2000))
 ```
 
+Write to source directory  
+
+```
+open System.IO
+
+let writeToFile () = 
+
+    let data = "an old falcon"
+    File.WriteAllText(Path.Combine(__SOURCE_DIRECTORY__, "file.txt"), data)
+
+writeToFile()
+```
