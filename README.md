@@ -40,13 +40,26 @@ let merged = a @ b |> List.distinct
 printfn "%A" merged
 ```
 
-get cmd args  
+get cmd args in script  
 ```
 let args2 = fsi.CommandLineArgs |> Array.tail 
 
 for arg in args2 do 
     Console.WriteLine(arg)
 done
+```
+
+get cmd args in program/not script  
+` printfn "env.cmdline: %A" <| Environment.GetCommandLineArgs() `
+
+read and filter data  
+```
+ let fileName = __SOURCE_DIRECTORY__ + "/words.txt"
+
+ let data = File.ReadAllLines(fileName)
+ let filtered = data |> Array.filter (fun e -> e.StartsWith "c" || e.StartsWith "s") 
+
+ Console.WriteLine(filtered)
 ```
 
 
