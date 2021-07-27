@@ -20,6 +20,16 @@ Run F# script in preview version
 `$ dotnet fsi --langversion:preview simple.fsx`  
 
 
+read files from command line arguments  
+```
+let args = fsi.CommandLineArgs.[1..] 
+
+let words = Array.collect (fun f -> File.ReadAllLines(f)) args
+printfn "%A" words
+```
+
+`dotnet fsi simple.fsx *.txt`  run script  
+
 merge lists  
 
 ```
