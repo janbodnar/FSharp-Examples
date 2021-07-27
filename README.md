@@ -19,6 +19,27 @@ Run F# scripts
 Run F# script in preview version  
 `$ dotnet fsi --langversion:preview simple.fsx`  
 
+
+merge lists  
+
+```
+let a = [1; 2; 3; 4]
+let b = [4; 4; 5; 6]
+
+let merged = a @ b |> List.distinct
+printfn "%A" merged
+```
+
+get cmd args  
+```
+let args2 = fsi.CommandLineArgs |> Array.tail 
+
+for arg in args2 do 
+    Console.WriteLine(arg)
+done
+```
+
+
 Algorithm to calculate powers; F# script with  
 #time directive  
 
