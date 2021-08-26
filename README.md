@@ -30,6 +30,13 @@ printfn "%A" words
 
 `dotnet fsi simple.fsx *.txt`  run script  
 
+**This is the same**  
+```
+Array.filter (fun e -> (snd e) > 1)
+Array.filter (fun (_, i) -> i >= 2)
+```
+
+
 merge lists  
 
 ```
