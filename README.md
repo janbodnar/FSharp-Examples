@@ -34,6 +34,14 @@ printfn "%A" words
 ```
 Array.filter (fun e -> (snd e) > 1)
 Array.filter (fun (_, i) -> i >= 2)
+Array.filter (snd >> ((<)1))
+```
+
+```
+Seq.filter (fun (_, s) -> Seq.length s > 1)
+Seq.filter (fun (_, s) -> (s |> Seq.length) > 1)
+Seq.filter (fun v -> match v with (_, c) -> c > 1)
+Seq.map snd |> Seq.filter (fun t -> Seq.length t > 1)
 ```
 
 
