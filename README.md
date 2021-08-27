@@ -99,7 +99,7 @@ let rec iterate vals =
 iterate vals
 ```
 
-iterating over elements with a custom recursinve function utilizing pattern  
+iterating over elements with a custom recursive function utilizing pattern  
 matching  
 
 
@@ -144,7 +144,7 @@ let g(x, s) =
     printfn "%d %s" x s 
 ```
 
-g  is a function which takes and integer and a string as a parameter; it  
+g  is a function which takes an integer and a string as a parameter; it  
 returns unit (nothing); this function is said to have a side-effect  
 
 ```
