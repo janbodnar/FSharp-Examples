@@ -44,6 +44,13 @@ Seq.filter (fun v -> match v with (_, c) -> c > 1)
 Seq.map snd |> Seq.filter (fun t -> Seq.length t > 1)
 ```
 
+**Types**  
+
+`int list` is a synonym for `list<int>`  
+`'a` the tick character in a type name is used for a generic type  
+`a'` the tick in a variable name is used to denote a symbol similar to a;
+     borrowed from math, where ' is used for a derivative or a transposed matrix
+
 
 merge lists  
 
