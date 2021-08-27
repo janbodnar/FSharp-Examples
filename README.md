@@ -71,8 +71,39 @@ Seq.map snd |> Seq.filter (fun t -> Seq.length t > 1)
 `int [,]` - two-dimensional array  
 `int [,,]` - three-dimensional array  
 
+```
+let t1 = (1, 2, 3, 4) // int * int * int * int
+let t2 = (4, "falcon", true) // int * string * bool
+```
+In tuples, the types for elements are separated with * character  
+
+
 `let f (x:int): int = x + 1`  - f is a function; it takes an int as a parameter  
                                  and returns an integer  
+
+```
+// g : int * string -> unit
+let g(x, s) = 
+    printfn "%d %s" x s 
+```
+
+g  is a function which takes and integer and a string as a parameter; it  
+returns unit (nothing); this function is said to have a side-effect  
+
+```
+// int -> string -> unit
+let f1 x s = 
+    printfn "%d %s" x s
+
+// int * string -> unit
+let f2(x,s) = 
+    printfn "%d %s" x s
+    
+f1 3 "falcons"   
+f2(3, "falcons")
+```
+
+ f1's arguments are curried, whereas f2's arguments are tupled  
 
 
 **Merge lists**  
