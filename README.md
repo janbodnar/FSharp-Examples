@@ -46,6 +46,20 @@ printfn "%s" name
 System.Console.WriteLine(name)
 ```
 
+**Discards**  
+
+The _ character is a discard which is a placeholder for values that we 
+do not need.  
+
+```
+let vals = (1, 2, 3, 4, 5)
+let _, _, _, x, y = vals
+
+printfn $"x: {x}; y: {y}"
+```
+
+
+
 **Classic loops**  
 
 ```
