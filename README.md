@@ -138,6 +138,9 @@ Seq.map snd |> Seq.filter (fun t -> Seq.length t > 1)
 
 **Types**  
 
+'T, 'U - generic type parameters  
+^T, ^U - statically resolved type parameters  
+
 `int list` is a synonym for `list<int>`  
 `'a` the tick character in a type name is used for a generic type  
 `a'` the tick in a variable name is used to denote a symbol similar to a;  
