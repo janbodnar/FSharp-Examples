@@ -8,6 +8,7 @@ in 2005.
 `$ cd Simple`  
 `$ dotnet run`  
 
+
 Turn off telemetry  
 
 `export DOTNET_CLI_TELEMETRY_OPTOUT=1`  
@@ -33,6 +34,19 @@ printfn "%A" words
 
 `dotnet fsi simple.fsx *.txt`  run script  
 
+**Printing** 
+
+to print a single argument without formatting, use `Console.WriteLine`  
+the print* functions are F# helpers  
+
+```
+let name = "John Doe"
+
+printfn "%s" name
+System.Console.WriteLine(name)
+```
+
+
 **This is the same**  
 ```
 Array.filter (fun e -> (snd e) > 1)
@@ -53,9 +67,11 @@ Seq.map snd |> Seq.filter (fun t -> Seq.length t > 1)
 `'a` the tick character in a type name is used for a generic type  
 `a'` the tick in a variable name is used to denote a symbol similar to a;
      borrowed from math, where ' is used for a derivative or a transposed matrix
+`int [,]` - two-dimensional array  
+`int [,,]` - three-dimensional array  
 
 
-merge lists  
+**Merge lists**  
 
 ```
 let a = [1; 2; 3; 4]
@@ -65,7 +81,9 @@ let merged = a @ b |> List.distinct
 printfn "%A" merged
 ```
 
-get cmd args in script  
+**Command line arguments**  
+
+in script  
 ```
 let args2 = fsi.CommandLineArgs |> Array.tail 
 
@@ -74,7 +92,7 @@ for arg in args2 do
 done
 ```
 
-get cmd args in program/not script  
+in program/not script  
 ` printfn "env.cmdline: %A" <| Environment.GetCommandLineArgs() `
 
 read and filter data  
@@ -87,17 +105,7 @@ read and filter data
  Console.WriteLine(filtered)
 ```
 
-**Printing** 
 
-to print a single argument without formatting, use `Console.WriteLine`  
-the print* functions are F# helpers  
-
-```
-let name = "John Doe"
-
-printfn "%s" name
-System.Console.WriteLine(name)
-```
 
 
 F# 5 introduced string interpolation  
