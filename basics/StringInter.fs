@@ -1,3 +1,5 @@
+// F# 5 introduced string interpolation
+
 let name = "John Doe"
 let occupation = "gardener"
 
