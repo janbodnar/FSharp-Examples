@@ -12,6 +12,9 @@ Turn off telemetry
 
 `export DOTNET_CLI_TELEMETRY_OPTOUT=1`  
 
+The current directory  
+`__SOURCE_DIRECTORY__`  
+
 Run F# scripts  
 
 `$ dotnet fsi simple.fsx`  
