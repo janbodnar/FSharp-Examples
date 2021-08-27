@@ -77,6 +77,34 @@ read and filter data
  Console.WriteLine(filtered)
 ```
 
+**Printing** 
+
+to print a single argument without formatting, use `Console.WriteLine`  
+the print* functions are F# helpers  
+
+```
+let name = "John Doe"
+
+printfn "%s" name
+System.Console.WriteLine(name)
+```
+
+
+F# 5 introduced string interpolation  
+
+```
+let name = "John Doe"
+let occupation = "gardener"
+
+let msg = $"{name} is an {occupation}"
+printfn $"{msg}"
+
+printfn $"5 * 8 = {5 * 8}"
+
+printfn $"{58:C}"
+printfn $"{58:X}"
+```
+
 
 Algorithm to calculate powers; F# script with  
 #time directive  
