@@ -46,6 +46,49 @@ printfn "%s" name
 System.Console.WriteLine(name)
 ```
 
+**Classic loops**  
+
+```
+let vals = [ 1; 2; 3; 4; 5 ]
+
+for e in vals do
+    printfn "%d" e
+
+for e in 1 .. vals.Length do
+    printfn "%d" e
+
+let mutable i = 0
+
+while i < vals.Length do
+    printfn "%d" vals.[i]
+    i <- i + 1
+```
+Traditional imperative loops are available; however, functional approach is   
+preferred.  
+
+```
+let vals = [ 1; 2; 3; 4; 5 ]
+vals |> List.iter Console.WriteLine 
+```
+Iterating over elements with a built-in List.iter function  
+
+```
+let vals = [ 1; 2; 3; 4; 5 ]
+
+let rec iterate vals =
+    match vals with
+    | h::t ->
+        printfn $"{h}" 
+        iterate t // do all over again with the rest of the list
+    | [] -> ()
+
+iterate vals
+```
+
+iterating over elements with a custom recursinve function utilizing pattern  
+matching  
+
+
 
 **This is the same**  
 ```
