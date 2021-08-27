@@ -102,6 +102,24 @@ iterate vals
 iterating over elements with a custom recursive function utilizing pattern  
 matching  
 
+**Concatenating a list of strings**  
+
+```
+open System
+
+let words = ["sky"; "cloud"; "cup"; "snow"; "water"; "war"; "rock"]
+let output = words |> Seq.reduce (fun acc e -> (sprintf $"{acc}, {e}"))
+printfn $"{output}"
+
+let output2 = words |> List.reduce (fun acc e -> acc + Environment.NewLine + e)
+printfn $"{output2}"
+
+let output3 = String.concat ", " words
+printfn $"{output3}"
+
+let output4 = words |> String.concat ", "
+printfn $"{output4}"
+```
 
 
 **This is the same**  
