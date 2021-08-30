@@ -292,3 +292,21 @@ let writeToFile () =
 
 writeToFile()
 ```
+
+Get n words from sentence
+
+```
+open System
+
+[<EntryPoint>]
+let main argv =
+
+    let n = argv.[0] |> int
+//    let n = 4
+
+    let msg = "There are three falcons in the sky."
+    let output = msg.Split() |> Array.take n |> String.concat " "
+
+    Console.WriteLine output
+    0
+```
