@@ -136,6 +136,26 @@ Seq.filter (fun v -> match v with (_, c) -> c > 1)
 Seq.map snd |> Seq.filter (fun t -> Seq.length t > 1)
 ```
 
+**FindAll and filter are similar**  
+
+```
+let found =
+    Array.FindAll(words, (fun e -> e.StartsWith("w") && e.Length = 3))
+
+let found =
+    words |> Array.filter (fun e -> e.StartsWith("w") && e.Length = 3)
+```
+
+**Find first/last element**  
+
+```
+let first =
+    words |> Array.find (fun e -> e.Length = 3)
+
+let last =
+    words |> Array.findBack (fun e -> e.Length = 3)
+```
+
 **Types**  
 
 'T, 'U - generic type parameters  
