@@ -34,7 +34,7 @@ printfn "%A" words
 
 `dotnet fsi simple.fsx *.txt`  run script  
 
-**Printing** 
+# Printing
 
 to print a single argument without formatting, use `Console.WriteLine`  
 the print* functions are F# helpers  
@@ -46,7 +46,7 @@ printfn "%s" name
 System.Console.WriteLine(name)
 ```
 
-**Discards**  
+# Discards
 
 The _ character is a discard which is a placeholder for values that we 
 do not need.  
@@ -60,7 +60,7 @@ printfn $"x: {x}; y: {y}"
 
 
 
-**Classic loops**  
+## Classic loops
 
 ```
 let vals = [ 1; 2; 3; 4; 5 ]
@@ -241,6 +241,8 @@ read and filter data
 ## StringBuilder
 
 ```
+open System.Text
+
 let builder = StringBuilder()
 
 Printf.bprintf builder "There are %d " 3
