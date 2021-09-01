@@ -251,6 +251,19 @@ Printf.bprintf builder "hawks in the sky"
 printfn "%s" (builder.ToString())
 ```
 
+```
+open System.Text
+
+let buf = StringBuilder()
+
+buf.Append("There are " ) |> ignore
+buf.Append("three ") |> ignore 
+buf.Append("eagles in the sky") |> ignore
+
+printfn $"%s{buf.ToString()}"
+```
+
+### String interpolation
 
 F# 5 introduced string interpolation  
 
@@ -289,6 +302,8 @@ let rec power2 x n: bigint =
 printfn "%A" (power2 1254I 29_000I)
 #time
 ```
+
+### Stopwatch
 
 Custom timing fun with StopWatch  
 
