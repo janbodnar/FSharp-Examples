@@ -379,7 +379,7 @@ let main args =
                     Some(reader.ReadLine(), reader))
             r
 
-    let line = Seq.item n lines // Seq.nth throws an ArgumentException, // if not not enough lines available
+    let line = Seq.item n lines // Seq.nth throws an ArgumentException, if not not enough lines available
     
     Console.WriteLine(line)
     0
