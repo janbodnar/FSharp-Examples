@@ -238,7 +238,16 @@ read and filter data
  Console.WriteLine(filtered)
 ```
 
+## StringBuilder
 
+```
+let builder = StringBuilder()
+
+Printf.bprintf builder "There are %d " 3
+Printf.bprintf builder "hawks in the sky"
+
+printfn "%s" (builder.ToString())
+```
 
 
 F# 5 introduced string interpolation  
