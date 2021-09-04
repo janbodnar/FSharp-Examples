@@ -109,6 +109,8 @@ while i < vals.Length do
 Traditional imperative loops are available; however, functional approach is   
 preferred.  
 
+## Functional iteration
+
 ```
 let vals = [ 1; 2; 3; 4; 5 ]
 vals |> List.iter Console.WriteLine 
