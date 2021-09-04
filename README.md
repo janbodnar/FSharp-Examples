@@ -325,11 +325,11 @@ let (|Even|Odd|) n =
 is equal to  
 
 ```
-type numKind =
+type NumKind =
     | Even
     | Odd
 
-let get_choice n =
+let GetChoice n =
     if n % 2 = 0 then
         Even
     else
