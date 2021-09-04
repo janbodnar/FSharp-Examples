@@ -34,7 +34,7 @@ printfn "%A" words
 
 `dotnet fsi simple.fsx *.txt`  run script  
 
-# Printing
+## Printing
 
 to print a single argument without formatting, use `Console.WriteLine`  
 the print* functions are F# helpers  
@@ -46,7 +46,7 @@ printfn "%s" name
 System.Console.WriteLine(name)
 ```
 
-# not is a function 
+## not is a function 
 
 ```
 let words =
@@ -75,7 +75,7 @@ if not <| (words |> List.contains w3) then
     printfn "%s not found" w3
 ```
 
-# Discards
+## Discards
 
 The _ character is a discard which is a placeholder for values that we 
 do not need.  
@@ -131,7 +131,7 @@ iterate vals
 iterating over elements with a custom recursive function utilizing pattern  
 matching  
 
-**Concatenating a list of strings**  
+## Concat list of strings
 
 ```
 open System
@@ -175,7 +175,7 @@ let found =
     words |> Array.filter (fun e -> e.StartsWith("w") && e.Length = 3)
 ```
 
-**Find first/last element**  
+## Find first/last element
 
 ```
 let first =
@@ -185,7 +185,7 @@ let last =
     words |> Array.findBack (fun e -> e.Length = 3)
 ```
 
-**Types**  
+## Types
 
 'T, 'U - generic type parameters  
 ^T, ^U - statically resolved type parameters  
@@ -233,7 +233,7 @@ f2(3, "falcons")
  f1's arguments are curried, whereas f2's arguments are tupled  
 
 
-**Merge lists**  
+## Merge lists
 
 ```
 let a = [1; 2; 3; 4]
@@ -243,7 +243,7 @@ let merged = a @ b |> List.distinct
 printfn "%A" merged
 ```
 
-**Command line arguments**  
+## Command line arguments
 
 in script  
 ```
@@ -292,7 +292,7 @@ buf.Append("eagles in the sky") |> ignore
 printfn $"%s{buf.ToString()}"
 ```
 
-### String interpolation
+## String interpolation
 
 F# 5 introduced string interpolation  
 
@@ -309,6 +309,7 @@ printfn $"{58:C}"
 printfn $"{58:X}"
 ```
 
+## calc pow
 
 Algorithm to calculate powers; F# script with  
 #time directive  
@@ -332,7 +333,7 @@ printfn "%A" (power2 1254I 29_000I)
 #time
 ```
 
-### Stopwatch
+## Stopwatch
 
 Custom timing fun with StopWatch  
 
@@ -355,6 +356,8 @@ let time f =
 time (fun () -> Thread.Sleep(2000))
 ```
 
+## Source directory
+
 Write to source directory  
 
 ```
@@ -369,7 +372,7 @@ writeToFile()
 ```
 
 
-Get n words from sentence
+## Get n words from sentence
 
 ```
 open System
