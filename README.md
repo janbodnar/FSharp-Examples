@@ -46,6 +46,35 @@ printfn "%s" name
 System.Console.WriteLine(name)
 ```
 
+# not is a function 
+
+```
+let words =
+    [ "sky"
+      "wind"
+      "blue"
+      "storm"
+      "war"
+      "cup"
+      "lure"
+      "smile" ]
+
+let w1 = "war"
+
+if words |> List.contains w1 then
+    printfn "%s found" w1
+
+let w2 = "cloud"
+
+if not(words |> List.contains w2) then
+    printfn "%s not found" w2
+
+let w3 = "bin"
+
+if not <| (words |> List.contains w3) then 
+    printfn "%s not found" w3
+```
+
 # Discards
 
 The _ character is a discard which is a placeholder for values that we 
