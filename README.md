@@ -311,6 +311,49 @@ printfn $"{58:C}"
 printfn $"{58:X}"
 ```
 
+## Active patterns
+
+Active patterns define ad hoc union data structures for easy pattern matching
+
+```
+let (|Even|Odd|) n =
+    if n % 2 = 0 then
+        Even
+    else
+        Odd
+```
+is equal to  
+
+```
+type numKind =
+    | Even
+    | Odd
+
+let get_choice n =
+    if n % 2 = 0 then
+        Even
+    else
+        Odd
+```
+
+
+```
+open System
+
+let (|Even|Odd|) n = if n % 2 = 0 then Even else Odd
+
+let testNum n =
+    match n with
+    | Even -> sprintf "%i is even" n
+    | Odd -> sprintf "%i is odd" n
+
+[ 12; 11; 4; 5; 6; 7; 8; 9 ]
+|> List.map (testNum)
+|> List.iter Console.WriteLine
+```
+
+
+
 ## calc pow
 
 Algorithm to calculate powers; F# script with  
