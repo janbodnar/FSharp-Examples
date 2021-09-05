@@ -269,6 +269,21 @@ read and filter data
  Console.WriteLine(filtered)
 ```
 
+## Get file names  
+
+```
+open System.IO
+
+let files = Directory.GetFiles(".")
+
+printfn "%A" files
+
+let names = files |> Array.map Path.GetFileName 
+printfn "%A" names
+```
+
+
+
 ## Partition function
 
 ```
