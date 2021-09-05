@@ -269,6 +269,25 @@ read and filter data
  Console.WriteLine(filtered)
 ```
 
+## Partition function
+
+```
+open System.IO
+
+let files = Directory.GetFiles(".")
+
+let data = files 
+        |> Array.partition(fun e -> e.EndsWith("txt"))
+
+let matched = fst data
+printfn "%A" matched
+
+let output = matched |> Array.map (fun e -> e.TrimStart('.', '/'))
+printfn "%A" output
+```
+
+partition files into two groups: txt files and the rest  
+
 ## StringBuilder
 
 ```
