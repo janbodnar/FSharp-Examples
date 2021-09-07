@@ -1,5 +1,30 @@
 # F# regular expressions
 
+# Matching with IsMatch
+
+```
+open System
+open System.Text.RegularExpressions
+
+let words =
+    [ "Seven"
+      "even"
+      "Maven"
+      "Amen"
+      "eleven" ]
+
+let rx = Regex(@".even", RegexOptions.Compiled)
+
+words
+|> List.map
+    (fun e ->
+        if rx.IsMatch(e) then
+            Console.WriteLine($"{e} matches")
+        else
+            Console.WriteLine($"{e} does not match"))
+```
+
+
 ## find matches and their indexes
 
 Example I
@@ -44,5 +69,49 @@ let found =
 
 found
 |> Seq.iter (fun (e, idx) -> printfn "%s at %d" e idx)
+```
+
+## Boundaries
+
+```
+open System.Text.RegularExpressions
+
+let text = "This island is beautiful"
+
+let rx = Regex(@"\bis\b", RegexOptions.Compiled)
+
+let matches =
+    rx.Matches(text)
+    |> Seq.map (fun m -> m.Value, m.Index)
+
+matches
+|> Seq.iter (fun (e, idx) -> printfn "%s at %d" e idx)
+```
+
+## Capturing groups
+
+```
+open System.Text.RegularExpressions
+
+let sites =
+    [ "webcode.me"
+      "zetcode.com"
+      "spoznaj"
+      "freebsd.org"
+      "netbsd.org" ]
+
+let rx =
+    Regex(@"(\w+)\.(\w+)", RegexOptions.Compiled)
+
+
+let check e =
+    let m = rx.Match(e)
+    (m.Value, m.Groups.[1], m.Groups.[2])
+
+
+// let found = sites |> List.map (fun e -> check (e))
+let found = sites |> List.map check
+
+printfn "%A" found
 ```
 
