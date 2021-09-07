@@ -87,7 +87,31 @@ let _, _, _, x, y = vals
 printfn $"x: {x}; y: {y}"
 ```
 
+## pown is power function for integers  
 
+```
+open System
+
+let vals = [| 2; 4; 6; 8 |]
+
+let powered = vals |> Array.map (fun e -> 2 |> pown e)
+printfn "%A" powered
+```
+
+## Convert array ints to strings
+
+```
+open System
+
+let nums = [| 2; 4; 6; 8 |]
+
+let output =
+    nums
+    |> Array.map (sprintf "%i")
+    |> String.concat ","
+
+Console.WriteLine(output)
+```
 
 ## Classic loops
 
