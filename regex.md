@@ -24,8 +24,31 @@ words
             Console.WriteLine($"{e} does not match"))
 ```
 
+## Alternations
 
-## find matches and their indexes
+```
+open System
+open System.Text.RegularExpressions
+
+let users =
+    [ "Jane"
+      "Thomas"
+      "Robert"
+      "Lucy"
+      "Beky"
+      "John"
+      "Peter"
+      "Andy" ]
+
+let rx =
+    Regex("Jane|Beky|Robert", RegexOptions.Compiled)
+
+
+users |> List.filter rx.IsMatch |> List.iter Console.WriteLine
+```
+
+
+## Find all matches and their indexes
 
 Example I
 
