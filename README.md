@@ -185,6 +185,34 @@ Array.filter (snd >> ((<)1))
 ```
 
 ```
+let matches = rx.Matches(data)
+
+let topTen =
+    matches
+    |> Seq.map (fun m -> m.Value)
+    |> Seq.filter (dig.IsMatch >> not)
+    ...
+```
+
+```
+let matches = rx.Matches(data)
+
+let topTen =
+     seq {
+         for m in matches do
+             yield m.Value
+     }
+     |> Seq.filter (dig.IsMatch >> not)
+```
+
+
+
+```
+Seq.sortByDescending snd
+Seq.sortBy (fun e -> -(snd e))
+```
+
+```
 Seq.filter (dig.IsMatch >> not)
 Seq.filter (fun e -> e |> dig.IsMatch |> not)
 Seq.filter (fun e -> dig.IsMatch(e) |> not)
