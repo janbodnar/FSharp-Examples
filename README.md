@@ -184,6 +184,8 @@ Array.filter (fun (_, i) -> i >= 2)
 Array.filter (snd >> ((<)1))
 ```
 
+---
+
 ```
 let matches = rx.Matches(data)
 
@@ -205,7 +207,7 @@ let topTen =
      |> Seq.filter (dig.IsMatch >> not)
 ```
 
-
+---
 
 ```
 Seq.sortByDescending snd
