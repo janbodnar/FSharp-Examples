@@ -23,8 +23,9 @@ Run F# scripts
 Run F# script in preview version  
 `$ dotnet fsi --langversion:preview simple.fsx`  
 
+## Command line args
 
-read files from command line arguments  
+
 ```
 let args = fsi.CommandLineArgs.[1..] 
 
@@ -33,6 +34,46 @@ printfn "%A" words
 ```
 
 `dotnet fsi simple.fsx *.txt`  run script  
+
+---
+
+### Script
+
+```
+let args2 = fsi.CommandLineArgs |> Array.tail 
+
+for arg in args2 do 
+    Console.WriteLine(arg)
+done
+```
+
+### In program, main
+
+```
+open System
+
+[<EntryPoint>]
+let main argv =
+
+    argv |> Array.iter Console.WriteLine
+
+    0 
+```
+
+### In program, withoud main 
+
+` printfn "env.cmdline: %A" <| Environment.GetCommandLineArgs() `
+
+
+## Read and filter data  
+```
+ let fileName = __SOURCE_DIRECTORY__ + "/words.txt"
+
+ let data = File.ReadAllLines(fileName)
+ let filtered = data |> Array.filter (fun e -> e.StartsWith "c" || e.StartsWith "s") 
+
+ Console.WriteLine(filtered)
+```
 
 ## Printing
 
@@ -306,29 +347,6 @@ let merged = a @ b |> List.distinct
 printfn "%A" merged
 ```
 
-## Command line arguments
-
-in script  
-```
-let args2 = fsi.CommandLineArgs |> Array.tail 
-
-for arg in args2 do 
-    Console.WriteLine(arg)
-done
-```
-
-in program/not script  
-` printfn "env.cmdline: %A" <| Environment.GetCommandLineArgs() `
-
-read and filter data  
-```
- let fileName = __SOURCE_DIRECTORY__ + "/words.txt"
-
- let data = File.ReadAllLines(fileName)
- let filtered = data |> Array.filter (fun e -> e.StartsWith "c" || e.StartsWith "s") 
-
- Console.WriteLine(filtered)
-```
 
 ## Get file names  
 
