@@ -185,6 +185,13 @@ Array.filter (snd >> ((<)1))
 ```
 
 ```
+Seq.filter (dig.IsMatch >> not)
+Seq.filter (fun e -> e |> dig.IsMatch |> not)
+Seq.filter (fun e -> dig.IsMatch(e) |> not)
+Seq.filter (fun e -> not(dig.IsMatch(e)))
+```
+
+```
 Seq.filter (fun (_, s) -> Seq.length s > 1)
 Seq.filter (fun (_, s) -> (s |> Seq.length) > 1)
 Seq.filter (fun v -> match v with (_, c) -> c > 1)
