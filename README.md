@@ -318,7 +318,8 @@ let last =
 `int list` is a synonym for `list<int>`  
 `'a` the tick character in a type name is used for a generic type  
 `a'` the tick in a variable name is used to denote a symbol similar to a;  
-     borrowed from math, where ' is used for a derivative or a transposed matrix  
+     borrowed from math, where ' is used for a derivative or a transposed matrix;  
+     or this name is a close variation of another one, with the unquoted name  
 
 `int [,]` - two-dimensional array  
 `int [,,]` - three-dimensional array  
