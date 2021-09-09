@@ -616,6 +616,32 @@ let users2 = users |> List.filter (fun user -> user.Salary > int avg)
 users2 |> List.iter Console.WriteLine
 ```
 
+## sort words by frequency  
+
+```
+open System
+open System.IO
+open System.Text.RegularExpressions
+
+let fileName = "the-king-james-bible.txt"
+let data = File.ReadAllText(fileName)
+
+let dig = Regex(@"\d")
+let rx = Regex("[a-z-A-Z']+")
+
+let matches = rx.Matches(data)
+
+let topTen =
+    matches
+    |> Seq.map (fun m -> m.Value)
+    |> Seq.filter (dig.IsMatch >> not)
+    |> Seq.countBy id
+    |> Seq.sortByDescending snd
+    |> Seq.take 10
+
+topTen
+|> Seq.iter (fun (e, n) -> Console.WriteLine($"{e}: {n}"))
+```
 
 ## Get n words from sentence
 
