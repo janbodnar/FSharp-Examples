@@ -123,6 +123,20 @@ if not <| (words |> List.contains w3) then
     printfn "%s not found" w3
 ```
 
+## Pipes
+
+```
+printfn "%A" ([1;2;3] |> fun e -> e @ [4;5;6]) // lambda
+printfn "%A" ([1;2;3] |> (@) <| [4;5;6]) // point-free
+printfn "%A" (([1;2;3], [4;5;6]) ||> (@)) // point-free
+
+// function
+let addLists l1 l2 = l1 @ l2
+let res = addLists [1;2;3] [4;5;6]
+
+printfn "%A" res
+```
+
 ## Discards
 
 The _ character is a discard which is a placeholder for values that we 
