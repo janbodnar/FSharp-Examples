@@ -512,6 +512,30 @@ printfn "%A" (power2 1254I 29_000I)
 #time
 ```
 
+## Point-free 
+
+Point-free programming  is a paradigm that advocates the formulation of  
+programs by means of function composition. In the point-free style programs  
+avoid explicitly nominating function arguments (or "points"), deriving  
+instead complex function definitions by means of applying higher-order  
+combinators on simpler functions.  
+
+```
+let vals = [1 .. 15]
+
+// point-free
+let flip f = fun x y -> f y x
+let filtered = vals |> List.filter ((=) 0 << flip (%) 2)
+
+printfn "%A" filtered
+
+// lambda
+let filtered2 = vals |> List.filter (fun n -> n % 2 = 0)
+
+printfn "%A" filtered2
+```
+
+
 ## Stopwatch
 
 Custom timing fun with StopWatch  
