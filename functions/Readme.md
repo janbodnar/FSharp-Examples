@@ -19,6 +19,25 @@ uses the lambda expression; the second is the conventional function definition.
     let add = fun x y -> x + y
     let add2 x y = x + y
 
+
+## Flip fun
+
+The flip function swaps the arguments of a function  
+It can make the code more clear; unlike in Haskell, it is not  
+a standard operator  
+
+```
+let res = [ 1 .. 100 ] |> List.filter ((>) 50)  // returns values < 50  
+printfn "%A" res
+
+let flip f = fun x y -> f y x
+
+let res2 =
+    [ 1 .. 100 ] |> List.filter (flip (>) 50) // returns values > 50  
+
+printfn "%A" res2
+```
+
 ## Pipe operator
 
 ```
