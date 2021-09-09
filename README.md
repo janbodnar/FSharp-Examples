@@ -320,6 +320,17 @@ let last =
 `a'` the tick in a variable name is used to denote a symbol similar to a;  
      borrowed from math, where ' is used for a derivative or a transposed matrix;  
      or this name is a close variation of another one, with the unquoted name  
+     
+```
+let d5'0 = flip (/) 5
+let d5'1 = (/) >< 5
+
+let m5'0 = flip (%) 5
+let m5'1 = (%) >< 5
+```
+
+The ticks in the names mean that they are close variants of each other  
+
 
 `int [,]` - two-dimensional array  
 `int [,,]` - three-dimensional array  
