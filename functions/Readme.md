@@ -2,7 +2,7 @@
 
 `let add a b = a + b`  - curried form  
 
-`add 10 5` => `((add 10) 5)`  - function adds takes 10 and then returns a function which takes 5  
+`add 10 5` => `((add 10) 5)`  - function takes 10 and then returns a function which takes 5  
 
 
 The compiled F# code doesn't produce methods in the curried form; therefore,  
