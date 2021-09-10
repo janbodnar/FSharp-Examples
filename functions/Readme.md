@@ -10,6 +10,39 @@ we cannot use partial function application directly from C#.
 This is due to performance reasons; most of the times, we specify all   
 arguments and this can be implemented more efficiently.  
 
+## Curried & tupled functions
+
+There are two function calls in F#: curried and tupled.  
+
+```
+open System 
+
+// curried
+let add x y = x + y 
+add 5 <| 10 |> Console.WriteLine
+(add 5) 10 |> Console.WriteLine
+(add 5) <| 10 |> Console.WriteLine
+add <| 5 <| 10 |> Console.WriteLine
+add 5 10 |> Console.WriteLine
+5 |> add <| 10 |> Console.WriteLine
+Console.WriteLine(add 10 5)
+Console.WriteLine((add 10) 5)
+Console.WriteLine((add 10) <| 5)
+Console.WriteLine((add <| 10 <| 5))
+
+// tupled
+let add'(x, y) = x + y
+
+add'(10, 5) |> Console.WriteLine
+add' <| (10, 5) |> Console.WriteLine
+(10, 5) |> add' |> Console.WriteLine
+Console.WriteLine(add'(10, 5))
+Console.WriteLine(((10, 5) |> add'))
+Console.WriteLine((add' <| (10, 5)))
+```
+
+In a curried form, we can pass values one by one; in tupled form,  
+we pass only tuples -- pairs of values.  
 
 ## Definitions
 
