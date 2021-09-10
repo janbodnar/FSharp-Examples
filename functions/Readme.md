@@ -1,5 +1,16 @@
 # Functions
 
+`let add a b = a + b`  - curried form  
+
+`add 10 5` => `((add 10) 5)`  - function adds takes 10 and then returns a function which takes 5  
+
+
+The compiled F# code doesn't produce methods in the curried form; therefore,  
+we cannot use partial function application directly from C#.   
+This is due to performance reasons; most of the times, we specify all   
+arguments and this can be implemented more efficiently.  
+
+
 ## Definitions
 
 This is a value, not a function  
