@@ -14,7 +14,7 @@ arguments and this can be implemented more efficiently.
 
 There are two function calls in F#: curried and tupled.  
 
-```
+```F#
 open System 
 
 // curried
@@ -70,7 +70,7 @@ The flip function swaps the arguments of a function
 It can make the code more clear; unlike in Haskell, it is not  
 a standard operator  
 
-```
+```F#
 let res = [ 1 .. 100 ] |> List.filter ((>) 50)  // returns values < 50  
 printfn "%A" res
 
