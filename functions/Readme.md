@@ -47,7 +47,7 @@ we pass only tuples -- pairs of values.
 ## Definitions
 
 This is a value, not a function  
-    
+F#    
     let hello =  
         printfn "Hello there"
 
@@ -84,7 +84,7 @@ printfn "%A" res2
 
 ## Pipe operator
 
-```
+```F#
 open System
 
 let square x = x * x
