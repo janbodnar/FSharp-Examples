@@ -20,6 +20,10 @@ Run F# scripts
 
 `$ dotnet fsi simple.fsx`  
 
+F# one-liner  
+
+`echo 'printfn "Hello from Fsharp"' | dotnet fsi --quiet`  
+
 Run F# script in preview version  
 `$ dotnet fsi --langversion:preview simple.fsx`  
 
