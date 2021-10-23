@@ -30,7 +30,7 @@ Run F# script in preview version
 ## Command line args
 
 
-```
+```F#
 let args = fsi.CommandLineArgs.[1..] 
 
 let words = Array.collect (fun f -> File.ReadAllLines(f)) args
@@ -43,7 +43,7 @@ printfn "%A" words
 
 ### Script
 
-```
+```F#
 let args2 = fsi.CommandLineArgs |> Array.tail 
 
 for arg in args2 do 
@@ -53,7 +53,7 @@ done
 
 ### In program, main
 
-```
+```F#
 open System
 
 [<EntryPoint>]
@@ -66,7 +66,7 @@ let main argv =
 
 ### In program, withoud main 
 
-` printfn "env.cmdline: %A" <| Environment.GetCommandLineArgs() `
+`printfn "env.cmdline: %A" <| Environment.GetCommandLineArgs() `
 
 
 ## Read and filter data  
@@ -81,7 +81,7 @@ let main argv =
 
 ## Standard/reverse call
 
-```
+```F#
 let res = List.map (fun x -> x * x) [1;2;3;4;5]
 let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 ```
@@ -91,7 +91,7 @@ let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 to print a single argument without formatting, use `Console.WriteLine`  
 the print* functions are F# helpers  
 
-```
+```F#
 let name = "John Doe"
 
 printfn "%s" name
@@ -100,7 +100,7 @@ System.Console.WriteLine(name)
 
 ## not is a function 
 
-```
+```F#
 let words =
     [ "sky"
       "wind"
@@ -129,7 +129,7 @@ if not <| (words |> List.contains w3) then
 
 ## Pipes
 
-```
+```F#
 printfn "%A" ([1;2;3] |> fun e -> e @ [4;5;6]) // lambda
 printfn "%A" ([1;2;3] |> (@) <| [4;5;6]) // point-free
 printfn "%A" (([1;2;3], [4;5;6]) ||> (@)) // point-free
@@ -146,7 +146,7 @@ printfn "%A" res
 The _ character is a discard which is a placeholder for values that we 
 do not need.  
 
-```
+```F#
 let vals = (1, 2, 3, 4, 5)
 let _, _, _, x, y = vals
 
@@ -155,7 +155,7 @@ printfn $"x: {x}; y: {y}"
 
 ## pown is power function for integers  
 
-```
+```F#
 open System
 
 let vals = [| 2; 4; 6; 8 |]
@@ -166,7 +166,7 @@ printfn "%A" powered
 
 ## Convert array ints to strings
 
-```
+```F#
 open System
 
 let nums = [| 2; 4; 6; 8 |]
@@ -181,7 +181,7 @@ Console.WriteLine(output)
 
 ## Classic loops
 
-```
+```F#
 let vals = [ 1; 2; 3; 4; 5 ]
 
 for e in vals do
@@ -201,13 +201,13 @@ preferred.
 
 ## Functional iteration
 
-```
+```F#
 let vals = [ 1; 2; 3; 4; 5 ]
 vals |> List.iter Console.WriteLine 
 ```
 Iterating over elements with a built-in List.iter function  
 
-```
+```F#
 let vals = [ 1; 2; 3; 4; 5 ]
 
 let rec iterate vals =
@@ -225,7 +225,7 @@ matching
 
 ## Concat list of strings
 
-```
+```F#
 open System
 
 let words = ["sky"; "cloud"; "cup"; "snow"; "water"; "war"; "rock"]
@@ -244,7 +244,8 @@ printfn $"{output4}"
 
 
 **This is the same**  
-```
+
+```F#
 Array.filter (fun e -> (snd e) > 1)
 Array.filter (fun (_, i) -> i >= 2)
 Array.filter (snd >> ((<)1))
@@ -252,7 +253,7 @@ Array.filter (snd >> ((<)1))
 
 ---
 
-```
+```F#
 let matches = rx.Matches(data)
 
 let topTen =
@@ -262,7 +263,7 @@ let topTen =
     ...
 ```
 
-```
+```F#
 let matches = rx.Matches(data)
 
 let topTen =
@@ -275,19 +276,19 @@ let topTen =
 
 ---
 
-```
+```F#
 Seq.sortByDescending snd
 Seq.sortBy (fun e -> -(snd e))
 ```
 
-```
+```F#
 Seq.filter (dig.IsMatch >> not)
 Seq.filter (fun e -> e |> dig.IsMatch |> not)
 Seq.filter (fun e -> dig.IsMatch(e) |> not)
 Seq.filter (fun e -> not(dig.IsMatch(e)))
 ```
 
-```
+```F#
 Seq.filter (fun (_, s) -> Seq.length s > 1)
 Seq.filter (fun (_, s) -> (s |> Seq.length) > 1)
 Seq.filter (fun v -> match v with (_, c) -> c > 1)
@@ -296,7 +297,7 @@ Seq.map snd |> Seq.filter (fun t -> Seq.length t > 1)
 
 **FindAll and filter are similar**  
 
-```
+```F#
 let found =
     Array.FindAll(words, (fun e -> e.StartsWith("w") && e.Length = 3))
 
@@ -306,7 +307,7 @@ let found =
 
 ## Find first/last element
 
-```
+```F#
 let first =
     words |> Array.find (fun e -> e.Length = 3)
 
@@ -325,7 +326,7 @@ let last =
      borrowed from math, where ' is used for a derivative or a transposed matrix;  
      or this name is a close variation of another one, with the unquoted name  
      
-```
+```F#
 let d5'0 = flip (/) 5
 let d5'1 = (/) >< 5
 
@@ -339,7 +340,7 @@ The ticks in the names mean that they are close variants of each other
 `int [,]` - two-dimensional array  
 `int [,,]` - three-dimensional array  
 
-```
+```F#
 let t1 = (1, 2, 3, 4) // int * int * int * int
 let t2 = (4, "falcon", true) // int * string * bool
 ```
@@ -349,7 +350,7 @@ In tuples, the types for elements are separated with * character
 `let f (x:int): int = x + 1`  - f is a function; it takes an int as a parameter  
                                  and returns an integer  
 
-```
+```F#
 // g : int * string -> unit
 let g(x, s) = 
     printfn "%d %s" x s 
@@ -358,7 +359,7 @@ let g(x, s) =
 g  is a function which takes an integer and a string as a parameter; it  
 returns unit (nothing); this function is said to have a side-effect  
 
-```
+```F#
 // int -> string -> unit
 let f1 x s = 
     printfn "%d %s" x s
@@ -376,7 +377,7 @@ f2(3, "falcons")
 
 ## Merge lists
 
-```
+```F#
 let a = [1; 2; 3; 4]
 let b = [4; 4; 5; 6]
 
@@ -387,7 +388,7 @@ printfn "%A" merged
 
 ## Get file names  
 
-```
+```F#
 open System.IO
 
 let files = Directory.GetFiles(".")
@@ -402,7 +403,7 @@ printfn "%A" names
 
 ## Partition function
 
-```
+```F#
 open System.IO
 
 let files = Directory.GetFiles(".")
@@ -421,7 +422,7 @@ partition files into two groups: txt files and the rest
 
 ## StringBuilder
 
-```
+```F#
 open System.Text
 
 let builder = StringBuilder()
@@ -432,7 +433,7 @@ Printf.bprintf builder "hawks in the sky"
 printfn "%s" (builder.ToString())
 ```
 
-```
+```F#
 open System.Text
 
 let buf = StringBuilder()
@@ -448,7 +449,7 @@ printfn $"%s{buf.ToString()}"
 
 F# 5 introduced string interpolation  
 
-```
+```F#
 let name = "John Doe"
 let occupation = "gardener"
 
@@ -465,7 +466,7 @@ printfn $"{58:X}"
 
 Active patterns define ad hoc union data structures for easy pattern matching
 
-```
+```F#
 let (|Even|Odd|) n =
     if n % 2 = 0 then
         Even
@@ -487,7 +488,7 @@ let GetChoice n =
 ```
 
 
-```
+```F#
 open System
 
 let (|Even|Odd|) n = if n % 2 = 0 then Even else Odd
@@ -509,7 +510,7 @@ let testNum n =
 Algorithm to calculate powers; F# script with  
 #time directive  
 
-```
+```F#
 let rec power x n: bigint =
     if n = 0I then 1I
     else x * (power x (n-1I))
@@ -536,7 +537,7 @@ avoid explicitly nominating function arguments (or "points"), deriving
 instead complex function definitions by means of applying higher-order  
 combinators on simpler functions.  
 
-```
+```F#
 let vals = [1 .. 15]
 
 // point-free
@@ -556,7 +557,7 @@ printfn "%A" filtered2
 
 Custom timing fun with StopWatch  
 
-```
+```F#
 open System.Diagnostics
 open System.Threading
 
@@ -579,7 +580,7 @@ time (fun () -> Thread.Sleep(2000))
 
 Write to source directory  
 
-```
+```F#
 open System.IO
 
 let writeToFile () = 
@@ -592,7 +593,7 @@ writeToFile()
 
 ## Filter users having above average salary 
 
-```
+```F#
 open System
 
 type User =
@@ -622,7 +623,7 @@ users2 |> List.iter Console.WriteLine
 
 ## sort words by frequency  
 
-```
+```F#
 open System
 open System.IO
 open System.Text.RegularExpressions
@@ -649,7 +650,7 @@ topTen
 
 ## Get n words from sentence
 
-```
+```F#
 open System
 
 [<EntryPoint>]
@@ -667,7 +668,7 @@ let main argv =
 
 ### Read nth line
 
-```
+```F#
 open System
 open System.IO
 
