@@ -1,6 +1,7 @@
 
-**Read CSV data into User types**  
-```
+## Read CSV data into User types
+
+```F#
 open System.IO
 
 type User = {
@@ -38,9 +39,9 @@ let readFile path =
             |> output
 ```
 
-**Read CSV data II**  
+## Read CSV data II
 
-```
+```F#
 open System.IO
 
 type User = {
