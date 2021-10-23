@@ -70,7 +70,8 @@ let main argv =
 
 
 ## Read and filter data  
-```
+
+```F#
  let fileName = __SOURCE_DIRECTORY__ + "/words.txt"
 
  let data = File.ReadAllLines(fileName)
