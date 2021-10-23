@@ -5,7 +5,7 @@ GUI examples with the Eto library
 
 `app.fsproj`   
 
-```
+```xml
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
