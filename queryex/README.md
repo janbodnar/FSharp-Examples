@@ -4,6 +4,35 @@
 open System
 
 let vals = [| 1; 2; 3; 4; 5; 6|]
+
+let lst = query {
+    for e in vals do
+    last
+}
+
+Console.WriteLine(lst)
+
+let fst = query {
+    for e in vals do
+    head
+}
+
+Console.WriteLine(fst)
+
+let n = query {
+    for e in vals do
+    nth 3
+}
+
+Console.WriteLine(n)
+```
+
+`first`, `last` operators  
+
+```f#
+open System
+
+let vals = [| 1; 2; 3; 4; 5; 6|]
  
 let res = query {
    for v in vals do
@@ -62,3 +91,38 @@ teachers |> Seq.iter Console.WriteLine
 ```
 
 `count`, `last`, `where` operators  
+
+```f#
+open System
+
+type User = {
+    FirstName: string
+    LastName: string
+    Salary: int
+}
+
+let users = [
+    { FirstName = "Robert"; LastName = "Novak"; Salary = 1770 }
+    { FirstName = "John"; LastName = "Doe"; Salary = 1230 }
+    { FirstName = "Lucy"; LastName = "Novak"; Salary = 670 }
+    { FirstName = "Ben"; LastName = "Walter"; Salary = 2050 }
+    { FirstName = "Robin"; LastName = "Brown"; Salary = 2300 }
+    { FirstName = "Amy"; LastName = "Doe"; Salary = 1250 }
+    { FirstName = "Joe"; LastName = "Draker"; Salary = 1190 }
+    { FirstName = "Janet"; LastName = "Doe"; Salary = 980 }
+    { FirstName = "Peter"; LastName = "Novak"; Salary = 990 }
+    { FirstName = "Albert"; LastName = "Novak"; Salary = 1930 }
+]
+
+let sorted = query {
+    for user in users do
+    sortBy user.LastName
+    thenBy user.Salary
+    select user
+}
+
+sorted |> Seq.iter Console.WriteLine
+```
+
+`sortBy`, `thenBy` operators  
+
