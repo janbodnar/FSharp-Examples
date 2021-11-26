@@ -476,7 +476,7 @@ let (|Even|Odd|) n =
 ```
 is equal to  
 
-```
+```F#
 type NumKind =
     | Even
     | Odd
