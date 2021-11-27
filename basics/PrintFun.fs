@@ -1,4 +1,5 @@
-printfn "The bool is %b" true
+printfn "The bool is %b" (5 > 0)
+printfn "Binary is %B" 123
 printfn "The char is %c" 'F'
 printfn "The string is %s" "falcon or \"falcon\" "
 printfn "The int is %i" -3                        // signed
