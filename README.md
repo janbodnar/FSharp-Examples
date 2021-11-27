@@ -137,6 +137,24 @@ Array.sortInPlace vals5
 printfn "%A" vals5
 ```
 
+## Array comprehensions
+
+using ranges & generators  
+
+```f#
+let vals = [| 1 .. 10 |]
+printfn "%A" vals
+
+let vals2 = [| 1 .. 3 .. 10 |]
+printfn "%A" vals2
+
+let vals3 =
+    [| for a in 1 .. 5 do
+           yield (a, a * a, a * a * a) |]
+
+printfn "%A" vals3
+```
+
 
 ## Array indexing & slicing
 
