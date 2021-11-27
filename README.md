@@ -553,12 +553,30 @@ let filtered2 = vals |> List.filter (fun n -> n % 2 = 0)
 printfn "%A" filtered2
 ```
 
+## JSON serialize
+
+With built-in `System.Text.Json`
+
+```f#
+open System.Text.Json
+
+let vals = [ 1; 2; 3; 4 ]
+let res = JsonSerializer.Serialize vals
+
+printfn "%A" res
+
+
+let data = Map [ (1, "a"); (2, "b") ]
+let res2 = JsonSerializer.Serialize data
+
+printfn "%A" res2
+```
 
 ## Stopwatch
 
 Custom timing fun with StopWatch  
 
-```F#
+```f#
 open System.Diagnostics
 open System.Threading
 
