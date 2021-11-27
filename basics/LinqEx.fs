@@ -1,23 +1,32 @@
+open System
 open System.Linq
- 
-let data = [0..10]
-let oddNums = data.Where(fun n -> n % 2 = 1).Select(fun n -> n * 2).ToList()
-oddNums.ForEach(fun n -> printfn "%i" n)
 
+let data = [ 0 .. 10 ]
 
-// No need to use LINQ in F#; F# has built-in 
-// tools 
+let res =
+    data
+        .Where(fun n -> n % 2 = 1)
+        .Select(fun n -> n * 2)
+        .ToList()
 
-// let data = [1..10]
+res.ForEach(fun n -> printfn "%i" n)
 
-// let oddvals = 
-//     query {
-//         for n in data do
-//         where (n % 2 = 1) 
-//         select (n * 2)
-//     }
+Console.WriteLine("----------------------")
 
-// printfn "%A" oddvals
+// No need to use LINQ in F#; F# has built-in alternatives
 
-// for e in oddvals do 
-//     printfn "%i" e
+// List functions
+
+data
+|> List.where (fun e -> e % 2 = 1)
+|> List.map (fun e -> e * 2)
+|> printfn "%A"
+
+// query expressions
+
+query {
+    for n in data do
+        where (n % 2 = 1)
+        select (n * 2)
+}
+|> printfn "%A"
