@@ -98,6 +98,46 @@ let name = "John Doe"
 printfn "%s" name
 System.Console.WriteLine(name)
 ```
+
+## Arrays 
+
+F# has powerful support for arrays  
+
+```f#
+open System
+
+let vals = [| 1; 2; 3; 4; 5 |]
+Console.WriteLine(Array.length vals)
+
+let vals2 = [| 1 .. 100 |]
+printfn "%A" vals2[10..20]
+
+Console.WriteLine("-----------------------")
+
+let vals3 = [|
+    2
+    3
+    4
+|]
+
+vals3 |> Array.iter Console.WriteLine
+
+Console.WriteLine("-----------------------")
+
+
+let vals4 = Array.init 10 (fun x -> x + 10)
+printfn "%A" vals4
+
+Console.WriteLine("-----------------------")
+
+let vals5 = [|4; 2; 1; -4; -1; 0; 7|]
+printfn "%A" vals5
+
+Array.sortInPlace vals5
+printfn "%A" vals5
+```
+
+
 ## Array indexing & slicing
 
 Since .NET 6, we can use `vals[i]` in addition to the old `vals.[i]`. F# does not yet support  
