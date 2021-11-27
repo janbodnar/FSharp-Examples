@@ -109,6 +109,9 @@ for e in 1 .. 4 do
 
 for e = 1 to 4 do
     Console.WriteLine(e)
+
+for e = 4 downto 1 do
+    Console.WriteLine(e)
 ```
 
 ## Arrays 
