@@ -149,10 +149,13 @@ let vals2 = [| 1 .. 3 .. 10 |]
 printfn "%A" vals2
 
 let vals3 =
-    [| for a in 1 .. 5 do
-           yield (a, a * a, a * a * a) |]
+    [| for e in 1 .. 5 do
+           yield (e, e * e, e * e * e) |]
 
 printfn "%A" vals3
+
+let vals4 = [| for e in 1 .. 10 -> e * e |]
+printfn "%A" vals4
 ```
 
 
