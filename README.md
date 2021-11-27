@@ -99,6 +99,18 @@ printfn "%s" name
 System.Console.WriteLine(name)
 ```
 
+## for loops with ranges
+
+```f#
+open System
+
+for e in 1 .. 4 do
+    Console.WriteLine(e)
+
+for e = 1 to 4 do
+    Console.WriteLine(e)
+```
+
 ## Arrays 
 
 F# has powerful support for arrays  
