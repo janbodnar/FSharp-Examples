@@ -98,6 +98,39 @@ let name = "John Doe"
 printfn "%s" name
 System.Console.WriteLine(name)
 ```
+## Array indexing & slicing
+
+Since .NET 6, we can use `vals[i]` in addition to the old `vals.[i]`. F# does not yet support  
+rear-based indexing & slicing: https://github.com/fsharp/fslang-design/blob/main/preview/FS-1076-from-the-end-slicing.md
+
+```f#
+open System 
+
+let vals = [| 1; 3; 4; 6; 7; 8; 9|]
+
+Console.WriteLine(vals.[0])
+Console.WriteLine(vals.[1])
+Console.WriteLine(vals.[2])
+
+Console.WriteLine("-------------------")
+
+// since .NET 6
+Console.WriteLine(vals[0])
+Console.WriteLine(vals[1])
+Console.WriteLine(vals[2])
+
+Console.WriteLine("-------------------")
+
+// slices
+printfn "%A" vals[0..6]
+printfn "%A" vals[..6]
+printfn "%A" vals[2..]
+
+Console.WriteLine("-------------------")
+
+Console.WriteLine(Array.last vals)
+Console.WriteLine(Array.length vals)
+```
 
 ## not is a function 
 
