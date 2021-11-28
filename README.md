@@ -28,15 +28,21 @@ Turn off telemetry
 The current directory  
 `__SOURCE_DIRECTORY__`  
 
-Run F# scripts  
+## Runing F# scripts  
 
 `$ dotnet fsi simple.fsx`  
+
+alias in `.bashrc`
+
+`alias fx='_fsi(){ dotnet fsi "$@";}; _fsi'`
+
 
 F# one-liner  
 
 `echo 'printfn "Hello from Fsharp"' | dotnet fsi --quiet`  
 
 Run F# script in preview version  
+
 `$ dotnet fsi --langversion:preview simple.fsx`  
 
 ## Command line args
