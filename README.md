@@ -147,11 +147,15 @@ for _ in 1..4 do
 to print a single argument without formatting, use `Console.WriteLine`  
 the print* functions are F# helpers  
 
-```F#
+```f#
+open System
+
 let name = "John Doe"
 
 printfn "%s" name
-System.Console.WriteLine(name)
+Console.WriteLine(name)
+
+printfn "Roger Roe"
 ```
 
 print n times with for loop, seq iteration, and pattern matching  
