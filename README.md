@@ -105,6 +105,21 @@ let res = List.map (fun x -> x * x) [1;2;3;4;5]
 let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 ```
 
+## Discards
+
+The _ character is a discard which is a placeholder for values that we 
+do not need.  
+
+```f#
+let vals = (1, 2, 3, 4, 5)
+let _, _, _, x, y = vals
+
+printfn $"x: {x}; y: {y}"
+
+for _ in 1..4 do
+    printfn "falcon"
+```
+
 ## Printing
 
 to print a single argument without formatting, use `Console.WriteLine`  
@@ -335,18 +350,6 @@ let addLists l1 l2 = l1 @ l2
 let res = addLists [1;2;3] [4;5;6]
 
 printfn "%A" res
-```
-
-## Discards
-
-The _ character is a discard which is a placeholder for values that we 
-do not need.  
-
-```F#
-let vals = (1, 2, 3, 4, 5)
-let _, _, _, x, y = vals
-
-printfn $"x: {x}; y: {y}"
 ```
 
 ## pown is power function for integers  
