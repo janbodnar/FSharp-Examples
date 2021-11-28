@@ -120,18 +120,16 @@ System.Console.WriteLine(name)
 print n times with for loop, seq iteration, and pattern matching  
 
 ```f#
-open System
-
 let n = 5
 
-for i in 1..n do
-    Console.WriteLine("falcon")
+for _ in 1..n do
+    printfn "falcon"
 
-Console.WriteLine("---------------------")
+printfn "---------------------"
 
 seq { 1..n } |> Seq.iter (fun _ -> printfn "falcon")
 
-Console.WriteLine("---------------------")
+printfn "---------------------"
 
 let rec printNtimes n = 
     match n with 
