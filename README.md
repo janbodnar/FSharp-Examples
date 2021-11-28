@@ -396,6 +396,16 @@ let vals3 =
 
 printfn "%A" vals3
 ```
+---
+
+```f#
+let vals = [ 1; -2; -3; 4; 5 ]
+
+[ for v in vals do
+      let f = fun e -> e > 0
+      if f(v) then yield v ] |> printfn "%A"
+```
+let expressions can be used inside comprehensions  
 
 ## Pipes
 
