@@ -82,7 +82,7 @@ let main argv =
     0 
 ```
 
-### In program, withoud main 
+### In program, without main 
 
 `printfn "env.cmdline: %A" <| Environment.GetCommandLineArgs() `
 
