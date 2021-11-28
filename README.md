@@ -117,6 +117,30 @@ printfn "%s" name
 System.Console.WriteLine(name)
 ```
 
+print n times with for loop, seq iteration, and pattern matching  
+
+```f#
+open System
+
+let n = 5
+
+for i in 1..n do
+    Console.WriteLine("falcon")
+
+Console.WriteLine("---------------------")
+
+seq { 1..n } |> Seq.iter (fun _ -> printfn "falcon")
+
+Console.WriteLine("---------------------")
+
+let rec printNtimes n = 
+    match n with 
+    | 0 -> ()
+    | _ -> 
+        printfn "falcon"
+        printNtimes (n-1)
+```
+
 ## Iteration
 
 ### Classic loops
