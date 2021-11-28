@@ -824,6 +824,48 @@ let writeToFile () =
 writeToFile()
 ```
 
+## Projections
+
+We do projections when we select particular columns/keys from are data source  
+
+```f#
+type User =
+    { FirstName: string
+      LastName: string
+      Occupation: string
+      Salary: int }
+
+let users = [
+    
+        { FirstName="Robert"; LastName="Novak"; Occupation="teacher"; Salary=1770 };
+        { FirstName="John"; LastName="Doe"; Occupation="gardener";  Salary=1230 };
+        { FirstName="Lucy"; LastName="Novak"; Occupation="accountant";  Salary=670 };
+        { FirstName="Ben"; LastName="Walter"; Occupation="teacher";  Salary=2050 };
+        { FirstName="Robin"; LastName="Brown"; Occupation="bartender";  Salary=2300 };
+        { FirstName="Amy"; LastName="Doe"; Occupation="technician";  Salary=1250 };
+        { FirstName="Joe"; LastName="Draker"; Occupation="musician";  Salary=1190 };
+        { FirstName="Janet"; LastName="Doe"; Occupation="actor";  Salary=980 };
+        { FirstName="Peter"; LastName="Novak"; Occupation="singer";  Salary=990 };
+        { FirstName="Albert"; LastName="Novak"; Occupation="teacher";  Salary=1930 }
+]
+
+let users2 =
+    users
+    |> List.map (fun e ->
+        {| FirstName = e.FirstName
+           LastName = e.LastName |})
+
+users2 |> List.take 3 |> List.iter (printfn "%A")
+
+printfn "---------------------"
+
+query {
+    for user in users do
+    select {| FirstName = user.FirstName; LastName = user.LastName |}
+    take 3
+} |> Seq.iter (printfn "%A")
+```
+
 ## Filter users having above average salary 
 
 ```F#
