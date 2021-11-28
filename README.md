@@ -104,6 +104,37 @@ let main argv =
 let res = List.map (fun x -> x * x) [1;2;3;4;5]
 let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 ```
+
+## Ranges 
+
+```f#
+open System
+
+for i in 1 .. 10 do
+    printfn "%i" i
+
+printfn "-----------------"
+
+for i in 1 .. 2 .. 10 do
+    printfn "%i" i
+
+printfn "-----------------"
+
+for i in 10 .. -3 .. 0 do
+    printfn "%i" i
+
+printfn "-----------------"
+
+seq {
+    1 .. 10
+} |> Seq.sum |> Console.WriteLine
+
+printfn "-----------------"
+
+let s = seq { for i in 0L .. 10000000L -> i }
+s |> Seq.length |> Console.WriteLine
+```
+
 ## Expressions
 
 In F#, everything is an expression  
