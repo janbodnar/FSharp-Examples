@@ -8,6 +8,18 @@ in 2005.
 `$ cd Simple`  
 `$ dotnet run`  
 
+## global.json
+
+dotnet and IDEs respect the `global.json` settings file.  
+
+```json
+{
+  "sdk": {
+    "version": "6.0.100",
+    "rollForward": "minor"
+  }
+}
+```
 
 Turn off telemetry  
 
