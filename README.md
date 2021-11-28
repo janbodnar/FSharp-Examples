@@ -836,16 +836,15 @@ type User =
       Salary: int }
 
 let users = [
-    
-        { FirstName="Robert"; LastName="Novak"; Occupation="teacher"; Salary=1770 };
-        { FirstName="John"; LastName="Doe"; Occupation="gardener";  Salary=1230 };
-        { FirstName="Lucy"; LastName="Novak"; Occupation="accountant";  Salary=670 };
-        { FirstName="Ben"; LastName="Walter"; Occupation="teacher";  Salary=2050 };
-        { FirstName="Robin"; LastName="Brown"; Occupation="bartender";  Salary=2300 };
-        { FirstName="Amy"; LastName="Doe"; Occupation="technician";  Salary=1250 };
-        { FirstName="Joe"; LastName="Draker"; Occupation="musician";  Salary=1190 };
-        { FirstName="Janet"; LastName="Doe"; Occupation="actor";  Salary=980 };
-        { FirstName="Peter"; LastName="Novak"; Occupation="singer";  Salary=990 };
+        { FirstName="Robert"; LastName="Novak"; Occupation="teacher"; Salary=1770 }
+        { FirstName="John"; LastName="Doe"; Occupation="gardener";  Salary=1230 }
+        { FirstName="Lucy"; LastName="Novak"; Occupation="accountant";  Salary=670 }
+        { FirstName="Ben"; LastName="Walter"; Occupation="teacher";  Salary=2050 }
+        { FirstName="Robin"; LastName="Brown"; Occupation="bartender";  Salary=2300 }
+        { FirstName="Amy"; LastName="Doe"; Occupation="technician";  Salary=1250 }
+        { FirstName="Joe"; LastName="Draker"; Occupation="musician";  Salary=1190 }
+        { FirstName="Janet"; LastName="Doe"; Occupation="actor";  Salary=980 }
+        { FirstName="Peter"; LastName="Novak"; Occupation="singer";  Salary=990 }
         { FirstName="Albert"; LastName="Novak"; Occupation="teacher";  Salary=1930 }
 ]
 
@@ -865,6 +864,8 @@ query {
     take 3
 } |> Seq.iter (printfn "%A")
 ```
+
+In the example, we select `FirstName` and `LastName` fields  
 
 ## Filter users having above average salary 
 
