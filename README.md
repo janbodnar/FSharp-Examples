@@ -826,7 +826,7 @@ writeToFile()
 
 ## Projections
 
-We do projections when we select particular columns/keys from are data source  
+We do projections when we select particular columns/fields from are data source  
 
 ```f#
 type User =
