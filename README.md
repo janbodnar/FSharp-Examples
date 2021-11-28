@@ -104,6 +104,28 @@ let main argv =
 let res = List.map (fun x -> x * x) [1;2;3;4;5]
 let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 ```
+## Expressions
+
+In F#, everything is an expression  
+
+```f#
+let f = fun () -> 6
+printfn $"{f()}"
+
+let s =
+    match 1 with
+    | 1 -> "a"
+    | _ -> "b"
+
+printfn $"{s}"
+
+let s2 = if true then "a" else "b"
+printfn $"{s2}"
+
+let l = let n = 1 in n + 2
+printfn "%A" l
+```
+
 
 ## Discards
 
