@@ -153,7 +153,8 @@ open System
 let name = "John Doe"
 
 printfn "%s" name
-Console.WriteLine(name)
+printfn $"{name}"
+Console.WriteLine name
 
 printfn "Roger Roe"
 ```
