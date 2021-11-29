@@ -126,13 +126,6 @@ Console.WriteLine(sum)
 open System
 open System.Text
 
-let vals = ("2", 1, "4", 6, "11")
-
-let a, b, c, d, e = vals
-let sum = int a + b + int c + d + int e
-
-Console.WriteLine(sum)
-
 let name = "John Doe"
 let age = 33
 
