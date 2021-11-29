@@ -105,6 +105,54 @@ let res = List.map (fun x -> x * x) [1;2;3;4;5]
 let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 ```
 
+## int to string
+
+The `int` built-in function converts a string to an integer  
+
+```f#
+open System
+
+let vals = ("2", 1, "4", 6, "11")
+
+let a, b, c, d, e = vals
+let sum = int a + b + int c + d + int e
+
+Console.WriteLine(sum)
+```
+
+## Building/formatting strings
+
+```f#
+open System
+open System.Text
+
+let vals = ("2", 1, "4", 6, "11")
+
+let a, b, c, d, e = vals
+let sum = int a + b + int c + d + int e
+
+Console.WriteLine(sum)
+
+let name = "John Doe"
+let age = 33
+
+let msg1 = name + " is " + string age + " years old"
+printfn $"{msg1}"
+
+let msg2 = sprintf "%s is %d years old" name age
+printfn $"{msg2}"
+
+let msg3 = $"{name} is {age} years old"
+printfn $"{msg3}"
+
+let msg4 = String.Format("{0} is {1} years old", name, age)
+printfn $"{msg4}"
+
+let builder = StringBuilder()
+let msg5 = builder.AppendFormat("{0} is {1} years old", name, age)
+printfn $"{msg5}"
+```
+
 ## Ranges 
 
 ```f#
