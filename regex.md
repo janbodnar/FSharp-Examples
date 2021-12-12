@@ -4,7 +4,7 @@
 
 ## Matching with IsMatch
 
-```
+```f#
 open System
 open System.Text.RegularExpressions
 
@@ -28,7 +28,7 @@ words
 
 ## Alternations
 
-```
+```f#
 open System
 open System.Text.RegularExpressions
 
@@ -54,7 +54,7 @@ users |> List.filter rx.IsMatch |> List.iter Console.WriteLine
 
 Example I
 
-```
+```F#
 open System.Text.RegularExpressions
 
 let content =
@@ -77,7 +77,7 @@ found
 
 Example II
 
-```
+```f#
 open System.Text.RegularExpressions
 
 let content =
@@ -98,7 +98,7 @@ found
 
 ## Boundaries
 
-```
+```f#
 open System.Text.RegularExpressions
 
 let text = "This island is beautiful"
@@ -115,7 +115,7 @@ matches
 
 ## Capturing groups
 
-```
+```f#
 open System.Text.RegularExpressions
 
 let sites =
