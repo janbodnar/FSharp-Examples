@@ -1068,3 +1068,65 @@ let main args =
     Console.WriteLine(line)
     0
 ```
+
+## Charts 
+
+In interactive notebook:  
+
+```f#
+#r "nuget: XPlot.Plotly, 4.0.6"
+#r "nuget:xplot.plotly.interactive"
+
+open XPlot.Plotly
+
+let trace1 =
+    Scatter(
+        x = [1; 2; 3; 4],
+        y = [10; 15; 13; 17]
+    )
+
+let trace2 =
+    Scatter(
+        x = [2; 3; 4; 5],
+        y = [16; 5; 11; 9]
+    )
+
+let chart1 =
+    [trace1; trace2]
+    |> Chart.Plot
+    |> Chart.WithWidth 700
+    |> Chart.WithHeight 500
+
+chart1
+```
+
+Outside notebook:  
+
+```f#
+#r "nuget: XPlot.Plotly, 4.0.6"
+
+open XPlot.Plotly
+open System.IO
+
+let trace1 =
+    Scatter(
+        x = [1; 2; 3; 4],
+        y = [10; 15; 13; 17]
+    )
+
+let trace2 =
+    Scatter(
+        x = [2; 3; 4; 5],
+        y = [16; 5; 11; 9]
+    )
+
+let chart1 =
+    [trace1; trace2]
+    |> Chart.Plot
+    |> Chart.WithWidth 700
+    |> Chart.WithHeight 500
+
+
+let html = chart1.GetHtml()
+File.WriteAllText("linechart.html", html)
+```
