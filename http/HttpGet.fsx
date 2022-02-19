@@ -9,4 +9,4 @@ Console.WriteLine resp.content.Headers
 Console.WriteLine resp.statusCode
 Console.WriteLine resp.content
 
-resp |>  Response.toText |> (Console.WriteLine)
+resp |> Response.toText |> Console.WriteLine
