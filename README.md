@@ -909,6 +909,66 @@ let time f =
 time (fun () -> Thread.Sleep(2000))
 ```
 
+## Read XML with XmlProvider
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<products>
+    <product>
+        <id>1</id>
+        <name>Product A</name>
+        <price>780</price>
+    </product>
+
+    <product>
+        <id>2</id>
+        <name>Product B</name>
+        <price>1100</price>
+    </product>
+
+    <product>
+        <id>3</id>
+        <name>Product C</name>
+        <price>1050</price>
+    </product>
+
+    <product>
+        <id>4</id>
+        <name>Product D</name>
+        <price>950</price>
+    </product>
+</products>
+```
+
+```
+open FSharp.Data
+open System
+
+type xml = XmlProvider<"data.xml">
+
+let d = xml.GetSample().Products
+d |> Seq.iter (fun p -> Console.WriteLine($"{p.Name} {p.Price}"))
+
+
+let res = d |> Seq.filter (fun p -> p.Price < 1000)
+
+for v in res do 
+    Console.WriteLine v
+
+Console.WriteLine("---------------------------")
+
+Console.WriteLine(d[0].Price.GetType())
+
+Console.WriteLine("---------------------------")
+
+d[3..4] |> Array.iter (Console.WriteLine)
+
+Console.WriteLine("---------------------------")
+
+printfn "%A" d[..2]
+```
+
+
 ## Source directory
 
 Write to source directory  
