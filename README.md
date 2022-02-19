@@ -940,7 +940,7 @@ time (fun () -> Thread.Sleep(2000))
 </products>
 ```
 
-```
+```F#
 open FSharp.Data
 open System
 
