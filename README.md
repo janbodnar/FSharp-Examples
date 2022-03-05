@@ -193,6 +193,11 @@ let words =
           5, "water"
           6, "war" ]
 
+for p in words do
+    Console.WriteLine $"{p.Key}: {p.Value}"
+
+Console.WriteLine "--------------------------------"
+
 Console.WriteLine words.Count
 
 Console.WriteLine words[1]
