@@ -182,6 +182,31 @@ for value in words.Values do
     Console.WriteLine value
 ```
 
+```F#
+open System
+
+let words =
+    Map [ 1, "book"
+          2, "sky"
+          3, "work"
+          4, "cloud"
+          5, "water"
+          6, "war" ]
+
+Console.WriteLine words.Count
+
+Console.WriteLine words[1]
+Console.WriteLine words[2]
+Console.WriteLine words[3]
+
+Console.WriteLine "--------------------------------"
+
+words
+|> Map.filter (fun _ v -> v.Contains "w")
+|> Map.values
+|> Seq.iter Console.WriteLine
+```
+
 ## Ranges 
 
 ```f#
