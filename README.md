@@ -932,7 +932,28 @@ let filtered2 = vals |> List.filter (fun n -> n % 2 = 0)
 printfn "%A" filtered2
 ```
 
-## JSON serialize
+## JSON 
+
+```F#
+open System.Text.Json
+open System
+
+let data =
+    """[ {"name": "John Doe", "occupation": "gardener"}, 
+    {"name": "Peter Novak", "occupation": "driver"} ]"""
+
+let r = JsonDocument.Parse data
+
+let root = r.RootElement
+let u1 = root[0]
+let u2 = root[1]
+
+Console.WriteLine u1
+Console.WriteLine u2
+
+Console.WriteLine(u1.GetProperty("name"))
+Console.WriteLine(u1.GetProperty("occupation"))
+```
 
 With built-in `System.Text.Json`
 
