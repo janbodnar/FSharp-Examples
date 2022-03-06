@@ -919,21 +919,6 @@ printfn "%A" filtered2
 
 With built-in `System.Text.Json`
 
-```f#
-open System.Text.Json
-
-let vals = [ 1; 2; 3; 4 ]
-let res = JsonSerializer.Serialize vals
-
-printfn "%A" res
-
-
-let data = Map [ (1, "a"); (2, "b") ]
-let res2 = JsonSerializer.Serialize data
-
-printfn "%A" res2
-```
-
 ```F#
 open System.Text.Json
 open System
