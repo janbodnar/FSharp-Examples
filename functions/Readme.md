@@ -68,6 +68,26 @@ let add = fun x y -> x + y
 let add2 x y = x + y
 ```
 
+## Returning a function
+
+
+```f#
+open System
+open System.Threading
+
+let f =
+    printfn "This runs at startup"
+    (fun () -> printfn "%s" (DateTime.Now.ToLongTimeString()))
+
+f()
+
+Thread.Sleep(1000)
+f()
+
+Thread.Sleep(1000)
+f()
+```
+
 ## Flip fun
 
 The flip function swaps the arguments of a function  
