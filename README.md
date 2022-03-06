@@ -685,7 +685,7 @@ let found =
     words |> Array.filter (fun e -> e.StartsWith("w") && e.Length = 3)
 ```
 
-## Find first/last element
+## Find matching first/last element
 
 ```F#
 let first =
