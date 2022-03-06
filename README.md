@@ -658,6 +658,23 @@ Seq.filter (fun v -> match v with (_, c) -> c > 1)
 Seq.map snd |> Seq.filter (fun t -> Seq.length t > 1)
 ```
 
+### New methods in F# 6
+
+```F#
+open System
+
+let d = seq { 1 .. 5}
+
+let d2 = Seq.insertAt 5 6 d
+let d3 = Seq.insertManyAt 6 [7; 8; 9; 10] d2
+let d4 = Seq.removeAt 9 d3
+let d5 = Seq.removeManyAt 0 3 d4
+let d6 = Seq.updateAt 0 -4 d5
+
+d6 |> Seq.iter Console.WriteLine
+```
+
+
 **FindAll and filter are similar**  
 
 ```F#
