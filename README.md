@@ -749,20 +749,6 @@ printfn "%A" merged
 ```
 
 
-## Get file names  
-
-```F#
-open System.IO
-
-let files = Directory.GetFiles(".")
-
-printfn "%A" files
-
-let names = files |> Array.map Path.GetFileName 
-printfn "%A" names
-```
-
-
 
 ## Partition function
 
@@ -782,6 +768,7 @@ printfn "%A" output
 ```
 
 partition files into two groups: txt files and the rest  
+
 
 ## StringBuilder
 
@@ -1062,20 +1049,7 @@ printfn "%A" d[..2]
 ```
 
 
-## Source directory
 
-Write to source directory  
-
-```F#
-open System.IO
-
-let writeToFile () = 
-
-    let data = "an old falcon"
-    File.WriteAllText(Path.Combine(__SOURCE_DIRECTORY__, "file.txt"), data)
-
-writeToFile()
-```
 
 ## Projections
 
