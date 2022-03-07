@@ -91,6 +91,7 @@ let words =
 
 let isAllPositive data = List.forall (fun e -> e > 0) data
 
+// need type annotations b/c compiler had problems determining types
 let allBeginWith (data: list<string>) (c: string) =
     List.forall (fun (e: string) -> e.StartsWith(c)) data
 
