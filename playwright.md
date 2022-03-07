@@ -94,6 +94,33 @@ getUserAgent url
 |> Console.WriteLine
 ```
 
+## Take screenshot
+
+```F#
+#r "nuget: Microsoft.Playwright"
+
+open Microsoft.Playwright
+
+let createScreenshot () =
+    task {
+        use! web = Playwright.CreateAsync()
+        let! browser = web.Chromium.LaunchAsync()
+        let! page = browser.NewPageAsync()
+        let! _ = page.GotoAsync("http://webcode.me")
+        let screenshotOptions = PageScreenshotOptions()
+        screenshotOptions.Path <- "webcode.png"
+
+        let! _ = page.ScreenshotAsync(screenshotOptions)
+        ()
+    }
+
+createScreenshot ()
+|> Async.AwaitTask
+|> Async.RunSynchronously
+
+printfn "Screenshot created"
+```
+
 ## Click element
 
 ```F#
