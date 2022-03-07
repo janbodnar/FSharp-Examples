@@ -1239,6 +1239,65 @@ let main args =
     0
 ```
 
+## F# 6 task expressions
+
+F# 6 introduced task expressions, which simplify interoperatibility with .NET libraries  
+that create or consume .NET tasks.  
+
+```F#
+#r "nuget: Microsoft.Playwright"
+
+open Microsoft.Playwright
+
+let createScreenshot () =
+    async {
+        use! web = Playwright.CreateAsync() |> Async.AwaitTask
+        let! browser = web.Chromium.LaunchAsync() |> Async.AwaitTask
+        let! page = browser.NewPageAsync() |> Async.AwaitTask
+        let! _ = page.GotoAsync("http://webcode.me") |> Async.AwaitTask
+        let screenshotOptions = PageScreenshotOptions()
+        screenshotOptions.Path <- "webcode.png"
+
+        let! _ = page.ScreenshotAsync(screenshotOptions) |> Async.AwaitTask
+        return 0
+    } |> Async.StartAsTask
+
+createScreenshot ()
+|> Async.AwaitTask
+|> Async.RunSynchronously
+
+printfn "Screenshot created"
+```
+
+The example is simplified into:  
+
+```F#
+#r "nuget: Microsoft.Playwright"
+
+open Microsoft.Playwright
+
+let createScreenshot () =
+    task {
+        use! web = Playwright.CreateAsync()
+        let! browser = web.Chromium.LaunchAsync()
+        let! page = browser.NewPageAsync()
+        let! _ = page.GotoAsync("http://webcode.me")
+        let screenshotOptions = PageScreenshotOptions()
+        screenshotOptions.Path <- "webcode.png"
+
+        let! _ = page.ScreenshotAsync(screenshotOptions)
+        return 0
+    }
+
+createScreenshot ()
+|> Async.AwaitTask
+|> Async.RunSynchronously
+
+printfn "Screenshot created"
+```
+
+
+
 ## Charts 
 
 In interactive notebook:  
