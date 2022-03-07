@@ -34,6 +34,46 @@ let merged = a @ b |> List.distinct
 printfn "%A" merged
 ```
 
+## Sorting 
+
+```F#
+let nums = [ -1; 6; -2; 3; 0; -4; 5; 1; 2 ]
+
+nums |> List.sort |> printfn "%A" 
+nums |> List.sortDescending |> printfn "%A" 
+
+nums |> List.sortBy (abs) |> printfn "%A" 
+nums |> List.sortByDescending (abs) |> printfn "%A" 
+```
+
+```F#
+type User =
+    { Name: string
+      Occupation: string
+      Salary: int }
+
+let users =
+    [ { Name = "John Doe"
+        Occupation = "gardener"
+        Salary = 1280 }
+      { Name = "Roger Roe"
+        Occupation = "driver"
+        Salary = 860 }
+      { Name = "Tom Brown"
+        Occupation = "shopkeeper"
+        Salary = 990 } ]
+
+users
+|> List.sortBy (fun u -> u.Salary)
+|> List.iter (fun u -> printfn "%A" u)
+
+printfn "--------------------------------"
+
+users
+|> List.sortByDescending (fun u -> u.Occupation)
+|> List.iter (fun u -> printfn "%A" u)
+```
+
 ## List comprehensions
 
 List comprehension is a powerful syntax to generate lists.  
