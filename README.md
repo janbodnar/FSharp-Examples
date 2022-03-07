@@ -105,23 +105,6 @@ let res = List.map (fun x -> x * x) [1;2;3;4;5]
 let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 ```
 
-## read user console input
-
-```f#
-open System
-
-printf "Enter your name:"
-
-let name = Console.ReadLine()
-
-let msg =
-    if String.IsNullOrWhiteSpace(name) then
-        "wrong input"
-    else
-        $"Hello {name}!"
-
-printfn $"{msg}"
-```
 
 ## int to string
 
