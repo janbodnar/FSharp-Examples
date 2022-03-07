@@ -18,6 +18,33 @@ let msg =
 printfn $"{msg}"
 ```
 
+## Write a line
+
+```F#
+open System.IO
+
+let fileName = "data.txt"
+use w = new StreamWriter(fileName)
+
+w.WriteLine("a line")
+```
+
+## Write data
+
+```F#
+open System.IO
+
+let writeData() =
+
+  use sw = new StreamWriter("data.txt")
+
+  fprintf sw "Today is a beautiful day\n"
+  fprintf sw "We go swimming and fishing\n"
+
+
+writeData()
+```
+
 ## Get file names
 
 ```F#
@@ -45,3 +72,168 @@ let writeToFile () =
 
 writeToFile()
 ```
+
+## List files
+
+```F#
+open System.IO
+
+let listFiles (dirName:string) =
+
+    let fdata = Directory.GetFiles dirName |> List.ofSeq
+
+    fdata |> List.map (fun fileName -> 
+        Path.GetFileName(fileName), FileInfo(fileName).Length)
+
+
+let fdata = listFiles "/root/Documents"
+
+for file in fdata do
+    printfn "%s - %d bytes" (fst file) (snd file)
+```
+
+## word start with 
+
+```F#
+open System.IO
+open System
+
+let words = File.ReadAllLines("words.txt")
+
+let w_words =
+    words
+    |> Seq.filter(fun word -> word.StartsWith("w"))
+
+w_words |> Seq.iter (printfn "%s")
+```
+
+## WriteAllText
+
+```F#
+open System.IO 
+
+File.WriteAllText("words.txt", "sky\nfalcon\nrock\nhawk\nocean\ncloud")
+let msg = File.ReadAllText("words.txt")
+printfn "%s\n" msg
+```
+
+## use vs using 
+
+```F#
+open System.IO
+
+let readFile path = 
+    use r = new StreamReader(new FileStream(path, FileMode.Open))
+    printfn "%s" (r.ReadToEnd())
+
+let readFile2 path = 
+    using (new StreamReader(new FileStream(path, FileMode.Open)))  
+        (fun r -> printfn "%s" (r.ReadToEnd()))
+
+readFile "words.txt"
+printfn "----------------------------"
+readFile2 "words.txt"
+```
+
+The using function and the use binding are nearly equivalent ways to  
+accomplish the same thing. The using keyword provides more control over when  
+Dispose is called. When you use using, Dispose is called at the end of the  
+function or lambda expression; when you use the use keyword, Dispose is  
+called at the end of the containing code block. In general, you should prefer  
+to use use instead of the using function.  
+https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/dd233240(v=vs.100)?redirectedfrom=MSDN  
+
+
+## Read CSV data into User types
+
+```F#
+open System.IO
+
+type User = {
+    UserName : string
+    Occupation: string
+    Age: int
+}
+
+
+let output data =
+    data 
+    |> Seq.iter (fun e -> printfn "%A" e)
+
+let parseLine (line:string) : User option =
+    match line.Split(',') with
+    | [| userName; occupation; age |] -> 
+        Some { 
+            UserName = userName
+            Occupation = occupation
+            Age = int age
+        }
+    | _ -> None
+
+let readFile path = 
+    seq { 
+        use reader = new StreamReader(File.OpenRead(path))
+        while not reader.EndOfStream do
+            yield reader.ReadLine() 
+    }
+
+"users.csv" |> readFile 
+            |> Seq.skip 1  
+            |> Seq.map parseLine 
+            |> Seq.choose id
+            |> output
+```
+
+## Read CSV data II
+
+```F#
+open System.IO
+
+type User = {
+    UserName : string
+    Occupation: string
+    Age: int
+}
+
+
+let output data =
+    data
+    |> Seq.iter (fun e -> printfn "%A" e)
+
+let parseLine (line:string) : User option =
+    match line.Split(',') with
+    | [| userName; occupation; age |] ->
+        Some {
+            UserName = userName
+            Occupation = occupation
+            Age = int age
+        }
+    | _ -> None
+
+let parse (data:string seq) =
+    data
+    |> Seq.skip 1
+    |> Seq.map parseLine
+    |> Seq.choose id
+
+
+type FileReader = string -> Result<string seq,exn>
+
+let readFile : FileReader =
+    fun path ->
+        try
+            seq { use reader = new StreamReader(File.OpenRead(path))
+                  while not reader.EndOfStream do
+                      yield reader.ReadLine() }
+            |> Ok
+        with
+        | ex -> Error ex
+
+let loadData (fileReader: FileReader) path =
+    match path |> fileReader with
+    | Ok data -> data |> parse |> output
+    | Error ex -> printfn "Error: %A" ex.Message
+
+loadData readFile "users.csv"
+```
+
