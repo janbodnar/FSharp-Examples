@@ -25,3 +25,35 @@ getTitle()
 |> Async.RunSynchronously
 |> Console.WriteLine
 ```
+
+## Get user agent
+
+```F#
+#r "nuget: Microsoft.Playwright"
+
+open Microsoft.Playwright
+open System.Text
+open System
+
+let getUserAgent (url: string) (ehds: Map<string, string>) =
+    task {
+        use! web = Playwright.CreateAsync()
+        let! browser = web.Chromium.LaunchAsync()
+        let! page = browser.NewPageAsync()
+
+        do! page.SetExtraHTTPHeadersAsync ehds
+
+        let! resp = page.GotoAsync(url)
+        let! body = resp.BodyAsync()
+
+        return Encoding.UTF8.GetString(body)
+    }
+
+let url = "http://webcode.me/ua.php"
+let ehds = Map ["User-Agent", "F# script"]
+
+getUserAgent url ehds
+|> Async.AwaitTask
+|> Async.RunSynchronously
+|> Console.WriteLine
+```
