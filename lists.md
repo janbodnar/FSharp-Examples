@@ -1,5 +1,29 @@
 # Lists
 
+## Simple
+
+```F#
+let vals = [ 1; 2; 3; 4; 5; 6 ]
+
+printfn "%A" vals
+printfn "%d" vals.Head
+printfn "%d" vals.Length
+printfn "%A" vals.Tail
+```
+
+## Iteration
+
+```F#
+let vals = [ 1; 2; 3; 4; 5; 6 ]
+
+vals |> List.iter (printfn "%d")
+
+printfn "------------------------"
+
+for e in vals do 
+    printfn "%d" e
+```
+
 ## Merge lists
 
 ```F#
@@ -14,7 +38,7 @@ printfn "%A" merged
 
 List comprehension is a powerful syntax to generate lists.  
 
-```f#
+```F#
 let vals = [ -1; 0; 2; -2; 1; 3; 4; -6 ]
 
 let pos =
@@ -43,7 +67,7 @@ printfn "%A" vals3
 ```
 ---
 
-```f#
+```F#
 let vals = [ 1; -2; -3; 4; 5 ]
 
 [ for v in vals do
@@ -51,3 +75,25 @@ let vals = [ 1; -2; -3; 4; 5 ]
       if f(v) then yield v ] |> printfn "%A"
 ```
 let expressions can be used inside comprehensions  
+
+## List.forall
+
+```F#
+let nums = [ -1; -2; 3; 0; -4; 5; 6 ]
+
+let words =
+    [ "war"
+      "water"
+      "wrath"
+      "warm"
+      "wrong" ]
+
+
+let isAllPositive data = List.forall (fun e -> e > 0) data
+
+let allBeginWith (data: list<string>) (c: string) =
+    List.forall (fun (e: string) -> e.StartsWith(c)) data
+
+printfn "%b" (isAllPositive nums)
+printfn "%b" (allBeginWith words "w")
+```
