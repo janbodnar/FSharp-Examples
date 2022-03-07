@@ -93,3 +93,32 @@ getUserAgent url
 |> Async.RunSynchronously
 |> Console.WriteLine
 ```
+
+## Click element
+
+```F#
+#r "nuget: Microsoft.Playwright"
+
+open Microsoft.Playwright
+
+let clickElement () =
+
+    task {
+        use! pw = Playwright.CreateAsync()
+        let! browser = pw.Chromium.LaunchAsync()
+
+        let! page = browser.NewPageAsync()
+
+        let! _ = page.GotoAsync("http://example.com")
+        do! page.ClickAsync("a")
+
+        return! page.TitleAsync()
+    }
+
+clickElement ()
+|> Async.AwaitTask
+|> Async.RunSynchronously
+|> printfn "%s"
+```
+
+
