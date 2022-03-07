@@ -18,6 +18,8 @@ printfn "%s" <| show ()
 show () |> printfn "%s"
 ```
 
+another example: `printfn "%s" (DateTime.Now.ToLongDateString())`  
+
 ## Curried & tupled functions
 
 There are two function calls in F#: curried and tupled.  
