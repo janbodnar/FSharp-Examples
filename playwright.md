@@ -148,4 +148,38 @@ clickElement ()
 |> printfn "%s"
 ```
 
+## Query selectors
+
+
+```F#
+#r "nuget: Microsoft.Playwright"
+
+open Microsoft.Playwright
+
+let selectParagraphs () =
+
+    task {
+        use! pw = Playwright.CreateAsync()
+        let! browser = pw.Chromium.LaunchAsync()
+
+        let! page = browser.NewPageAsync()
+        let! _ = page.GotoAsync("http://webcode.me")
+        
+        let! es1 = page.QuerySelectorAllAsync("p")
+
+        for e in es1 do
+            let! r = e.TextContentAsync()
+            printfn "%s" (r)
+
+
+        let! e2 = page.QuerySelectorAsync("p")
+        let! r2 = e2.TextContentAsync()
+
+        printfn "%s" r2
+    }
+
+selectParagraphs ()
+|> Async.AwaitTask
+|> Async.RunSynchronously
+```
 
