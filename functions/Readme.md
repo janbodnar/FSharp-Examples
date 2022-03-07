@@ -20,25 +20,6 @@ show () |> printfn "%s"
 
 another example: `printfn "%s" (DateTime.Now.ToLongDateString())`  
 
-## Passing a lambda function to value
-
-```F#
-open System
-open System.Threading
-
-let f =
-    printfn "This runs at startup"
-    (fun () -> printfn "%s" (DateTime.Now.ToLongTimeString()))
-
-f()
-
-Thread.Sleep(1000)
-f()
-
-Thread.Sleep(1000)
-f()
-```
-
 ## Curried & tupled functions
 
 There are two function calls in F#: curried and tupled.  
@@ -99,6 +80,27 @@ This is a function
 let hello () =
     printfn "Hello there"
 ```
+To illustrate the distinction between a value and a function,  
+the following example passes a lambda function to a value.  
+
+```f#
+```F#
+open System
+open System.Threading
+
+let f =
+    printfn "This runs at startup"
+    (fun () -> printfn "%s" (DateTime.Now.ToLongTimeString()))
+
+f()
+
+Thread.Sleep(1000)
+f()
+
+Thread.Sleep(1000)
+f()
+```
+
 
 The following function definitions are the same. The first  
 uses the lambda expression; the second is the conventional function definition.  
