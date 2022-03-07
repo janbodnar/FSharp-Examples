@@ -1242,7 +1242,7 @@ let createScreenshot () =
         screenshotOptions.Path <- "webcode.png"
 
         let! _ = page.ScreenshotAsync(screenshotOptions) |> Async.AwaitTask
-        return 0
+        ()
     } |> Async.StartAsTask
 
 createScreenshot ()
@@ -1269,7 +1269,7 @@ let createScreenshot () =
         screenshotOptions.Path <- "webcode.png"
 
         let! _ = page.ScreenshotAsync(screenshotOptions)
-        return 0
+        ()
     }
 
 createScreenshot ()
@@ -1278,7 +1278,6 @@ createScreenshot ()
 
 printfn "Screenshot created"
 ```
-
 
 
 ## Charts 
