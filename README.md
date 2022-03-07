@@ -106,57 +106,6 @@ let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 ```
 
 
-
-
-
-## Maps
-
-```F#
-open System
-
-let words = Map [1, "book"; 2, "sky"; 3, "work"; 4, "cloud"]
-
-printfn "%A" words
-
-words |> Map.iter (fun k v -> Console.WriteLine($"{k}: {v}"))
-
-for key in words.Keys do
-    Console.WriteLine key
-
-for value in words.Values do
-    Console.WriteLine value
-```
-
-```F#
-open System
-
-let words =
-    Map [ 1, "book"
-          2, "sky"
-          3, "work"
-          4, "cloud"
-          5, "water"
-          6, "war" ]
-
-for p in words do
-    Console.WriteLine $"{p.Key}: {p.Value}"
-
-Console.WriteLine "--------------------------------"
-
-Console.WriteLine words.Count
-
-Console.WriteLine words[1]
-Console.WriteLine words[2]
-Console.WriteLine words[3]
-
-Console.WriteLine "--------------------------------"
-
-words
-|> Map.filter (fun _ v -> v.Contains "w")
-|> Map.values
-|> Seq.iter Console.WriteLine
-```
-
 ## Ranges 
 
 ```f#
@@ -325,99 +274,6 @@ for e = 4 downto 1 do
     Console.WriteLine(e)
 ```
 
-## Arrays 
-
-F# has powerful support for arrays  
-
-```f#
-open System
-
-let vals = [| 1; 2; 3; 4; 5 |]
-Console.WriteLine(Array.length vals)
-
-let vals2 = [| 1 .. 100 |]
-printfn "%A" vals2[10..20]
-
-Console.WriteLine("-----------------------")
-
-let vals3 = [|
-    2
-    3
-    4
-|]
-
-vals3 |> Array.iter Console.WriteLine
-
-Console.WriteLine("-----------------------")
-
-
-let vals4 = Array.init 10 (fun x -> x + 10)
-printfn "%A" vals4
-
-Console.WriteLine("-----------------------")
-
-let vals5 = [|4; 2; 1; -4; -1; 0; 7|]
-printfn "%A" vals5
-
-Array.sortInPlace vals5
-printfn "%A" vals5
-```
-
-## Array comprehensions
-
-using ranges & generators  
-
-```f#
-let vals = [| 1 .. 10 |]
-printfn "%A" vals
-
-let vals2 = [| 1 .. 3 .. 10 |]
-printfn "%A" vals2
-
-let vals3 =
-    [| for e in 1 .. 5 do
-           yield (e, e * e, e * e * e) |]
-
-printfn "%A" vals3
-
-let vals4 = [| for e in 1 .. 10 -> e * e |]
-printfn "%A" vals4
-```
-
-
-## Array indexing & slicing
-
-Since .NET 6, we can use `vals[i]` in addition to the old `vals.[i]`. F# does not yet support  
-rear-based indexing & slicing: https://github.com/fsharp/fslang-design/blob/main/preview/FS-1076-from-the-end-slicing.md
-
-```f#
-open System 
-
-let vals = [| 1; 3; 4; 6; 7; 8; 9|]
-
-Console.WriteLine(vals.[0])
-Console.WriteLine(vals.[1])
-Console.WriteLine(vals.[2])
-
-Console.WriteLine("-------------------")
-
-// since .NET 6
-Console.WriteLine(vals[0])
-Console.WriteLine(vals[1])
-Console.WriteLine(vals[2])
-
-Console.WriteLine("-------------------")
-
-// slices
-printfn "%A" vals[0..6]
-printfn "%A" vals[..6]
-printfn "%A" vals[2..]
-
-Console.WriteLine("-------------------")
-
-Console.WriteLine(Array.last vals)
-Console.WriteLine(Array.length vals)
-```
 
 ## not is a function 
 
@@ -448,47 +304,6 @@ if not <| (words |> List.contains w3) then
     printfn "%s not found" w3
 ```
 
-## List comprehensions
-
-List comprehension is a powerful syntax to generate lists.  
-
-```f#
-let vals = [ -1; 0; 2; -2; 1; 3; 4; -6 ]
-
-let pos =
-    [ for e in vals do
-          if e > 0 then yield e ]
-
-printfn "%A" pos
-
-printfn "---------------------------------"
-
-[ for e in 1 .. 100 -> e * e ] |> printfn "%A"
-
-
-printfn "---------------------------------"
-
-[ for a in 1 .. 100 do
-    if a % 3 = 0 && a % 5 = 0 then yield a] |> printfn "%A"
-
-printfn "---------------------------------"
-
-let vals3 =
-    [ for x in 1 .. 3 do
-          for y in 1 .. 10 -> x, y ]
-
-printfn "%A" vals3
-```
----
-
-```f#
-let vals = [ 1; -2; -3; 4; 5 ]
-
-[ for v in vals do
-      let f = fun e -> e > 0
-      if f(v) then yield v ] |> printfn "%A"
-```
-let expressions can be used inside comprehensions  
 
 ## Pipes
 
@@ -666,16 +481,6 @@ f2(3, "falcons")
 
  f1's arguments are curried, whereas f2's arguments are tupled  
 
-
-## Merge lists
-
-```F#
-let a = [1; 2; 3; 4]
-let b = [4; 4; 5; 6]
-
-let merged = a @ b |> List.distinct
-printfn "%A" merged
-```
 
 
 
