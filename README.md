@@ -106,46 +106,8 @@ let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 ```
 
 
-## int to string
 
-The `int` built-in function converts a string to an integer  
 
-```f#
-open System
-
-let vals = ("2", 1, "4", 6, "11")
-
-let a, b, c, d, e = vals
-let sum = int a + b + int c + d + int e
-
-Console.WriteLine(sum)
-```
-
-## Building/formatting strings
-
-```f#
-open System
-open System.Text
-
-let name = "John Doe"
-let age = 33
-
-let msg1 = name + " is " + string age + " years old"
-printfn $"{msg1}"
-
-let msg2 = sprintf "%s is %d years old" name age
-printfn $"{msg2}"
-
-let msg3 = $"{name} is {age} years old"
-printfn $"{msg3}"
-
-let msg4 = String.Format("{0} is {1} years old", name, age)
-printfn $"{msg4}"
-
-let builder = StringBuilder()
-let msg5 = builder.AppendFormat("{0} is {1} years old", name, age)
-printfn $"{msg5}"
-```
 
 ## Maps
 
@@ -553,40 +515,7 @@ let powered = vals |> Array.map (fun e -> 2 |> pown e)
 printfn "%A" powered
 ```
 
-## Convert array ints to strings
 
-```f#
-open System
-
-let nums = [| 2; 4; 6; 8 |]
-
-let output =
-    nums
-    |> Array.map (sprintf "%i")
-    |> String.concat ","
-
-Console.WriteLine(output)
-```
-
-
-## Concat list of strings
-
-```F#
-open System
-
-let words = ["sky"; "cloud"; "cup"; "snow"; "water"; "war"; "rock"]
-let output = words |> Seq.reduce (fun acc e -> (sprintf $"{acc}, {e}"))
-printfn $"{output}"
-
-let output2 = words |> List.reduce (fun acc e -> acc + Environment.NewLine + e)
-printfn $"{output2}"
-
-let output3 = String.concat ", " words
-printfn $"{output3}"
-
-let output4 = words |> String.concat ", "
-printfn $"{output4}"
-```
 
 
 **This is the same**  
@@ -770,47 +699,6 @@ printfn "%A" output
 partition files into two groups: txt files and the rest  
 
 
-## StringBuilder
-
-```F#
-open System.Text
-
-let builder = StringBuilder()
-
-Printf.bprintf builder "There are %d " 3
-Printf.bprintf builder "hawks in the sky"
-
-printfn "%s" (builder.ToString())
-```
-
-```F#
-open System.Text
-
-let buf = StringBuilder()
-
-buf.Append("There are " ) |> ignore
-buf.Append("three ") |> ignore 
-buf.Append("eagles in the sky") |> ignore
-
-printfn $"%s{buf.ToString()}"
-```
-
-## String interpolation
-
-F# 5 introduced string interpolation  
-
-```F#
-let name = "John Doe"
-let occupation = "gardener"
-
-let msg = $"{name} is an {occupation}"
-printfn $"{msg}"
-
-printfn $"5 * 8 = {5 * 8}"
-
-printfn $"{58:C}"
-printfn $"{58:X}"
-```
 
 ## Active patterns
 
@@ -902,69 +790,6 @@ let filtered2 = vals |> List.filter (fun n -> n % 2 = 0)
 printfn "%A" filtered2
 ```
 
-## JSON 
-
-```F#
-open System.Text.Json
-open System
-
-let data =
-    """[ {"name": "John Doe", "occupation": "gardener"}, 
-    {"name": "Peter Novak", "occupation": "driver"} ]"""
-
-let r = JsonDocument.Parse data
-
-let root = r.RootElement
-let u1 = root[0]
-let u2 = root[1]
-
-Console.WriteLine u1
-Console.WriteLine u2
-
-Console.WriteLine(u1.GetProperty("name"))
-Console.WriteLine(u1.GetProperty("occupation"))
-```
-
-With built-in `System.Text.Json`
-
-```F#
-open System.Text.Json
-open System
-
-let nums = [ 1; 2; 3; 4; 5; 6 ]
-
-let r = JsonSerializer.Serialize nums
-Console.WriteLine r
-
-let d = JsonSerializer.Deserialize r
-
-d |> List.iter (fun e -> printfn "%d" e)
-
-Console.WriteLine "----------------------------------"
-
-d |> List.map int |> List.sum |> Console.WriteLine
-
-Console.WriteLine "----------------------------------"
-
-let words =
-    Map [ 1, "wood"
-          2, "rock"
-          3, "ocean"
-          4, "forest"
-          5, "plant" ]
-
-let options = new JsonSerializerOptions(WriteIndented = true)
-let r2 = JsonSerializer.Serialize(words, options)
-Console.WriteLine r2
-
-let d2: Map<int, string> = JsonSerializer.Deserialize r2
-
-for e in d2.Keys do 
-    Console.WriteLine e
-
-for e in d2.Values do 
-    Console.WriteLine e
-```
 
 ## Stopwatch
 
@@ -1124,32 +949,7 @@ let users2 = users |> List.filter (fun user -> user.Salary > int avg)
 users2 |> List.iter Console.WriteLine
 ```
 
-## sort words by frequency  
 
-```F#
-open System
-open System.IO
-open System.Text.RegularExpressions
-
-let fileName = "the-king-james-bible.txt"
-let data = File.ReadAllText(fileName)
-
-let dig = Regex(@"\d")
-let rx = Regex("[a-z-A-Z']+")
-
-let matches = rx.Matches(data)
-
-let topTen =
-    matches
-    |> Seq.map (fun m -> m.Value)
-    |> Seq.filter (dig.IsMatch >> not)
-    |> Seq.countBy id
-    |> Seq.sortByDescending snd
-    |> Seq.take 10
-
-topTen
-|> Seq.iter (fun (e, n) -> Console.WriteLine($"{e}: {n}"))
-```
 
 ## Get n words from sentence
 
@@ -1169,32 +969,7 @@ let main argv =
     0
 ```
 
-### Read nth line
 
-```F#
-open System
-open System.IO
-
-[<EntryPoint>]
-let main args =
-
-    let n = Int32.Parse(args.[1]) - 1
-    use r = new StreamReader(args.[0])
-
-    let lines =
-        Seq.unfold
-            (fun (reader: StreamReader) ->
-                if (reader.EndOfStream) then
-                    None
-                else
-                    Some(reader.ReadLine(), reader))
-            r
-
-    let line = Seq.item n lines // Seq.nth throws an ArgumentException, if not not enough lines available
-    
-    Console.WriteLine(line)
-    0
-```
 
 ## F# 6 task expressions
 
@@ -1314,4 +1089,28 @@ let chart1 =
 
 let html = chart1.GetHtml()
 File.WriteAllText("linechart.html", html)
+```
+
+## Deedle 
+
+Working with dataframes  
+
+```F#
+#r "nuget: FSharp.Data"
+#r "nuget: Deedle"
+
+open FSharp.Data
+open Deedle
+
+let url =  @"https://raw.githubusercontent.com/dotnet/machinelearning/master/test/data/housing.txt"
+
+let data = Http.RequestString url
+
+// get a frame containing the values of houses at the charles river only
+let df = 
+    Frame.ReadCsvString(data, separators="\t")
+    |> Frame.sliceCols ["MedianHomeValue"; "CharlesRiver"]
+    |> Frame.filterRowValues (fun s -> s.GetAs<bool>("CharlesRiver"))
+
+df.Print()
 ```

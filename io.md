@@ -143,6 +143,60 @@ called at the end of the containing code block. In general, you should prefer
 to use use instead of the using function.  
 https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2010/dd233240(v=vs.100)?redirectedfrom=MSDN  
 
+### Read nth line
+
+```F#
+open System
+open System.IO
+
+[<EntryPoint>]
+let main args =
+
+    let n = Int32.Parse(args.[1]) - 1
+    use r = new StreamReader(args.[0])
+
+    let lines =
+        Seq.unfold
+            (fun (reader: StreamReader) ->
+                if (reader.EndOfStream) then
+                    None
+                else
+                    Some(reader.ReadLine(), reader))
+            r
+
+    let line = Seq.item n lines // Seq.nth throws an ArgumentException, if not not enough lines available
+    
+    Console.WriteLine(line)
+    0
+```
+
+## Sort words by frequency  
+
+```F#
+open System
+open System.IO
+open System.Text.RegularExpressions
+
+let fileName = "the-king-james-bible.txt"
+let data = File.ReadAllText(fileName)
+
+let dig = Regex(@"\d")
+let rx = Regex("[a-z-A-Z']+")
+
+let matches = rx.Matches(data)
+
+let topTen =
+    matches
+    |> Seq.map (fun m -> m.Value)
+    |> Seq.filter (dig.IsMatch >> not)
+    |> Seq.countBy id
+    |> Seq.sortByDescending snd
+    |> Seq.take 10
+
+topTen
+|> Seq.iter (fun (e, n) -> Console.WriteLine($"{e}: {n}"))
+```
+
 
 ## Read CSV data into User types
 
