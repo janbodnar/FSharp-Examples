@@ -1,5 +1,24 @@
 # Functions
 
+## Passing function values
+
+Parenthesis are neede around functions to pass values  
+to `printfn` function  
+
+```f#
+open System
+
+let show () = "falcon"
+
+Console.WriteLine(show ())
+
+printfn "%s" (show ())
+printfn "%s %s" (show ()) (show ())
+printfn "%s" <| show ()
+show () |> printfn "%s"
+```
+
+
 `let add a b = a + b`  - curried form  
 
 `add 10 5` => `((add 10) 5)`  - function takes 10 and then returns a function which takes 5  
