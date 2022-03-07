@@ -18,7 +18,22 @@ printfn "%s" <| show ()
 show () |> printfn "%s"
 ```
 
-another example: `printfn "%s" (DateTime.Now.ToLongDateString())`  
+another example: `printfn "%s" (DateTime.Now.ToLongDateString())`
+
+```F#
+let contains =
+    let words = set ["sky"; "drum"; "dog"; "tree"]
+    fun person -> words.Contains(person)
+
+let contains2 word =
+    let words = set ["sky"; "drum"; "dog"; "tree"]
+    words.Contains(word)
+```
+
+contains creates words on declaration and reuses it, whereas  
+contains2 creates words everytime you call the function;  
+contains is slightly faster.  
+
 
 ## Curried & tupled functions
 
