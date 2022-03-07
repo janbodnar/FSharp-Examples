@@ -20,6 +20,25 @@ show () |> printfn "%s"
 
 another example: `printfn "%s" (DateTime.Now.ToLongDateString())`  
 
+## Passing a lambda function to value
+
+```F#
+open System
+open System.Threading
+
+let f =
+    printfn "This runs at startup"
+    (fun () -> printfn "%s" (DateTime.Now.ToLongTimeString()))
+
+f()
+
+Thread.Sleep(1000)
+f()
+
+Thread.Sleep(1000)
+f()
+```
+
 ## Curried & tupled functions
 
 There are two function calls in F#: curried and tupled.  
