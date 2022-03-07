@@ -18,6 +18,9 @@ printfn "%s" <| show ()
 show () |> printfn "%s"
 ```
 
+## Curried & tupled functions
+
+There are two function calls in F#: curried and tupled.  
 
 `let add a b = a + b`  - curried form  
 
@@ -29,9 +32,6 @@ we cannot use partial function application directly from C#.
 This is due to performance reasons; most of the times, we specify all   
 arguments and this can be implemented more efficiently.  
 
-## Curried & tupled functions
-
-There are two function calls in F#: curried and tupled.  
 
 ```F#
 open System 
