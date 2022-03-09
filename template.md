@@ -2,6 +2,8 @@
 
 # Simple template
 
+We use Scriban to generate HTML data by merging HTML template with data.  
+
 ```F#
 #r "nuget: Scriban"
 
