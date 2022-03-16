@@ -146,6 +146,18 @@ https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-20
 ### Read nth line
 
 ```F#
+open System.IO
+
+let fname = "words.txt"
+let data = File.ReadAllLines(fname)
+let n = 1
+
+printfn "%s" data[n] 
+```
+
+---
+
+```F#
 open System
 open System.IO
 
