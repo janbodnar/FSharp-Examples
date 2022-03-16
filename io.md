@@ -1,8 +1,20 @@
 # Input & output
 
+
+## Read file line by line
+
+```F#
+open System.IO
+
+let fname = "words.txt"
+let lines = File.ReadLines(fname) 
+
+lines |> Seq.iter (printfn "%s")
+```
+
 ## Read user console input
 
-```f#
+```F#
 open System
 
 printf "Enter your name:"
