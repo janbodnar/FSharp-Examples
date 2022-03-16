@@ -182,6 +182,36 @@ let main args =
     0
 ```
 
+## Read files asynchronously
+
+```F#
+open System.IO
+
+let readFilesTask path1 path2 =
+    task {
+        let! bytes1 = File.ReadAllBytesAsync path1
+        let! bytes2 = File.ReadAllBytesAsync path2
+        return Array.append bytes1 bytes2
+    }
+
+let printBytes data =
+
+    let row data =
+        data |> Array.iter (fun e -> printf "%d " e)
+        printf "\n"
+
+    let chunked = data |> Array.chunkBySize 10
+    chunked |> (Array.map row)
+
+let fname1 = "words.txt"
+let fname2 = "words2.txt"
+
+readFilesTask fname1 fname2
+|> Async.AwaitTask
+|> Async.RunSynchronously
+|> printBytes
+```
+
 ## Sort words by frequency  
 
 ```F#
