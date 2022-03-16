@@ -3,6 +3,8 @@
 
 ## Read file line by line
 
+`File.ReadLines` returns `IEnumerable<string>`
+
 ```F#
 open System.IO
 
