@@ -20,6 +20,33 @@ List.sort words |> printfn "%A"
 List.sortDescending words |> printfn "%A" 
 ```
 
+## Sort descending
+
+```F#
+module Operators =
+    let flip f x y = f y x
+
+let vals = [ 2; 1; 0; -1; -2; 4; 5; 3; 9; 7; -8 ]
+// let vals = [ -2147483648; -1; 0; 1; 1; 2147483647 ]
+
+vals
+|> List.sortByDescending (fun e -> e)
+|> printfn "%A"
+
+vals |> List.sortByDescending id |> printfn "%A"
+vals |> List.sortBy (fun e -> -e) |> printfn "%A" // problems with overflow
+vals |> List.sortBy (~~~) |> printfn "%A"
+vals |> List.sortBy (~-) |> printfn "%A" // problems with overflow
+
+vals
+|> List.sortBy (fun e -> ~~~e)
+|> printfn "%A"
+
+vals
+|> List.sortWith (Operators.flip compare)
+|> printfn "%A"
+```
+
 ## Words ci
 
 ```F#
