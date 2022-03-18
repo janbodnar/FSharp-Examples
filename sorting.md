@@ -137,3 +137,104 @@ Console.WriteLine "---------------------"
 
 users |> List.sortBy (fun u -> u.Salary) |> List.iter Console.WriteLine
 ```
+
+## Sort by surnames
+
+```F#
+let names =
+    [ "John Doe"
+      "Lucy Smith"
+      "Benjamin Young"
+      "Robert Brown"
+      "Thomas Moore"
+      "Linda Black"
+      "Adam Smith"
+      "Jane Smith" ]
+
+names
+|> List.sortBy (fun e -> e.Split(" ")[1])
+|> printfn "%A"
+
+names
+|> List.sortBy (fun e -> let a = e.Split(" ") in Array.get a 1)
+|> printfn "%A"
+```
+
+## Sort by multiple fields
+
+```F#
+type User =
+    { FirstName: string
+      LastName: string
+      Salary: int }
+    override this.ToString() =
+        $"{this.FirstName} {this.LastName}, {this.Salary}"
+
+let users =
+    [ { FirstName = "John"
+        LastName = "Doe"
+        Salary = 1230 }
+      { FirstName = "Lucy"
+        LastName = "Novak"
+        Salary = 670 }
+      { FirstName = "Ben"
+        LastName = "Walter"
+        Salary = 2050 }
+      { FirstName = "Robin"
+        LastName = "Brown"
+        Salary = 2300 }
+      { FirstName = "Vivien"
+        LastName = "Doe"
+        Salary = 1010 }
+      { FirstName = "Joe"
+        LastName = "Draker"
+        Salary = 1190 }
+      { FirstName = "Albert"
+        LastName = "Novak"
+        Salary = 1930 }
+      { FirstName = "Janet"
+        LastName = "Doe"
+        Salary = 980 }
+      { FirstName = "Ken"
+        LastName = "Novak"
+        Salary = 2990 } ]
+
+users
+|> List.sortBy (fun e -> e.LastName, e.Salary)
+|> List.iter (fun e -> printfn $"{e}")
+```
+
+## Custom comparator
+
+The example compares words by lengh; if they are of same  
+length then by alphabetical order, case insensitively
+
+```F#
+let cmp (s1:string) (s2:string) = function
+  match compare s2.Length s1.Length with
+    | 0 -> compare (s1.ToLower()) (s2.ToLower())
+    | x -> x
+ 
+let words =
+    [ "sky"
+      "eye"
+      "Sun"
+      "Albert"
+      "cloud"
+      "by"
+      "Earth"
+      "else"
+      "of"
+      "atom"
+      "brown"
+      "lie"
+      "a"
+      "be"
+      "den"
+      "kite"
+      "to"
+      "town" ]
+ 
+let sorted = List.sortWith cmp words
+printfn "%A" sorted
+```
