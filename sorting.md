@@ -20,7 +20,7 @@ List.sort words |> printfn "%A"
 List.sortDescending words |> printfn "%A" 
 ```
 
-## Wort words ci
+## Words ci
 
 ```F#
 let words =
@@ -40,4 +40,60 @@ let words =
 
 words |> List.sort |> printfn "%A" 
 words |> List.sortBy (fun e -> e.ToLower()) |> printfn "%A" 
+```
+
+## Sort ints lex. & words by length
+
+```F#
+let vals = [2; 22; 12; 7; 32; 9; 3; 13; 31; -12; 8; 10; 11]
+let words = ["sky"; "cloud"; "by"; "atomic"; "brown"; "a"; "den"; "curious"]
+
+vals |> List.sortBy string |> printfn "%A" 
+words |> List.sortBy (fun e -> e.Length) |> printfn "%A" 
+```
+
+## Sort tuples
+
+```F#
+let vals =
+    [ (1, 3)
+      (4, 3)
+      (3, 0)
+      (4, 0)
+      (0, 1)
+      (0, 3)
+      (2, 2)
+      (0, 0)
+      (1, 1)
+      (3, 3) ]
+
+vals |> List.sortBy (fun (e, _) -> e) |> printfn "%A" 
+vals |> List.sortBy fst |> printfn "%A" 
+
+printfn "------------------------" 
+
+vals |> List.sortBy (fun (_, e) -> e) |> printfn "%A" 
+vals |> List.sortBy snd |> printfn "%A" 
+```
+
+---
+
+```F#
+let students =
+    [ ("Patrick", 89)
+      ("Lucia", 92)
+      ("Veronika", 72)
+      ("Robert", 78)
+      ("Maria", 65)
+      ("Andrea", 51)
+      ("Ondrej", 45) ]
+
+
+students |> List.sortBy fst |> printfn "%A" 
+students |> List.sortByDescending fst |> printfn "%A" 
+
+printfn "------------------------------------" 
+
+students |> List.sortBy snd |> printfn "%A" 
+students |> List.sortByDescending snd |> printfn "%A" 
 ```
