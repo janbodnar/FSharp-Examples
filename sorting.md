@@ -97,3 +97,43 @@ printfn "------------------------------------"
 students |> List.sortBy snd |> printfn "%A" 
 students |> List.sortByDescending snd |> printfn "%A" 
 ```
+
+## Sort records
+
+```F#
+open System
+
+type User =
+    { FirstName: string
+      LastName: string
+      Salary: int }
+
+let users =
+    [ { FirstName = "John"
+        LastName = "Doe"
+        Salary = 1230 }
+      { FirstName = "John"
+        LastName = "Doe"
+        Salary = 1230 }
+      { FirstName = "Lucy"
+        LastName = "Novak"
+        Salary = 670 }
+      { FirstName = "Ben"
+        LastName = "Walter"
+        Salary = 2050 }
+      { FirstName = "Robin"
+        LastName = "Brown"
+        Salary = 2300 }
+      { FirstName = "Joe"
+        LastName = "Draker"
+        Salary = 1190 }
+      { FirstName = "Janet"
+        LastName = "Doe"
+        Salary = 980 } ]
+
+users |> List.sortBy (fun u -> u.LastName) |> List.iter Console.WriteLine
+
+Console.WriteLine "---------------------"
+
+users |> List.sortBy (fun u -> u.Salary) |> List.iter Console.WriteLine
+```
