@@ -243,17 +243,17 @@ printfn "%A" sorted
 
 ```F#
 type Rating =
-    | D = 11
-    | DPlus = 10
-    | CMinus = 9
-    | C = 8
-    | CPlus = 7
-    | B = 6
-    | BPlus = 5
-    | BMinus = 4
-    | AMinus = 3
-    | A = 2
     | APlus = 1
+    | A = 2
+    | AMinus = 3
+    | BPlus = 4
+    | B = 5
+    | BMinus = 6
+    | CPlus = 7
+    | C = 8
+    | CMinus = 9
+    | DPlus = 10
+    | D = 11
 
 type Product =
     { Name: string
