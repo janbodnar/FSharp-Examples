@@ -238,3 +238,47 @@ let words =
 let sorted = List.sortWith cmp words
 printfn "%A" sorted
 ```
+
+## Sort by rating
+
+```F#
+type Rating =
+    | D = 11
+    | DPlus = 10
+    | CMinus = 9
+    | C = 8
+    | CPlus = 7
+    | B = 6
+    | BPlus = 5
+    | BMinus = 4
+    | AMinus = 3
+    | A = 2
+    | APlus = 1
+
+type Product =
+    { Name: string
+      Rating: Rating }
+    override this.ToString() = $"{this.Name}, {this.Rating}"
+
+let products =
+    [ { Name = "Product A"
+        Rating = Rating.A }
+      { Name = "Product B"
+        Rating = Rating.AMinus }
+      { Name = "Product C"
+        Rating = Rating.B }
+      { Name = "Product D"
+        Rating = Rating.APlus }
+      { Name = "Product E"
+        Rating = Rating.D }
+      { Name = "Product F"
+        Rating = Rating.C }
+      { Name = "Product G"
+        Rating = Rating.CMinus }
+      { Name = "Product G"
+        Rating = Rating.CPlus } ]
+
+products
+|> List.sortBy (fun e -> e.Rating)
+|> List.iter (printfn "%O")
+```
