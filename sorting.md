@@ -20,3 +20,24 @@ List.sort words |> printfn "%A"
 List.sortDescending words |> printfn "%A" 
 ```
 
+## Wort words ci
+
+```F#
+let words =
+    [ "sky"
+      "Sun"
+      "Albert"
+      "cloud"
+      "by"
+      "Earth"
+      "else"
+      "atom"
+      "brown"
+      "a"
+      "den"
+      "kite"
+      "town" ]
+
+words |> List.sort |> printfn "%A" 
+words |> List.sortBy (fun e -> e.ToLower()) |> printfn "%A" 
+```
