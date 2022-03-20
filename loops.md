@@ -45,6 +45,26 @@ for i in [1; 2; 3; 4; 5; 6; 7; 6; 5; 4; 3; 2; 1] do
     printf "\n"
 ```
 
+# for loop and functions
+
+```F#
+open System
+
+let rand1 () =
+    Random(DateTime.Now.Millisecond).NextInt64(1, 10)
+
+let rand2 () =
+    Random(DateTime.Now.Millisecond).NextInt64(10, 20)
+
+for e in rand1 () .. rand2 () do
+    printfn "%d" e
+
+printfn "--------------------------------"
+
+for e = int (rand1 ()) to int (rand2 ()) do
+    printfn "%d" e
+```
+
 ## While loop
 
 ```F#
