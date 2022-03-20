@@ -132,21 +132,12 @@ selectParagraphs ()
 
 ```F#
 #r "nuget: Microsoft.Playwright"
-// I am lazy and I don't want to convert Task to FSharpAsync all the time. Let's
-// use Task computation expression from Ply nuget package:
-// #r "nuget: Ply"
-
-// https://mcode.it/blog/2021-07-16-playwright/?hmsr=joyk.com&utm_source=joyk.com&utm_medium=referral
 
 open Microsoft.Playwright
-// open FSharp.Control.Tasks
 open System.Threading.Tasks
 
 type PlaywrightBuilder() =
-    // Required - creates default value, which returned value can be passed over
-    // next custom keywords. The type returned by the next methods has to
-    // conform to the returned value type. So each function will have such
-    // signature; Task<IPage> * ... (our parameters) ... -> Task<IPage>.
+
     member _.Yield _ =
         task {
             let! pw = Playwright.CreateAsync()
@@ -154,8 +145,6 @@ type PlaywrightBuilder() =
             return! browser.NewPageAsync()
         }
 
-    // CustomOperation attribute is the keyword definition that makes it
-    // possible to use in our computation expression.
     [<CustomOperation "visit">]
     member _.Visit(page: Task<IPage>, url) =
         task {
@@ -164,7 +153,6 @@ type PlaywrightBuilder() =
             return page
         }
 
-    // And now we go with the repeatable boring stuff...
     [<CustomOperation "screenshot">]
     member _.Screenshot(page: Task<IPage>, name) =
         task {
@@ -204,7 +192,7 @@ type PlaywrightBuilder() =
             let! _ = page.WaitForSelectorAsync(selector)
             return page
         }
-// Let's create our computation expression and use it!
+        
 let playwright = PlaywrightBuilder()
 
 playwright {
