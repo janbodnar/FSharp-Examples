@@ -213,27 +213,6 @@ let rec printNtimes n =
         printNtimes (n-1)
 ```
 
-## Iteration
-
-### Classic loops
-
-```f#
-let vals = [ 1; 2; 3; 4; 5 ]
-
-for e in vals do
-    printfn "%d" e
-
-for e in 1 .. vals.Length do
-    printfn "%d" e
-
-let mutable i = 0
-
-while i < vals.Length do
-    printfn "%d" vals.[i]
-    i <- i + 1
-```
-Traditional imperative loops are available; however, functional approach is   
-preferred.  
 
 ### Functional iteration
 
