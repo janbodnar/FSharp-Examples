@@ -14,7 +14,8 @@ for wal in vals do
     | n when n > 0 -> printfn "%d is positive" n
     | _ -> printfn "zero"
 ```    
-Printing a message for each value of a list.  
+Printing a message for each value of a list.  With `_`  
+we create an exhaustive matching.  
 
 ```F#
 open System 
@@ -90,4 +91,5 @@ let chx =
 printfn "%A" chx
 ```
 
-Another variant of the previous example.  
+Another variant of the previous example. The `function` can  
+replace `match/with`.  
