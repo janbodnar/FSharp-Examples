@@ -181,6 +181,37 @@ f n
 ```
 Pattern matching with exception handling.  
 
+### Matching types with :? operator
+
+```F#
+open System.Collections
+
+type User =
+    { FirstName: string
+      LastName: string
+      Occupation: string }
+
+let vals = new ArrayList()
+vals.Add(1.2)
+vals.Add(22)
+vals.Add(true)
+vals.Add("falcon")
+
+vals.Add(
+    { FirstName = "John"
+      LastName = "Doe"
+      Occupation = "gardener" }
+)
+
+for wal in vals do
+    match wal with
+    | :? int -> printfn "an integer"
+    | :? float -> printfn "a float"
+    | :? bool -> printfn "a boolean"
+    | :? User -> printfn "a User"
+    | _ -> ignore ()
+```
+
 ### Pattern matching with records
 
 ```F#
