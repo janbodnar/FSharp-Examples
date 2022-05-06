@@ -15,6 +15,11 @@ create a new dotnet F# project
 $ dotnet fsi example.fsx
 ```
 
+```F#
+#r "nuget: Microsoft.Playwright"
+```
+import a nuget library in F# script  
+
 ## Settings 
 
 ### global.json
