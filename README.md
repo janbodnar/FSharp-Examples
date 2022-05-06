@@ -4,14 +4,14 @@
 F# is a functional language for .NET. Highly influenced by OCalm, first appeared  
 in 2005.  
 
-```bash
+```shell
 $ dotnet new console -lang F# -o Simple 
 $ cd Simple  
 $ dotnet run
 ```
 create a new dotnet F# project  
 
-```bash
+```shell
 $ dotnet fsi example.fsx
 ```
 run F# scripts  
