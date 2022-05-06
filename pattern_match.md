@@ -16,6 +16,8 @@ for wal in vals do
 Printing a message for each value of a list using `when` guards.  
 With `_`  we create an exhaustive matching.  
 
+---
+
 ```F#
 let vals =
     [ [ 1; 2; 3 ]
@@ -35,8 +37,6 @@ for sub in vals do
 Choosing all sublists with two-elements with pattern matching and  
 for loop.  
 
----
-
 ```F#
 let vals =
     [ [ 1; 2; 3 ]
@@ -46,9 +46,12 @@ let vals =
       [ 8; 8 ]
       [ 0 ] ]
 
-let rec twoels (sub: int list list) =
-    match sub with
-    | [ x; y ] -> printfn "%A" [ x; y ]
+let rec twoels (data: int list list) : unit =
+    match data with
+    | h :: t when h.Length = 2 ->
+        printfn "%A" h
+        twoels t
+    | h :: t when h.Length <> 2 -> twoels t
     | _ -> ignore ()
 
 twoels vals
@@ -56,6 +59,7 @@ twoels vals
 
 Choosing 2-e sublists with recursive algorithms.  
 
+---
 
 ```F#
 open System 
