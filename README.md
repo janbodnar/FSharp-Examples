@@ -8,7 +8,9 @@ in 2005.
 `$ cd Simple`  
 `$ dotnet run`  
 
-## global.json
+## Settings 
+
+### global.json
 
 dotnet and IDEs respect the `global.json` settings file.  
 
@@ -20,6 +22,8 @@ dotnet and IDEs respect the `global.json` settings file.
   }
 }
 ```
+
+### settings.json
 
 Set formatter in Code.  
 
