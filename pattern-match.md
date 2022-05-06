@@ -238,3 +238,34 @@ for user in users do
     | { LastName = "Doe" } -> printfn "%A" user
     | _ -> ()
 ```
+
+## Multiple guards 
+
+```F#
+type User =
+    { name: string
+      salary: int
+      years: int }
+
+let users =
+    [ { name = "John Doe"
+        salary = 1250
+        years = 4 }
+      { name = "Jane Doe"
+        salary = 850
+        years = 6 }
+      { name = "Roger Roe"
+        salary = 1120
+        years = 7 }
+      { name = "Peter Smith"
+        salary = 780
+        years = 2 }
+      { name = "Sam Walter"
+        salary = 2250
+        years = 8 } ]
+
+for user in users do
+    match user with
+    | user when user.salary > 1000 && user.years > 5 -> printfn "%A" user
+    | _ -> ()
+```
