@@ -61,9 +61,7 @@ let getVal () =
     match Random().Next(1, 4) with
     | 1 -> A
     | 2 -> B
-    | 3 -> C
-    | x -> failwithf "%i is out of range" x
-
+    | _ -> C
 
 let chx = [ for _ in 1..7 -> getVal () ]
 printfn "%A" chx
