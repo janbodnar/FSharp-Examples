@@ -17,6 +17,7 @@ $ dotnet fsi example.fsx
 run F# scripts  
 
 create an alias with `alias fx='_fsi(){ dotnet fsi "$@";}; _fsi'`
+and run `fx simple.fsx`  
 
 ## Settings 
 
