@@ -17,6 +17,36 @@ for wal in vals do
 Printing a message for each value of a list.  
 
 ```F#
+let rand = new Random()
+
+let days =
+    [ "monday"
+      "tuesday"
+      "wednesday"
+      "thursday"
+      "friday"
+      "saturday"
+      "sunday" ]
+
+let d = days[rand.Next(days.Length)]
+
+let ret =
+    match d with
+    | "monday"
+    | "tuesday"
+    | "wednesday"
+    | "thursday"
+    | "friday" -> "weekday"
+    | "saturday"
+    | "sunday" -> "weekend"
+    | w -> failwithf "%s is out of range" w
+
+printfn "%s %s" ret d
+```
+
+Categorizing values.  
+
+```F#
 type Choices =
     | A
     | B
@@ -34,3 +64,24 @@ let chx = [ for _ in 1..7 -> getVal () ]
 printfn "%A" chx
 ```
 Generating a list of random choices.  
+
+```F#
+type Choices =
+    | A
+    | B
+    | C
+
+let getVal =
+    function
+    | 1 -> A
+    | 2 -> B
+    | _ -> C
+
+let chx =
+    [ for _ in 1..7 do
+          yield getVal (Random().Next(1, 4)) ]
+
+printfn "%A" chx
+```
+
+Another variant of the previous example.  
