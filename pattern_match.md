@@ -29,7 +29,7 @@ let vals =
 let twoels (sub: int list) =
     match sub with
     | [ x; y ] -> printfn "%A" [ x; y ]
-    | _ -> ignore ()
+    | _ -> ()
 
 for sub in vals do
     twoels sub
@@ -52,7 +52,7 @@ let rec twoels (data: int list list) : unit =
         printfn "%A" h
         twoels t
     | h :: t when h.Length <> 2 -> twoels t
-    | _ -> ignore ()
+    | _ -> ()
 
 twoels vals
 ```
@@ -209,7 +209,7 @@ for wal in vals do
     | :? float -> printfn "a float"
     | :? bool -> printfn "a boolean"
     | :? User -> printfn "a User"
-    | _ -> ignore ()
+    | _ -> ()
 ```
 
 ### Pattern matching with records
@@ -234,5 +234,5 @@ let users =
 for user in users do
     match user with
     | { LastName = "Doe" } -> printfn "%A" user
-    | _ -> ignore ()
+    | _ -> ()
 ```
