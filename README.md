@@ -21,6 +21,15 @@ dotnet and IDEs respect the `global.json` settings file.
 }
 ```
 
+Set formatter.  
+
+```
+"[fsharp]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "Ionide.Ionide-fsharp"
+},
+```
+
 Turn off telemetry  
 
 `export DOTNET_CLI_TELEMETRY_OPTOUT=1`  
