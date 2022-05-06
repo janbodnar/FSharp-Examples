@@ -35,6 +35,26 @@ for sub in vals do
 Choosing all sublists with two-elements with pattern matching and  
 for loop.  
 
+---
+
+```F#
+let vals =
+    [ [ 1; 2; 3 ]
+      [ 1; 2 ]
+      [ 3; 4 ]
+      [ 6; 5; 3; 2; 4; 5 ]
+      [ 8; 8 ]
+      [ 0 ] ]
+
+let rec twoels (sub: int list list) =
+    match sub with
+    | [ x; y ] -> printfn "%A" [ x; y ]
+    | _ -> ignore ()
+
+twoels vals
+```
+
+Choosing 2-e sublists with recursive algorithms.  
 
 
 ```F#
