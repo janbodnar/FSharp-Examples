@@ -153,6 +153,8 @@ traverse vals2
 traverse vals3
 ```
 
+### Head & tail
+
 Going over a list with recursive pattern matching and  
 `t::h` cons pattern.  
 
@@ -179,3 +181,27 @@ f n
 ```
 Pattern matching with exception handling.  
 
+### Pattern matching with records
+
+```F#
+type User =
+    { FirstName: string
+      LastName: string
+      Occupation: string }
+
+let users =
+    [ { FirstName = "John"
+        LastName = "Doe"
+        Occupation = "gardener" }
+      { FirstName = "Jane"
+        LastName = "Doe"
+        Occupation = "teacher" }
+      { FirstName = "Roger"
+        LastName = "Roe"
+        Occupation = "driver" } ]
+
+for user in users do
+    match user with
+    | { LastName = "Doe" } -> printfn "%A" user
+    | _ -> ignore ()
+```
