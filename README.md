@@ -11,10 +11,6 @@ $ dotnet run
 ```
 create a new dotnet F# project  
 
-```
-$ dotnet fsi example.fsx
-```
-
 ```F#
 #r "nuget: Microsoft.Playwright"
 ```
