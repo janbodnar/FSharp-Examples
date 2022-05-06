@@ -268,4 +268,12 @@ for user in users do
     match user with
     | user when user.salary > 1000 && user.years > 5 -> printfn "%A" user
     | _ -> ()
+    
+printfn "------------------------"
+
+users
+|> List.iter (fun e ->
+    match e with
+    | user when user.salary > 1000 && user.years > 5 -> printfn "%A" user
+    | _ -> ())    
 ```
