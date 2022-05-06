@@ -1,8 +1,7 @@
 # Match expressions
 
-The match expression provides branching control that  
-is based on the comparison of an expression with  
-a set of patterns.  
+The match expression provides branching control that is based on  
+the comparison of an expression with a set of patterns.  
 
 ```F#
 let vals = [ 1; -3; 5; 6; 0; 4; -9; 11; 22; -7 ]
@@ -16,6 +15,27 @@ for wal in vals do
 ```    
 Printing a message for each value of a list using `when` guards.  
 With `_`  we create an exhaustive matching.  
+
+```F#
+let vals =
+    [ [ 1; 2; 3 ]
+      [ 1; 2 ]
+      [ 3; 4 ]
+      [ 8; 8 ]
+      [ 0 ] ]
+
+let twoels (sub: int list) =
+    match sub with
+    | [ x; y ] -> printfn "%A" [ x; y ]
+    | _ -> ignore ()
+
+for sub in vals do
+    twoels sub
+```
+Choosing all sublists with two-elements with pattern matching and  
+for loop.  
+
+
 
 ```F#
 open System 
