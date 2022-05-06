@@ -34,7 +34,7 @@ let twoels (sub: int list) =
 for sub in vals do
     twoels sub
 ```
-Choosing all sublists with two-elements with pattern matching and  
+Printing all sublists with two-elements with pattern matching and  
 for loop.  
 
 ```F#
@@ -57,7 +57,7 @@ let rec twoels (data: int list list) : unit =
 twoels vals
 ```
 
-Choosing 2-e sublists with recursive algorithms.  
+Printing 2-e sublists with recursive algorithms.  
 
 ---
 
