@@ -153,10 +153,12 @@ traverse vals2
 traverse vals3
 ```
 
-### Head & tail
+## Head & tail
 
 Going over a list with recursive pattern matching and  
 `t::h` cons pattern.  
+
+## Exception handling
 
 ```F#
 open System
@@ -181,7 +183,7 @@ f n
 ```
 Pattern matching with exception handling.  
 
-### Matching types with :? operator
+## Matching types with :? operator
 
 ```F#
 open System.Collections
@@ -212,7 +214,7 @@ for wal in vals do
     | _ -> ()
 ```
 
-### Pattern matching with records
+## Pattern matching with records
 
 ```F#
 type User =
