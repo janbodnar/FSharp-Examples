@@ -14,8 +14,8 @@ for wal in vals do
     | n when n > 0 -> printfn "%d is positive" n
     | _ -> printfn "zero"
 ```    
-Printing a message for each value of a list.  With `_`  
-we create an exhaustive matching.  
+Printing a message for each value of a list using `when` guards.  
+With `_`  we create an exhaustive matching.  
 
 ```F#
 open System 
@@ -91,3 +91,23 @@ printfn "%A" chx
 
 Another variant of the previous example. The `function` can  
 replace `match/with`.  
+
+```F#
+let vals = [ 1..7 ]
+let vals2 = [ 1; 2; -1; -4 ]
+let vals3 = []
+
+let rec traverse e =
+    match e with
+    | h :: t ->
+        printfn "%d" h
+        traverse t
+    | [] -> printfn ""
+
+traverse vals
+traverse vals2
+traverse vals3
+```
+
+Going over a list with recursive pattern matching and  
+`t::h` cons pattern.  
