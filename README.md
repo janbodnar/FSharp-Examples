@@ -21,9 +21,9 @@ dotnet and IDEs respect the `global.json` settings file.
 }
 ```
 
-Set formatter.  
+Set formatter in Code.  
 
-```
+```json
 "[fsharp]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "Ionide.Ionide-fsharp"
