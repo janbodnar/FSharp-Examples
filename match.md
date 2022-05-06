@@ -17,6 +17,8 @@ for wal in vals do
 Printing a message for each value of a list.  
 
 ```F#
+open System 
+
 let rand = new Random()
 
 let days =
@@ -47,6 +49,8 @@ printfn "%s %s" ret d
 Categorizing values.  
 
 ```F#
+open System 
+
 type Choices =
     | A
     | B
@@ -66,6 +70,8 @@ printfn "%A" chx
 Generating a list of random choices.  
 
 ```F#
+open System 
+
 type Choices =
     | A
     | B
