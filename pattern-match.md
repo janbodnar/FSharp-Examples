@@ -34,8 +34,26 @@ let twoels (sub: int list) =
 for sub in vals do
     twoels sub
 ```
-Printing all sublists with two-elements with pattern matching and  
-for loop.  
+Printing 2-e sublists with pattern matching and for loop.  
+
+```F#
+let vals =
+    [ [ 1; 2; 3 ]
+      [ 1; 2 ]
+      [ 3; 4 ]
+      [ 6; 5; 3; 2; 4; 5 ]
+      [ 8; 8 ]
+      [ 0 ] ]
+
+let twoels =
+    function
+    | [ x; y ] -> printfn "%A" [ x; y ]
+    | _ -> ()
+
+vals |> List.map twoels
+```
+
+Printing 2-e sublists with pattern matching and List.map.  
 
 ```F#
 let vals =
