@@ -1,6 +1,7 @@
 # Random
 
-Generating random values
+Generating random values became more robust. Since 2016, the default seed has been changed 
+from `Environment.TickCount` to `Guid.NewGuid().GetHashCode()`.
 
 ## Print random value
 
