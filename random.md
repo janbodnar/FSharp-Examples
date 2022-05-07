@@ -1,7 +1,8 @@
 # Random
 
-Generating random values became more robust. Since 2016, the default seed has been changed 
-from `Environment.TickCount` to `Guid.NewGuid().GetHashCode()`.
+Generating random values became more robust. Since 2016, in .NET Core the default seed has been changed  
+from `Environment.TickCount` to `Guid.NewGuid().GetHashCode()`. It makes 'safe' to create  
+several random instances in a loop.
 
 ## Print random value
 
