@@ -54,6 +54,22 @@ let chx = [ for _ in 1..7 -> getVal () ]
 printfn "%A" chx
 ```
 
+## Pick random values from list
+
+```F#
+open System
+
+let rnd = new Random()
+
+let vals = [ 1..100 ]
+let idx = [ for _ in 1..7 -> rnd.Next(0, 100) ]
+
+let res = idx |> List.map (fun e -> (List.item e vals))
+printfn "%A" res
+```
+Pick seven values from a list randomly.  
+
+
 ## Random vals from endless seq
 
 ```F#
