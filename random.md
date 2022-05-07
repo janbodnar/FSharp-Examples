@@ -2,6 +2,25 @@
 
 Generating random values
 
+## Generate a random list of values 
+
+```F#
+open System
+
+type Choices =
+    | A
+    | B
+    | C
+
+let getVal () =
+    match Random().Next(1, 4) with
+    | 1 -> A
+    | 2 -> B
+    | _ -> C
+
+let chx = [ for _ in 1..7 -> getVal () ]
+printfn "%A" chx
+```
 
 ## Random vals from endless seq
 
