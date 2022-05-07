@@ -15,8 +15,22 @@ for _ in 1..20 do
 
 printfn ""
 ```
-Print 20 random values between 1..100.  
+Print 20 random values between 1 and 99. Upper bound is exclusive.  
 
+## Get a list of random integers 
+
+```F#
+open System
+
+let rnd = Random()
+
+let rndVals =
+    [ for i in 0..100 do
+          rnd.Next(1, 101) ]
+
+printfn "%A" rndVals
+```
+100 random ints from 1..100
 
 ## Generate a random list of values 
 
