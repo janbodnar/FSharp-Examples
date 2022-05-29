@@ -274,6 +274,42 @@ for e = 4 downto 1 do
     Console.WriteLine(e)
 ```
 
+## Extension methods
+
+Adding new methods to existing types  
+
+```f#
+open System.Globalization
+
+type System.String with
+    member this.Reverse =
+        seq {
+            let enumer = StringInfo.GetTextElementEnumerator(this)
+
+            while enumer.MoveNext() do
+                yield enumer.GetTextElement()
+        }
+        |> Array.ofSeq
+        |> Array.rev
+        |> String.concat ""
+
+
+let w = "falcon"
+printfn "%s" w
+printfn "%s" w.Reverse
+
+let w2 = "žlč"
+printfn "%s" w2
+printfn "%s" w2.Reverse
+
+let w3 = "नमस्ते"
+printfn "%s" w3
+printfn "%s" w3.Reverse
+
+let w4 = "Æà𐀀"
+printfn "%s" w4
+printfn "%s" w4.Reverse
+```
 
 ## not is a function 
 
