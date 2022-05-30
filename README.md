@@ -539,7 +539,56 @@ printfn "%A" output
 
 partition files into two groups: txt files and the rest  
 
+## Discriminated unions
 
+```F#
+type Suit =
+    | Spades
+    | Clubs
+    | Diamonds
+    | Hearts
+
+type Face =
+    | Two
+    | Three
+    | Four
+    | Five
+    | Six
+    | Seven
+    | Eight
+    | Nine
+    | Ten
+    | Jack
+    | Queen
+    | King
+    | Ace
+
+type Card = { Face: Face; Suit: Suit }
+
+let suits = [ Spades; Clubs; Diamonds; Hearts ]
+
+let faces =
+    [ Two
+      Three
+      Four
+      Five
+      Six
+      Seven
+      Eight
+      Nine
+      Ten
+      Jack
+      Queen
+      King
+      Ace ]
+
+let deck =
+    [ for suit in suits do
+          for face in faces do
+              yield { Face = face; Suit = suit } ]
+
+deck |> printfn "%A"
+```
 
 ## Active patterns
 
