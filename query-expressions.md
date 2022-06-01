@@ -158,4 +158,4 @@ query {
 |> Seq.iter (fun e -> printfn "%A" e)
 ```
 
-GroupBy and  sum  
+`groupBy` and `Sum`  
