@@ -126,3 +126,36 @@ sorted |> Seq.iter Console.WriteLine
 
 `sortBy`, `thenBy` operators  
 
+
+```F#
+open System.Linq
+
+type Revenue =
+    { Id: int
+      Quarter: string
+      Amount: int }
+
+let revenues = [
+    { Id = 1; Quarter = "Q1"; Amount = 2340 };
+    { Id = 2; Quarter = "Q1"; Amount = 1200 };
+    { Id = 3; Quarter = "Q1"; Amount = 980 };
+    { Id = 4; Quarter = "Q2"; Amount = 340 };
+    { Id = 5; Quarter = "Q2"; Amount = 780 };
+    { Id = 6; Quarter = "Q3"; Amount = 2010 };
+    { Id = 7; Quarter = "Q3"; Amount = 3370 };
+    { Id = 8; Quarter = "Q4"; Amount = 540 }
+]
+
+query {
+    for revenue in revenues do
+        groupBy revenue.Quarter into g
+        where (g.Count() = 2)
+
+        select
+            {| Quarter = g.Key
+               Total = g.Sum(fun c -> c.Amount) |}
+}
+|> Seq.iter (fun e -> printfn "%A" e)
+```
+
+GroupBy and  sum  
