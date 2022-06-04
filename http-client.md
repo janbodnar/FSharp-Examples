@@ -1,6 +1,35 @@
 # HttpClient
 
-# Execute multiple requests asynchronously
+## Download image async
+
+```F#
+open System.Net.Http
+open System.IO
+
+let getImage (url: string) =
+
+    task {
+        use httpClient = new HttpClient()
+
+        // let url = "http://webcode.me/favicon.ico"
+        let! imageBytes = httpClient.GetByteArrayAsync(url)
+
+        return imageBytes
+    }
+
+
+let url = "http://webcode.me/favicon.ico"
+
+let data =
+    getImage (url)
+    |> Async.AwaitTask
+    |> Async.RunSynchronously
+
+File.WriteAllBytes("favicon.ico", data)
+```
+
+
+## Execute multiple requests async
 
 ```F#
 open System.Net.Http
