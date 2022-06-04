@@ -19,6 +19,19 @@ printfn ""
 ```
 Print 20 random values between 1 and 99. Upper bound is exclusive.  
 
+## Pick a random value from list
+
+```F#
+open System
+
+let words = ["sky"; "cup"; "tall"; "falcon"; "cloud"]
+
+let rnd = Random()
+let re = words |> List.item (rnd.Next(words.Length))
+
+printfn "%s" re
+```
+
 ## Get a list of random integers 
 
 ```F#
