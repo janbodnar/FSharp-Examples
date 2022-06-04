@@ -168,6 +168,24 @@ cards |> Seq.sortBy(fun _ -> rnd.Next())
 Seq.iteri iterates over a list with indexes  
 A shuffle function is expected in .NET 7  
 
+## Download image
+
+Blocking request  
+
+```f#
+#r "nuget: FSharp.Data"
+
+open FSharp.Data
+open System.IO
+
+let url = "http://webcode.me/favicon.ico"
+let body =  Http.Request(url).Body
+
+match body with
+| Binary bytes ->
+    File.WriteAllBytes("favicon2.ico", bytes)
+| Text(_) -> failwith "Not Implemented"
+```
 
 ## Ranges 
 
