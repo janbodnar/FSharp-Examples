@@ -183,7 +183,7 @@ let body =  Http.Request(url).Body
 
 match body with
 | Binary bytes ->
-    File.WriteAllBytes("favicon2.ico", bytes)
+    File.WriteAllBytes("favicon.ico", bytes)
 | Text(_) -> failwith "Not Implemented"
 ```
 
