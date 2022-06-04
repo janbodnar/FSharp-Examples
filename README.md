@@ -126,6 +126,48 @@ let res = List.map (fun x -> x * x) [1;2;3;4;5]
 let res2 = [1;2;3;4;5] |> List.map (fun x -> x * x)
 ```
 
+## Shuffle list of strings
+
+The program shuffles a list of emoji cards  
+
+```F#
+open System
+
+let cards = [
+    "🂡"; "🂱"; "🃁"; "🃑";
+    "🂢"; "🂲"; "🃂"; "🃒";
+    "🂣"; "🂳"; "🃃"; "🃓";
+    "🂤"; "🂴"; "🃄"; "🃔";
+    "🂥"; "🂵"; "🃅"; "🃕";
+    "🂦"; "🂶"; "🃆"; "🃖";
+    "🂧"; "🂷"; "🃇"; "🃗";
+    "🂨"; "🂸"; "🂸"; "🂸";
+    "🂩"; "🂩"; "🃉"; "🃙";
+    "🂪"; "🂺"; "🃊"; "🃚";
+    "🂫"; "🂻"; "🃋"; "🃛";
+    "🂭"; "🂽"; "🃍"; "🃝";
+    "🂮"; "🂾"; "🃎"; "🃞"
+]
+
+let show(cards) = 
+   
+    cards |> Seq.iteri (fun i e -> 
+        if i <> 0 && i % 13 = 0 then printf "\n"
+        printf "%s " e
+    )
+
+        
+    printf "\n"
+
+let rnd = Random ()
+
+cards |> Seq.sortBy(fun _ -> rnd.Next()) 
+      |> show
+```
+
+Seq.iteri iterates over a list with indexes  
+A shuffle function is expected in .NET 7  
+
 
 ## Ranges 
 
