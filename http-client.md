@@ -10,8 +10,6 @@ let getImage (url: string) =
 
     task {
         use httpClient = new HttpClient()
-
-        // let url = "http://webcode.me/favicon.ico"
         let! imageBytes = httpClient.GetByteArrayAsync(url)
 
         return imageBytes
