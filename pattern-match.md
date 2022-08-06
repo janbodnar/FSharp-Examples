@@ -3,7 +3,7 @@
 The match expression provides branching control that is based on  
 the comparison of an expression with a set of patterns.  
 
-# Multiple options
+## Multiple options
 
 Multiple options are separeted with |. 
 
@@ -18,7 +18,10 @@ for grade in grades do
     | _ -> printfn "%s" "failed"
 ```
 
+## Guards
 
+Printing a message for each value of a list using `when` guards.  
+With `_`  we create an exhaustive matching.  
 
 ```F#
 let vals = [ 1; -3; 5; 6; 0; 4; -9; 11; 22; -7 ]
@@ -30,8 +33,7 @@ for wal in vals do
     | n when n > 0 -> printfn "%d is positive" n
     | _ -> printfn "zero"
 ```    
-Printing a message for each value of a list using `when` guards.  
-With `_`  we create an exhaustive matching.  
+
 
 ---
 
@@ -126,7 +128,7 @@ let ret =
 printfn "%s %s" ret d
 ```
 
-Categorizing values.  
+# Categorizing values.  
 
 ```F#
 open System 
@@ -145,7 +147,8 @@ let getVal () =
 let chx = [ for _ in 1..7 -> getVal () ]
 printfn "%A" chx
 ```
-Generating a list of random choices.  
+
+## Generating a list of random choices.  
 
 ```F#
 open System 
