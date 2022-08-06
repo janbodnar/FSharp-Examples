@@ -33,9 +33,24 @@ for wal in vals do
     | n when n > 0 -> printfn "%d is positive" n
     | _ -> printfn "zero"
 ```    
+ 
+## Factorial
+
+```F#
+let rec factorial (n: bigint): bigint =
+
+    match n with
+    | n when n = 0I || n = 1I -> 1I
+    | n -> n * factorial (n - 1I)
 
 
----
+for i in 0I..32I do
+
+    let f = factorial(i)
+    printfn $"{i} {f}"
+```
+
+## 2-e lists
 
 ```F#
 let vals =
@@ -128,7 +143,7 @@ let ret =
 printfn "%s %s" ret d
 ```
 
-# Categorizing values.  
+## Categorizing values.  
 
 ```F#
 open System 
