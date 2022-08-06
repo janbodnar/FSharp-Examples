@@ -3,6 +3,23 @@
 The match expression provides branching control that is based on  
 the comparison of an expression with a set of patterns.  
 
+# Multiple options
+
+Multiple options are separeted with |. 
+
+```F#
+
+let grades = ["A"; "B"; "C"; "D"; "E"; "F"; "FX"]
+
+for grade in grades do
+
+    match grade with
+    | "A" | "B" | "C" | "D" | "E" | "F" -> printfn "%s" "passed"
+    | _ -> printfn "%s" "failed"
+```
+
+
+
 ```F#
 let vals = [ 1; -3; 5; 6; 0; 4; -9; 11; 22; -7 ]
 
