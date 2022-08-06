@@ -74,9 +74,6 @@ let res = days
         |> Seq.sortBy (fun _ -> rnd.Next()) 
         |> Seq.take 3
 
-// for _ in 1..3 do
-//     res << days[random.nextInt(days.size()) ]
-
 for e in res do
 
     match e with
