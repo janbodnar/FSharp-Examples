@@ -50,6 +50,45 @@ for i in 0I..32I do
     printfn $"{i} {f}"
 ```
 
+## Enums 
+
+```F#
+open System
+
+type Day =
+    | Monday
+    | Tuesday
+    | Wednesday
+    | Thursday
+    | Friday
+    | Saturday
+    | Sunday
+
+
+let days = [ Monday; Tuesday; Wednesday; Thursday; 
+    Friday; Saturday; Sunday ]
+
+let rnd = new Random()
+
+let res = days 
+        |> Seq.sortBy (fun _ -> rnd.Next()) 
+        |> Seq.take 3
+
+// for _ in 1..3 do
+//     res << days[random.nextInt(days.size()) ]
+
+for e in res do
+
+    match e with
+    | Monday -> printfn "%s" "monday"
+    | Tuesday ->  printfn "%s" "tuesday"
+    | Wednesday ->  printfn "%s" "wednesay"
+    | Thursday ->  printfn "%s" "thursday"
+    | Friday ->  printfn "%s" "friday"
+    | Saturday ->  printfn "%s" "saturday"
+    | Sunday ->  printfn "%s" "sunday"
+```
+
 ## 2-e lists
 
 ```F#
