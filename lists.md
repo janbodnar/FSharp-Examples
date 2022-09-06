@@ -98,6 +98,7 @@ users
 ## List comprehensions
 
 List comprehension is a powerful syntax to generate lists.  
+In F#, we can create list comprehensions with ranges and generators. 
 
 ```F#
 let vals = [ -1; 0; 2; -2; 1; 3; 4; -6 ]
