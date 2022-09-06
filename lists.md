@@ -11,6 +11,27 @@ printfn "%d" vals.Length
 printfn "%A" vals.Tail
 ```
 
+## Indexes
+
+List elements are accessed through their indexes.  
+
+```F#
+let words = ["pen"; "cup"; "dog"; "person";
+    "cement"; "coal"; "spectacles"; "cup"; "bread"]
+
+let w1 = List.item 1 words
+printfn "%s" w1
+
+let w2 = words[0]
+printfn "%s" w2
+
+let i1 = List.findIndex(fun e -> e = "cup") words
+printfn $"The first index of cup is {i1}"
+
+let i2 = List.findIndexBack(fun e -> e = "cup") words
+printfn $"The last index of cup is {i2}"
+```
+
 ## Iteration
 
 ```F#
