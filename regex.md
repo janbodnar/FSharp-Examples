@@ -49,6 +49,26 @@ let rx =
 users |> List.filter rx.IsMatch |> List.iter Console.WriteLine
 ```
 
+## Matching currency symbols
+
+```f#
+open System
+open System.Text.RegularExpressions
+
+Console.OutputEncoding = Text.Encoding.UTF8
+
+let content = @"Currency symbols: ฿ Thailand bath, ₹  Indian rupee, 
+    ₾ Georgian lari, $ Dollar, € Euro, ¥ Yen, £ Pound Sterling";
+
+let pattern = @"\p{Sc}";
+
+let rx = Regex(pattern, RegexOptions.Compiled)
+let matches = rx.Matches(content)
+              |> Seq.map (fun m -> m.Value, m.Index)
+
+matches
+|> Seq.iter (fun (e, idx) -> printfn "%s at %d" e idx)
+```
 
 ## Find all matches and their indexes
 
