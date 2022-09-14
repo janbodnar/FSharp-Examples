@@ -52,7 +52,7 @@ printfn "%A" rndVals
 ```F#
 open System
 
-type Choices =
+type Choice =
     | A
     | B
     | C
