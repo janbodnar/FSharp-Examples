@@ -1,6 +1,8 @@
 # HTTP requests
 
-## 
+## JSON POST request with FSharp.Data
+
+For JSON data, we need to double the {{ and }} or use `sprintf` function.  
 
 ```f#
 #r "nuget: FSharp.Data"
