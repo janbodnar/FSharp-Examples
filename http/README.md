@@ -14,7 +14,7 @@ let myurl = fsi.CommandLineArgs[1]
 let key = "key-id"
 
 let url =
-    $"https://api-gateway.ezoic.com/gateway/cdnservices/clearcache?developerKey={key}"
+    $"https://api-gateway.example.com/gateway/clearcache?developerKey={key}"
 
 let rb = TextRequest (sprintf """{ "url": "%s" }""" myurl)
 let rb2 = TextRequest $"""{{ "url": "{myurl}" }}"""
