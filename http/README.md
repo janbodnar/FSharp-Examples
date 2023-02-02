@@ -1,5 +1,23 @@
 # HTTP requests
 
+
+## GET request with FsHttp
+
+```F#
+#r "nuget: FsHttp"
+
+open FsHttp
+open System
+open FsHttp.DslCE
+
+let resp = get "http://webcode.me" { send }
+Console.WriteLine resp.content.Headers
+Console.WriteLine resp.statusCode
+Console.WriteLine resp.content
+
+resp |> Response.toText |> Console.WriteLine
+```
+
 ## GET request with FSharp.Data  
 
 Addding query parameters and setting a header option.  
