@@ -68,6 +68,8 @@ Run F# script in preview version
 
 ## Create standalone executable 
 
+Use `win-x64` for Windows.  
+
 `$ dotnet publish -r linux-x64 -p:PublishSingleFile=true --self-contained false`
 
 ## Command line args
