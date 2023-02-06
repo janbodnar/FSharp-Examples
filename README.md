@@ -66,6 +66,10 @@ Run F# script in preview version
 
 `$ dotnet fsi --langversion:preview simple.fsx`  
 
+## Create standalone executable 
+
+`$ dotnet publish -r linux-x64 -p:PublishSingleFile=true --self-contained false`
+
 ## Command line args
 
 
