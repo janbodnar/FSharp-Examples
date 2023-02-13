@@ -4,6 +4,10 @@ The match expression provides branching control that is based on
 the comparison of an expression with a set of patterns. In addition to  
 pattern matching expression we have pattern matching function.  
 
+The function version is a short hand for the full match syntax in the  
+special case where the match statement is the entire function and the  
+function only has a single argument (tuples count as one).
+
 ## String constant 
 
 ```F#
