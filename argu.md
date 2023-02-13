@@ -60,8 +60,6 @@ let errHandler =
 
 let parser =
     ArgumentParser.Create<Arguments>(programName = "errhand.fsx", errorHandler = errHandler)
-// let usage = parser.PrintUsage()
-// printf "%s" usage
 
 let res = parser.ParseCommandLine argv
 
