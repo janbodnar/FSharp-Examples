@@ -69,3 +69,41 @@ if res.Contains Print then
     printfn "%s" (res.GetResult(Print))
 ```
 
+## Main command 
+
+Main commands do not need a prefix. The *Mandatory* attribute creates a required argument.  
+
+```F#
+#r "nuget: Argu, 6.1.1"
+
+open Argu
+open System
+
+type Arguments =
+    | [<MainCommand; Mandatory>] Host of string
+
+    interface IArgParserTemplate with
+        member arg.Usage =
+            match arg with
+            | Host _ -> "The host to connect to"
+
+let argv = fsi.CommandLineArgs[1..]
+
+let errHandler =
+    ProcessExiter(
+        colorizer =
+            function
+            | ErrorCode.HelpText -> None
+            | _ -> Some ConsoleColor.Red
+    )
+
+let parser =
+    ArgumentParser.Create<Arguments>(programName = "mainarg.fsx", errorHandler = errHandler)
+
+let usage = parser.PrintUsage()
+printf "%s" usage
+
+let res = parser.ParseCommandLine argv
+printfn "%A" res
+printfn "%s" (res.GetResult Host)
+```
