@@ -3,6 +3,8 @@
 Using Argu library
 The `-h` `--help` is built-in  
 
+## Alternative arg name
+
 
 ```F#
 #r "nuget: Argu, 6.1.1"
