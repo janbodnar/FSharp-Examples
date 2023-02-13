@@ -74,6 +74,7 @@ Use `win-x64` for Windows.
 
 ## Command line args
 
+For more complex examples, use Argu module.  
 
 ```F#
 let args = fsi.CommandLineArgs.[1..] 
