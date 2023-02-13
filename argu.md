@@ -107,3 +107,46 @@ let res = parser.ParseCommandLine argv
 printfn "%A" res
 printfn "%s" (res.GetResult Host)
 ```
+
+## Multiple values for an argument 
+
+The example's `--url` argument takes two values  
+
+`fx multval.fsx --url webcode.me 80`
+
+```F#
+#r "nuget: Argu, 6.1.1"
+
+open Argu
+open System
+
+type Arguments =
+    | Url of host:string * port:int
+
+    interface IArgParserTemplate with
+        member arg.Usage =
+            match arg with
+            | Url _ -> "The host and port to make a connection"
+
+let argv = fsi.CommandLineArgs[1..]
+
+let errHandler =
+    ProcessExiter(
+        colorizer =
+            function
+            | ErrorCode.HelpText -> None
+            | _ -> Some ConsoleColor.Red
+    )
+
+let parser =
+    ArgumentParser.Create<Arguments>(programName = "multval.fsx", errorHandler = errHandler)
+
+let usage = parser.PrintUsage()
+printf "%s" usage
+
+let res = parser.ParseCommandLine argv
+printfn "%A" res
+printfn "%A" (res.GetResult(Url))
+printfn "%s" (fst (res.GetResult(Url)))
+printfn "%d" (snd (res.GetResult(Url)))
+```
