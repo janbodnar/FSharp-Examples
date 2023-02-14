@@ -126,6 +126,43 @@ let main argv =
  Console.WriteLine(filtered)
 ```
 
+## Write simple coloured output
+
+For more complex tasks, see Spectre.  
+
+```F#
+module Cons =
+    open System
+
+    let log =
+        let lockObj = obj ()
+
+        fun color s ->
+            lock lockObj (fun _ ->
+                Console.ForegroundColor <- color
+                printfn "%s" s
+                Console.ResetColor())
+
+    let complete = log ConsoleColor.Magenta
+    let ok = log ConsoleColor.Green
+    let info = log ConsoleColor.DarkBlue
+    let warn = log ConsoleColor.Yellow
+    let error = log ConsoleColor.Red
+
+
+module Main =
+
+    let doTask () =
+        Cons.error <| "failed to download file"
+        Cons.ok <| "success"
+        Cons.info <| "operation finished"
+        Cons.complete <| "task completed"
+        Cons.warn <| "depreciation warning"
+
+    doTask ()
+```
+
+
 ## Standard/reverse call
 
 ```F#
