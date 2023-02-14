@@ -1085,6 +1085,51 @@ let html = chart1.GetHtml()
 File.WriteAllText("linechart.html", html)
 ```
 
+## QuestPDF
+
+Generate PDF files with QuestPDF 
+
+```F#
+#r "nuget: QuestPDF, 2022.12.1"
+
+open QuestPDF.Fluent
+open QuestPDF.Helpers
+open QuestPDF.Infrastructure
+open System.Diagnostics
+
+let filename = "text.pdf"
+
+Document
+    .Create(fun container ->
+        container.Page (fun page ->
+            page.Size(PageSizes.A4)
+            page.Margin(2f, Unit.Centimetre)
+            page.PageColor(Colors.White)
+            page.DefaultTextStyle(fun x -> x.FontSize(20f))
+
+            page
+                .Header()
+                .AlignCenter()
+                .Text("My Title")
+                .SemiBold()
+                .FontSize(36f)
+                .FontColor(Colors.Blue.Medium)
+            |> ignore
+
+            page
+                .Content()
+                .Text(fun text ->
+                    text.EmptyLine() |> ignore
+                    text.Line("A long stormy night") |> ignore
+                    text.EmptyLine() |> ignore
+                    text.Line("An old falcon") |> ignore
+                    text.EmptyLine() |> ignore))
+        |> ignore)
+    .GeneratePdf(filename)
+
+Process.Start("explorer", filename) |> ignore
+```
+
 ## Deedle 
 
 Working with dataframes  
