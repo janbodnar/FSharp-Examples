@@ -104,7 +104,7 @@ printfn "%s" n2
 
 ## Equality
 
-Records have structural equality.
+Records have structural equality. Structural equality is when two objects contain the same values.  
 
 ```F#
 type User =
