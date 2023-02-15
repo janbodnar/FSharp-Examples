@@ -106,15 +106,15 @@ printfn "%s" u.Occupation
 New records can be derived from existing records using `with`.  
 
 ```F#
-type User = { name: string; occupation: string }
+type User = { Name: string; Occupation: string }
 
 let u1 =
-    { name = "John Doe"
-      occupation = "gardener" }
+    { Name = "John Doe"
+      Occupation = "gardener" }
 
 printfn "%A" u1
 
-let u2 = { u1 with name = "Peter Smith"}
+let u2 = { u1 with Name = "Peter Smith"}
 printfn "%A" u2
 ```
 
@@ -123,19 +123,19 @@ printfn "%A" u2
 Deconstructing is unpacking types into single pieces.  
 
 ```F#
-type User = { name: string; Occupation: string }
+type User = { Name: string; Occupation: string }
 
 let u1 =
-    { name = "John Doe"
+    { Name = "John Doe"
       Occupation = "gardener" }
 
-let { name = n1; Occupation = o1 } = u1
+let { Name = n1; Occupation = o1 } = u1
 printfn "%s %s" n1 o1
 
-let { name = _; Occupation = o2 } = u1
+let { Name = _; Occupation = o2 } = u1
 printfn "%s" o2
 
-let { name = n2 } = u1
+let { Name = n2 } = u1
 printfn "%s" n2
 ```
 
