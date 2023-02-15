@@ -162,7 +162,7 @@ printfn "%A" (u1 = u2)
 
 ## Record output 
 
-The `%A` specifier is used for pretty-printing tuples, records and union types.
+The `%A` specifier is used for pretty-printing tuples, records and union types.  
 The `%O` is used for other objects, using `ToString`.  
 
 ```F#
@@ -203,6 +203,34 @@ let u2 = { Name= "Roger Roe"; Occupation="driver" }
 printfn "%s" (u1.Info())
 printfn "%s" (u2.Info())
 ```
+
+## Pattern matching 
+
+Records can be used with pattern matching. 
+
+```F#
+type User =
+    { FirstName: string
+      LastName: string
+      Occupation: string }
+
+let users =
+    [ { FirstName = "John"
+        LastName = "Doe"
+        Occupation = "gardener" }
+      { FirstName = "Jane"
+        LastName = "Doe"
+        Occupation = "teacher" }
+      { FirstName = "Roger"
+        LastName = "Roe"
+        Occupation = "driver" } ]
+
+for user in users do
+    match user with
+    | { LastName = "Doe" } -> printfn "%A" user
+    | _ -> ()
+```
+The example prints all Does.  
 
 
 
