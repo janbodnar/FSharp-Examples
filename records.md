@@ -64,6 +64,26 @@ users
 users |> List.iter (printfn "%A")
 ```
 
+## Order of fields
+
+The order of the fields is not relevant. F# recognizes records by the   
+name and type of its fields.  
+
+```F#
+type User = { Name: string; Occupation: string }
+
+let u1 =
+    { Name = "John Doe"
+      Occupation = "gardener" }
+
+let u2 =
+    { Occupation = "driver"
+      Name = "Roger Roe" }
+
+printfn "%A" u1
+printfn "%A" u2
+```
+
 ## Accessing record fields
 
 The fields of a record are accessed using the dot operator.  
