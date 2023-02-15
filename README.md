@@ -77,7 +77,7 @@ Use `win-x64` for Windows.
 For more complex examples, use Argu module.  
 
 ```F#
-let args = fsi.CommandLineArgs.[1..] 
+let args = fsi.CommandLineArgs[1..] 
 
 let words = Array.collect (fun f -> File.ReadAllLines(f)) args
 printfn "%A" words
@@ -953,7 +953,7 @@ open System
 [<EntryPoint>]
 let main argv =
 
-    let n = argv.[0] |> int
+    let n = argv[0] |> int
 //    let n = 4
 
     let msg = "There are three falcons in the sky."
