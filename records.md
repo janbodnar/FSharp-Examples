@@ -64,6 +64,23 @@ users
 users |> List.iter (printfn "%A")
 ```
 
+## Accessing record fields
+
+The fields of a record are accessed using the dot operator.  
+
+```F#
+type User = { Name: string; Occupation: string }
+
+let u =
+    { Name = "John Doe"
+      Occupation = "gardener" }
+
+printfn "%s" u.Name
+printfn "%s" u.Occupation
+```
+
+
+
 ## The with keyword
 
 New records can be derived from existing records using `with`.  
