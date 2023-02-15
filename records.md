@@ -170,6 +170,40 @@ let u2 =
 
 printfn "%A" u2
 ```
+---
+
+Multiple nested records.  
+
+```F#
+type User =
+    { Name: string
+      Occupation: string
+      Address: Address
+      Colours: Colours }
+
+and Address = { Line1: string; Line2: string }
+and Colours = { Col1: string; Col2: string }
+
+let u1 =
+    { Name = "John Doe"
+      Occupation = "gardener"
+      Address =
+        { Line1 = "Address 1"
+          Line2 = "Address 2" }
+      Colours = { Col1 = "red"; Col2 = "blue" } }
+
+printfn "%A" u1
+
+let u2 =
+    { Name = "Roger Doe"
+      Occupation = "driver"
+      Address =
+        { Line1 = "Address 1"
+          Line2 = "Address 2" }
+      Colours = { Col1 = "red"; Col2 = "green" } }
+
+printfn "%A" u2
+```
 
 ## Equality
 
