@@ -139,6 +139,38 @@ let { Name = n2 } = u1
 printfn "%s" n2
 ```
 
+## Nesting records
+
+We can nest a record inside another record with `and`.  
+
+```F#
+type User =
+    { Name: string
+      Occupation: string
+      Address: Address }
+
+and Address = { Line1: string; Line2: string }
+
+
+let u1 =
+    { Name = "John Doe"
+      Occupation = "gardener"
+      Address =
+        { Line1 = "Address 1"
+          Line2 = "Address 2" } }
+
+printfn "%A" u1
+
+let u2 =
+    { Name = "Roger Doe"
+      Occupation = "driver"
+      Address =
+        { Line1 = "Address 1"
+          Line2 = "Address 2" } }
+
+printfn "%A" u2
+```
+
 ## Equality
 
 Records have structural equality. Structural equality is when two objects contain the same values.  
