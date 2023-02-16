@@ -57,6 +57,13 @@ alias in `.bashrc`
 
 `alias fx='_fsi(){ dotnet fsi "$@";}; _fsi'`
 
+Windows bat file `fx.cmd`  
+
+```
+@echo off
+
+dotnet fsi %*`
+```
 
 F# one-liner  
 
