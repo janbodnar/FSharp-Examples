@@ -62,7 +62,7 @@ Windows bat file `fx.cmd`
 ```
 @echo off
 
-dotnet fsi %*`
+dotnet fsi %*
 ```
 
 F# one-liner  
