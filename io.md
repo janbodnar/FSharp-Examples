@@ -87,6 +87,39 @@ let writeToFile () =
 writeToFile()
 ```
 
+## Copy directory
+
+```F#
+open System
+
+let rec copydr src dst recr =
+    printfn "copydr called"
+
+    if not <| IO.Directory.Exists(src) then
+        let msg = $"Source directory not found: {src}"
+        raise (IO.DirectoryNotFoundException(msg))
+
+    if not <| IO.Directory.Exists(dst) then
+        IO.Directory.CreateDirectory(dst) |> ignore
+
+    let srcDir = new IO.DirectoryInfo(src)
+
+    for file in srcDir.GetFiles() do
+        let temppath = IO.Path.Combine(dst, file.Name)
+        file.CopyTo(temppath, true) |> ignore
+
+    if recr then
+        for subdir in srcDir.GetDirectories() do
+            let dstSubDir = IO.Path.Combine(dst, subdir.Name)
+            copydr subdir.FullName dstSubDir recr
+
+let srcdr = "mydir" 
+let dstdr = "mydir2" 
+
+copydr srcdr dstdr true
+printfn "directory copied"
+```
+
 ## List files
 
 ```F#
