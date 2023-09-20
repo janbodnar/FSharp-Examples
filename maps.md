@@ -71,6 +71,23 @@ let users =
 users |> Map.iter (fun k v -> printfn $"{k}: {v}")
 ```
 
+## Map.ofList
+
+```F#
+let words = ["sky"; "cup"; "rock"; "pen"; "pearl"; "cloud"]
+let n = words.Length
+let idxs = [1..n]
+
+let data = List.zip idxs words
+printfn "%A" data
+
+printfn "-----------------"
+
+let m = data |> Map.ofList
+
+m |> Map.iter (fun k v -> printfn $"{k}: {v}");
+```
+
 
 ## List of maps
 
