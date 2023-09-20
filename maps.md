@@ -1,6 +1,8 @@
 # Maps
 
 
+## Map
+
 ```F#
 open System
 
@@ -16,6 +18,8 @@ for key in words.Keys do
 for value in words.Values do
     Console.WriteLine value
 ```
+
+## Filter & count
 
 ```F#
 open System
