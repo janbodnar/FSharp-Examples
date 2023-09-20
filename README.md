@@ -121,6 +121,26 @@ let main argv =
 
 `printfn "env.cmdline: %A" <| Environment.GetCommandLineArgs() `
 
+## Comments 
+
+`// single line comment` 
+
+```F#
+(*
+Multi line comment
+Multi line comment
+*)
+```
+
+```F#
+/// XML comment
+/// <summary>Builds a new string whose characters are the results of applying the function <c>mapping</c>
+/// to each of the characters of the input string and concatenating the resulting
+/// strings.</summary>
+/// ...
+val collect : (char -> string) -> string -> string
+```
+
 
 ## Read and filter data  
 
