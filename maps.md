@@ -47,6 +47,27 @@ words
 |> Seq.iter Console.WriteLine
 ```
 
+## Map.empty
+
+`Map.empty` creates an empty map.  
+
+```F#
+type User = {
+    Name: string
+    Occupation: string
+}
+
+let users =
+   Map.empty.
+      Add(1, {Name="John Doe"; Occupation="gardener"}).
+      Add(2, {Name="Roger Roe"; Occupation="driver"}).
+      Add(3, {Name="Lucy Smith"; Occupation="teacher"}).
+      Add(4, {Name="Tom Jones"; Occupation="programmer"})
+
+users |> Map.iter (fun k v -> printfn $"{k}: {v}")
+```
+
+
 ## List of maps
 
 ```F#
