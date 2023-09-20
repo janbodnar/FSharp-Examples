@@ -123,7 +123,9 @@ let main argv =
 
 ## Comments 
 
-`// single line comment` 
+```F#
+// single line comment
+```
 
 ```F#
 (*
