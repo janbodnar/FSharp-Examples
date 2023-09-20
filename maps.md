@@ -46,3 +46,19 @@ words
 |> Map.values
 |> Seq.iter Console.WriteLine
 ```
+
+## List of maps
+
+```F#
+let fruits1 = Map [ "oranges", 2; "bananas", 3 ]
+let fruits2 = Map [ "plums", 2; "kiwis", 3 ]
+
+let fruits = [ Map[1, fruits1]; Map[2, fruits2] ]
+
+fruits
+|> List.iter (Map.iter (fun k v -> printfn $"{k} {v}"))
+
+for nested in fruits do
+  for e in nested do
+        printfn $"{e.Key} {e.Value}"
+```
