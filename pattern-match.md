@@ -394,3 +394,47 @@ users
     | user when user.salary > 1000 && user.years > 5 -> printfn "%A" user
     | _ -> ())    
 ```
+
+## Active pattern
+
+```F#
+let (|Even|Odd|) input = if input % 2 = 0 then Even else Odd
+
+let TestVal input =
+   match input with
+   | Even -> printfn "%d is even" input
+   | Odd -> printfn "%d is odd" input
+
+TestVal 7
+TestVal 11
+TestVal 32
+```
+
+## Regex match
+
+```F#
+open System.Text.RegularExpressions
+
+
+let (|RegEx|_|) p i =
+    let m = Regex.Match(i, p)
+
+    if m.Success then
+        Some m.Groups
+    else
+        None
+
+
+let CheckRegex (msg) =
+    match msg with
+    | RegEx @"\d+" g -> printfn "Digit: %A" g
+    | RegEx @"\w+" g -> printfn "Word : %A" g
+    | _ -> printfn "Not recognized"
+
+
+CheckRegex "an old falcon"
+CheckRegex "1984"
+CheckRegex "3 hawks"
+```
+
+
