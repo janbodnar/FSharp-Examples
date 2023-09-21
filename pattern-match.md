@@ -287,14 +287,17 @@ let n =
     | _ -> failwithf "'%s' is not an integer" value
 
 
-let f = function
+let f =
+    function
     | value when value > 0 -> printfn "positive value"
     | value when value = 0 -> printfn "zero"
     | value when value < 0 -> printfn "negative value"
+    | _ -> ()
 
 f (int value)
 f n
 ```
+
 Pattern matching with exception handling.  
 
 ## Matching types with :? operator
