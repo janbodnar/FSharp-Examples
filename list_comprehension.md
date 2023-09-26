@@ -61,6 +61,16 @@ let res2 = [for e in chars do yield [e; e; e] ]
 printfn "%A" res2
 ```
 
+```F#
+let words = [ "sky"; "cloud"; "park"; "rock"; "war" ]
+
+let res = [ for e in words do yield e ]
+printfn "%A" res
+
+let res2 = [ for e in words do yield! e ]
+printfn "%A" res2
+```
+
 
 ## Match pattern
 
