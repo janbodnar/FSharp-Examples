@@ -46,6 +46,25 @@ let vals3 =
 printfn "%A" vals3
 ```
 
+## yield/yield!
+
+```F#
+##
+
+```F#
+let res =
+    [ for a in 1..5 do
+          yield! [ a .. a + 3 ] ]
+
+printfn "%A" res
+
+let chars = [ 'a' .. 'z' ]
+
+let res2 = [for e in chars do yield [e; e; e] ]
+printfn "%A" res2
+```
+
+
 ## Match pattern
 
 ```F#
