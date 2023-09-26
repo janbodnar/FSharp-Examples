@@ -49,9 +49,6 @@ printfn "%A" vals3
 ## yield/yield!
 
 ```F#
-##
-
-```F#
 let res =
     [ for a in 1..5 do
           yield! [ a .. a + 3 ] ]
