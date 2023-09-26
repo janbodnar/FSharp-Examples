@@ -410,6 +410,23 @@ TestVal 11
 TestVal 32
 ```
 
+## List comprehension
+
+Match pattern in a list comprehension.  
+
+```F#
+let res =
+    [ for e in 1..100 do
+          match e with
+          | e when e % 3 = 0 -> yield "fizz"
+          | e when e % 5 = 0 -> yield "buzz"
+          | e when e % 15 = 0 -> yield "fizzbuzz"
+          | _ -> yield (string e) ]
+
+
+printfn "%A" res
+```
+
 ## Regex match
 
 ```F#
