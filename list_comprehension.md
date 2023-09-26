@@ -10,6 +10,17 @@ let res = [ for e in 1 .. 100 -> e * e ]
 printfn "%A" res
 ```
 
+## Multiple for loops
+
+```F#
+let res2 =
+    [ for r in 1..8 do
+          for c in 1..8 do
+              if r <> c then yield (r, c) ]
+
+printfn "%A" res2
+```
+
 ## Generators
 
 ```F#
