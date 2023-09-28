@@ -124,3 +124,13 @@ printfn $"5 * 8 = {5 * 8}"
 printfn $"{58:C}"
 printfn $"{58:X}"
 ```
+
+Typed interpolated strings
+
+```F#
+let name = "John Doe"
+let age = 34
+
+printfn $"Name: %s{name}, Age: %d{age}"
+```
+
