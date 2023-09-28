@@ -1,5 +1,12 @@
 # Strings 
 
+## Repeat
+
+```F#
+printfn "%s" (String.replicate 5 "falcon ")
+printfn "%s" (String.concat " " (Array.create 5 "falcon"))
+```
+
 ## Concat list of strings
 
 ```F#
