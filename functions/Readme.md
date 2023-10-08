@@ -34,6 +34,19 @@ contains creates words on declaration and reuses it, whereas
 contains2 creates words everytime you call the function;  
 contains is slightly faster.  
 
+## Generic function
+
+F# uses the `'T` for a generic type.   
+
+```F#
+let fn<'T> (a: 'T) (b: 'T) = printfn "%A %A" a b
+
+fn "sky" "blue"
+fn true false
+fn 'a' 'b'
+fn 12 23
+fn 1.2 1.3
+```
 
 ## Curried & tupled functions
 
