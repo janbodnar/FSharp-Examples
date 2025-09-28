@@ -1125,3 +1125,380 @@ for vehicle in vehicles do
 Sealed classes and methods provide control over inheritance hierarchies.  
 Use sealing to prevent further inheritance when the design is complete  
 and shouldn't be extended.  
+
+## Extension methods
+
+Extension methods add functionality to existing types without modifying  
+their source code.  
+
+```F#
+module StringExtensions =
+    type System.String with
+        member this.IsPalindrome() =
+            let normalized = this.ToLowerInvariant()
+            normalized = System.String(normalized.ToCharArray() |> Array.rev)
+            
+        member this.WordCount() =
+            this.Split([|' '; '\t'; '\n'|], System.StringSplitOptions.RemoveEmptyEntries)
+            |> Array.length
+            
+        member this.Reverse() =
+            System.String(this.ToCharArray() |> Array.rev)
+
+open StringExtensions
+
+let text = "A man a plan a canal Panama"
+printfn "Text: %s" text
+printfn "Is palindrome: %b" (text.IsPalindrome())
+printfn "Word count: %d" (text.WordCount())
+printfn "Reversed: %s" (text.Reverse())
+
+let palindrome = "racecar"
+printfn "Is '%s' a palindrome: %b" palindrome (palindrome.IsPalindrome())
+```
+
+Extension methods appear as instance methods on the extended type.  
+They must be defined in modules and the module must be opened to use  
+the extensions.  
+
+## Indexers and operators
+
+Classes can define indexers and custom operators for more natural syntax.  
+
+```F#
+type Matrix(rows: int, cols: int) =
+    let data = Array2D.zeroCreate<double> rows cols
+    
+    member this.Rows = rows
+    member this.Cols = cols
+    
+    // Indexer property
+    member this.Item
+        with get(row: int, col: int) = data.[row, col]
+        and set(row: int, col: int) (value: double) = data.[row, col] <- value
+    
+    // Custom operator
+    static member (+) (m1: Matrix, m2: Matrix) =
+        if m1.Rows <> m2.Rows || m1.Cols <> m2.Cols then
+            failwith "Matrix dimensions must match"
+        
+        let result = Matrix(m1.Rows, m1.Cols)
+        for i in 0 .. m1.Rows - 1 do
+            for j in 0 .. m1.Cols - 1 do
+                result.[i, j] <- m1.[i, j] + m2.[i, j]
+        result
+    
+    // Custom operator for scalar multiplication
+    static member (*) (m: Matrix, scalar: double) =
+        let result = Matrix(m.Rows, m.Cols)
+        for i in 0 .. m.Rows - 1 do
+            for j in 0 .. m.Cols - 1 do
+                result.[i, j] <- m.[i, j] * scalar
+        result
+    
+    member this.Display() =
+        for i in 0 .. rows - 1 do
+            for j in 0 .. cols - 1 do
+                printf "%6.2f " data.[i, j]
+            printfn ""
+
+let m1 = Matrix(2, 2)
+m1.[0, 0] <- 1.0
+m1.[0, 1] <- 2.0  
+m1.[1, 0] <- 3.0
+m1.[1, 1] <- 4.0
+
+let m2 = Matrix(2, 2)
+m2.[0, 0] <- 5.0
+m2.[0, 1] <- 6.0
+m2.[1, 0] <- 7.0
+m2.[1, 1] <- 8.0
+
+printfn "Matrix 1:"
+m1.Display()
+
+printfn "Matrix 2:"
+m2.Display()
+
+printfn "Matrix 1 + Matrix 2:"
+let sum = m1 + m2
+sum.Display()
+
+printfn "Matrix 1 * 2.0:"
+let scaled = m1 * 2.0
+scaled.Display()
+```
+
+Indexers allow array-like access syntax, and custom operators enable  
+mathematical operations. The `Item` property defines indexer behavior.  
+
+## Nullable reference handling
+
+F# classes can work with nullable references from .NET libraries safely.  
+
+```F#
+open System
+
+type PersonInfo(firstName: string, lastName: string, ?middleName: string) =
+    let middleName = defaultArg middleName null
+    
+    member this.FirstName = firstName
+    member this.LastName = lastName
+    member this.MiddleName = middleName
+    
+    member this.FullName = 
+        if String.IsNullOrEmpty(middleName) then
+            $"{firstName} {lastName}"
+        else
+            $"{firstName} {middleName} {lastName}"
+    
+    // Safe nullable handling
+    member this.HasMiddleName = not (String.IsNullOrEmpty(middleName))
+    
+    member this.GetInitials() =
+        let firstInitial = if firstName.Length > 0 then string firstName.[0] else ""
+        let lastInitial = if lastName.Length > 0 then string lastName.[0] else ""
+        let middleInitial = 
+            if this.HasMiddleName then string middleName.[0] 
+            else ""
+        
+        if middleInitial = "" then
+            $"{firstInitial}.{lastInitial}."
+        else
+            $"{firstInitial}.{middleInitial}.{lastInitial}."
+
+let person1 = PersonInfo("John", "Doe")
+let person2 = PersonInfo("Jane", "Smith", "Marie")
+
+printfn "Person 1: %s" person1.FullName
+printfn "Has middle name: %b" person1.HasMiddleName
+printfn "Initials: %s" (person1.GetInitials())
+
+printfn "Person 2: %s" person2.FullName  
+printfn "Has middle name: %b" person2.HasMiddleName
+printfn "Initials: %s" (person2.GetInitials())
+```
+
+F# provides safe handling of nullable values through option types and  
+careful null checking. Optional parameters use the `?` syntax.  
+
+## Lazy properties
+
+Properties can be computed lazily for expensive operations.  
+
+```F#
+type ExpensiveResource(id: int) =
+    let mutable _data = None
+    let mutable _computedValue = None
+    
+    member this.Id = id
+    
+    // Lazy property using option and mutable field
+    member this.Data = 
+        match _data with
+        | Some data -> data
+        | None ->
+            printfn "Loading expensive data for resource %d..." id
+            System.Threading.Thread.Sleep(1000)  // Simulate expensive operation
+            let data = $"Data for resource {id}"
+            _data <- Some data
+            data
+    
+    // Using .NET Lazy<'T> type
+    member val LazyComputation = lazy (
+        printfn "Computing expensive value for resource %d..." id
+        System.Threading.Thread.Sleep(500)
+        id * id * 42
+    )
+    
+    // Lazy property with Lazy<'T>
+    member this.ComputedValue =
+        match _computedValue with
+        | Some value -> value
+        | None ->
+            let value = this.LazyComputation.Value
+            _computedValue <- Some value
+            value
+
+let resource = ExpensiveResource(5)
+
+printfn "Created resource with ID: %d" resource.Id
+
+// These will trigger computation only once
+printfn "First access to Data: %s" resource.Data
+printfn "Second access to Data: %s" resource.Data  // No computation
+
+printfn "First access to ComputedValue: %d" resource.ComputedValue
+printfn "Second access to ComputedValue: %d" resource.ComputedValue  // No computation
+```
+
+Lazy properties delay expensive computations until first access and  
+cache the result. F# supports both manual lazy implementation and  
+the `lazy` keyword.  
+
+## Partial classes simulation
+
+F# doesn't have partial classes, but similar functionality can be achieved  
+with type extensions and composition.  
+
+```F#
+// Base type
+type Employee(id: int, name: string) =
+    member this.Id = id
+    member this.Name = name
+    member this.GetBasicInfo() = $"Employee {this.Id}: {this.Name}"
+
+// Extension to add HR functionality
+module HRExtensions =
+    type Employee with
+        member this.CalculateVacationDays(yearsOfService: int) =
+            match yearsOfService with
+            | years when years < 1 -> 10
+            | years when years < 5 -> 15
+            | years when years < 10 -> 20
+            | _ -> 25
+        
+        member this.GetHRInfo(yearsOfService: int, department: string) =
+            let vacationDays = this.CalculateVacationDays(yearsOfService)
+            $"{this.GetBasicInfo()} - {department}, {vacationDays} vacation days"
+
+// Extension to add payroll functionality  
+module PayrollExtensions =
+    type Employee with
+        member this.CalculateGrossPay(hourlyRate: decimal, hoursWorked: decimal) =
+            let regularHours = min hoursWorked 40.0m
+            let overtimeHours = max (hoursWorked - 40.0m) 0.0m
+            regularHours * hourlyRate + overtimeHours * hourlyRate * 1.5m
+        
+        member this.GetPayrollInfo(hourlyRate: decimal, hoursWorked: decimal) =
+            let grossPay = this.CalculateGrossPay(hourlyRate, hoursWorked)
+            $"{this.GetBasicInfo()} - Gross Pay: ${grossPay:F2}"
+
+open HRExtensions
+open PayrollExtensions
+
+let employee = Employee(123, "Alice Johnson")
+
+printfn "%s" (employee.GetBasicInfo())
+printfn "%s" (employee.GetHRInfo(3, "Engineering"))
+printfn "%s" (employee.GetPayrollInfo(25.00m, 45.0m))
+
+let vacationDays = employee.CalculateVacationDays(7)
+printfn "Vacation days for 7 years of service: %d" vacationDays
+```
+
+Type extensions allow adding methods to existing types across modules.  
+This provides partial class-like functionality by separating concerns  
+into different modules.  
+
+## Command pattern
+
+The command pattern encapsulates requests as objects, enabling  
+parameterization and queuing of operations.  
+
+```F#
+// Command interface
+type ICommand =
+    abstract member Execute: unit -> unit
+    abstract member Undo: unit -> unit
+
+// Receiver class
+type TextEditor() =
+    let mutable content = ""
+    let mutable history: string list = []
+    
+    member this.Content = content
+    
+    member this.InsertText(text: string, position: int) =
+        history <- content :: history
+        if position >= content.Length then
+            content <- content + text
+        else
+            content <- content.Insert(position, text)
+    
+    member this.DeleteText(position: int, length: int) =
+        history <- content :: history
+        if position < content.Length then
+            let endPos = min (position + length) content.Length
+            content <- content.Remove(position, endPos - position)
+    
+    member this.RestoreContent(previousContent: string) =
+        content <- previousContent
+
+// Concrete commands
+type InsertCommand(editor: TextEditor, text: string, position: int) =
+    let mutable executed = false
+    
+    interface ICommand with
+        member this.Execute() =
+            if not executed then
+                editor.InsertText(text, position)
+                executed <- true
+        
+        member this.Undo() =
+            if executed then
+                editor.DeleteText(position, text.Length)
+                executed <- false
+
+type DeleteCommand(editor: TextEditor, position: int, length: int) =
+    let mutable executed = false
+    let mutable deletedText = ""
+    
+    interface ICommand with
+        member this.Execute() =
+            if not executed then
+                let content = editor.Content
+                if position < content.Length then
+                    let endPos = min (position + length) content.Length
+                    deletedText <- content.Substring(position, endPos - position)
+                    editor.DeleteText(position, length)
+                    executed <- true
+        
+        member this.Undo() =
+            if executed then
+                editor.InsertText(deletedText, position)
+                executed <- false
+
+// Invoker
+type TextEditorInvoker() =
+    let mutable commandHistory: ICommand list = []
+    
+    member this.ExecuteCommand(command: ICommand) =
+        command.Execute()
+        commandHistory <- command :: commandHistory
+    
+    member this.UndoLastCommand() =
+        match commandHistory with
+        | [] -> printfn "No commands to undo"
+        | command :: rest ->
+            command.Undo()
+            commandHistory <- rest
+
+let editor = TextEditor()
+let invoker = TextEditorInvoker()
+
+// Execute commands
+let insertHello = InsertCommand(editor, "Hello ", 0)
+let insertWorld = InsertCommand(editor, "World!", 6)
+let deleteCommand = DeleteCommand(editor, 5, 1)
+
+invoker.ExecuteCommand(insertHello)
+printfn "After insert 'Hello ': '%s'" editor.Content
+
+invoker.ExecuteCommand(insertWorld)
+printfn "After insert 'World!': '%s'" editor.Content
+
+invoker.ExecuteCommand(deleteCommand)
+printfn "After delete: '%s'" editor.Content
+
+// Undo operations
+invoker.UndoLastCommand()
+printfn "After undo delete: '%s'" editor.Content
+
+invoker.UndoLastCommand()
+printfn "After undo insert 'World!': '%s'" editor.Content
+```
+
+The command pattern decouples the invoker from the receiver and enables  
+undo functionality. Each command encapsulates all information needed  
+for its execution and reversal.  
