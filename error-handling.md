@@ -1129,3 +1129,422 @@ emailTests |> List.iter (fun email ->
 Advanced error composition demonstrates how to build reusable validation  
 rules, compose them into complex validators, and create processing  
 pipelines that handle multiple types of errors gracefully.  
+
+## Monadic error chaining
+
+Chain operations that may fail using monadic bind operations for  
+clean error propagation in complex workflows.  
+
+```F#
+open System
+
+type ProcessingError = 
+    | InputError of string
+    | TransformationError of string  
+    | OutputError of string
+
+let (>>=) result f =
+    match result with
+    | Ok value -> f value
+    | Error err -> Error err
+
+let validateInput (input: string) =
+    if String.IsNullOrWhiteSpace input then Error (InputError "Input cannot be empty")
+    elif input.Length < 3 then Error (InputError "Input too short") 
+    else Ok input
+
+let transformToNumber (input: string) =
+    match Int32.TryParse input with
+    | true, num when num > 0 -> Ok num
+    | true, _ -> Error (TransformationError "Number must be positive")
+    | false, _ -> Error (TransformationError "Invalid number format")
+
+let formatOutput num =
+    try
+        Ok (sprintf "Processed number: %d (squared: %d)" num (num * num))
+    with
+    | ex -> Error (OutputError ex.Message)
+
+let processChain input =
+    validateInput input
+    >>= transformToNumber  
+    >>= formatOutput
+
+let testInputs = ["123"; "abc"; ""; "-50"; "42"]
+
+testInputs |> List.iter (fun input ->
+    match processChain input with
+    | Ok result -> printfn "Success: %s" result
+    | Error (InputError msg) -> printfn "Input Error: %s" msg
+    | Error (TransformationError msg) -> printfn "Transform Error: %s" msg  
+    | Error (OutputError msg) -> printfn "Output Error: %s" msg)
+```
+
+Monadic chaining with custom bind operators enables clean composition  
+of operations that may fail at different stages with specific error types.  
+
+## Retry mechanisms with exponential backoff
+
+Implement retry logic with exponential backoff for handling transient  
+failures in distributed systems and external service calls.  
+
+```F#
+open System
+open System.Threading
+
+type RetryPolicy = {
+    MaxAttempts: int
+    BaseDelay: int
+    MaxDelay: int
+    BackoffMultiplier: float
+}
+
+let defaultRetryPolicy = {
+    MaxAttempts = 3
+    BaseDelay = 1000
+    MaxDelay = 10000
+    BackoffMultiplier = 2.0
+}
+
+let withRetry policy operation = 
+    let rec retry attempt =
+        match operation() with
+        | Ok result -> Ok result
+        | Error err when attempt >= policy.MaxAttempts -> Error err
+        | Error err ->
+            let delay = min policy.MaxDelay 
+                          (int (float policy.BaseDelay * (policy.BackoffMultiplier ** float (attempt - 1))))
+            printfn "Attempt %d failed: %s. Retrying in %dms..." attempt err delay
+            Thread.Sleep(delay)
+            retry (attempt + 1)
+    retry 1
+
+let unreliableOperation () =
+    let random = Random()
+    let success = random.Next(1, 4) = 1  // 33% success rate
+    if success then Ok "Operation completed successfully"
+    else Error "Temporary service unavailable"
+
+// Test the retry mechanism
+for i in 1..3 do
+    printfn "\nTest run %d:" i
+    match withRetry defaultRetryPolicy unreliableOperation with
+    | Ok msg -> printfn "Final result: %s" msg
+    | Error err -> printfn "Failed after all retries: %s" err
+```
+
+Retry mechanisms with exponential backoff help handle transient failures  
+gracefully while avoiding overwhelming failing services with requests.  
+
+## Type-safe configuration parsing
+
+Parse application configuration with comprehensive validation and  
+type safety using discriminated unions and Result types.  
+
+```F#
+open System
+open System.IO
+open System.Text.Json
+
+type ConfigError = 
+    | MissingKey of string
+    | InvalidValue of string * string
+    | ParseError of string
+
+type LogLevel = Debug | Info | Warning | Error
+type DatabaseConfig = { Host: string; Port: int; Database: string }
+type AppConfig = { 
+    LogLevel: LogLevel
+    Database: DatabaseConfig  
+    ApiTimeout: TimeSpan
+    MaxRetries: int
+}
+
+let parseLogLevel = function
+    | "debug" | "Debug" -> Ok Debug
+    | "info" | "Info" -> Ok Info  
+    | "warning" | "Warning" -> Ok Warning
+    | "error" | "Error" -> Ok Error
+    | level -> Error (InvalidValue ("LogLevel", level))
+
+let parseTimeSpan (value: string) =
+    match TimeSpan.TryParse value with
+    | true, ts -> Ok ts
+    | false, _ -> Error (InvalidValue ("TimeSpan", value))
+
+let parseConfig (json: string) =
+    try
+        use doc = JsonDocument.Parse json
+        let root = doc.RootElement
+        
+        result {
+            let! logLevel = 
+                match root.TryGetProperty("logLevel") with
+                | true, prop -> parseLogLevel prop.GetString()
+                | false, _ -> Error (MissingKey "logLevel")
+            
+            let! dbHost = 
+                match root.TryGetProperty("database") with
+                | true, db -> 
+                    match db.TryGetProperty("host") with
+                    | true, host -> Ok host.GetString()
+                    | false, _ -> Error (MissingKey "database.host")
+                | false, _ -> Error (MissingKey "database")
+            
+            let! dbPort = 
+                match root.TryGetProperty("database") with
+                | true, db -> 
+                    match db.TryGetProperty("port") with
+                    | true, port -> 
+                        if port.ValueKind = JsonValueKind.Number then Ok port.GetInt32()
+                        else Error (InvalidValue ("database.port", port.ToString()))
+                    | false, _ -> Error (MissingKey "database.port")
+                | false, _ -> Error (MissingKey "database")
+            
+            let! dbName = 
+                match root.TryGetProperty("database") with
+                | true, db -> 
+                    match db.TryGetProperty("name") with
+                    | true, name -> Ok name.GetString()
+                    | false, _ -> Error (MissingKey "database.name")
+                | false, _ -> Error (MissingKey "database")
+            
+            let! timeout = 
+                match root.TryGetProperty("apiTimeout") with
+                | true, prop -> parseTimeSpan prop.GetString()
+                | false, _ -> Ok (TimeSpan.FromSeconds(30.0))  // default
+            
+            let! maxRetries = 
+                match root.TryGetProperty("maxRetries") with
+                | true, prop -> 
+                    if prop.ValueKind = JsonValueKind.Number then Ok prop.GetInt32()
+                    else Error (InvalidValue ("maxRetries", prop.ToString()))
+                | false, _ -> Ok 3  // default
+            
+            return {
+                LogLevel = logLevel
+                Database = { Host = dbHost; Port = dbPort; Database = dbName }
+                ApiTimeout = timeout
+                MaxRetries = maxRetries
+            }
+        }
+    with
+    | ex -> Error (ParseError ex.Message)
+
+let configJson = """{
+  "logLevel": "Info",
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "name": "myapp"
+  },
+  "apiTimeout": "00:01:00",
+  "maxRetries": 5
+}"""
+
+let invalidConfigJson = """{
+  "logLevel": "InvalidLevel",
+  "database": {
+    "host": "localhost"
+  }
+}"""
+
+[configJson; invalidConfigJson] |> List.iter (fun json ->
+    match parseConfig json with
+    | Ok config -> printfn "Valid config: %A" config
+    | Error (MissingKey key) -> printfn "Missing key: %s" key
+    | Error (InvalidValue (key, value)) -> printfn "Invalid value for %s: %s" key value
+    | Error (ParseError msg) -> printfn "Parse error: %s" msg)
+```
+
+Type-safe configuration parsing ensures application settings are validated  
+at startup, preventing runtime errors from invalid configuration values.  
+
+## Concurrent error handling
+
+Handle errors in concurrent operations using parallel processing with  
+Result types to collect both successes and failures safely.  
+
+```F#
+open System
+open System.Threading.Tasks
+
+type WorkItem = { Id: int; Data: string }
+type ProcessingResult = { 
+    Successes: (int * string) list
+    Failures: (int * string) list  
+    ProcessingTime: TimeSpan
+}
+
+let processWorkItem (item: WorkItem) = async {
+    try
+        // Simulate processing time
+        do! Async.Sleep (Random().Next(100, 500))
+        
+        // Simulate random failures
+        if Random().Next(1, 5) = 1 then
+            return Error (item.Id, sprintf "Processing failed for item %d" item.Id)
+        else
+            let result = item.Data.ToUpper()
+            return Ok (item.Id, sprintf "Processed: %s" result)
+    with
+    | ex -> return Error (item.Id, ex.Message)
+}
+
+let processConcurrently maxConcurrency workItems = async {
+    let startTime = DateTime.Now
+    
+    let semaphore = new System.Threading.SemaphoreSlim(maxConcurrency)
+    
+    let processWithSemaphore item = async {
+        let! _ = semaphore.WaitAsync() |> Async.AwaitTask
+        try
+            return! processWorkItem item
+        finally
+            semaphore.Release() |> ignore
+    }
+    
+    let! results = workItems |> List.map processWithSemaphore |> Async.Parallel
+    
+    let endTime = DateTime.Now
+    let processingTime = endTime - startTime
+    
+    let successes = results |> Array.choose (function Ok s -> Some s | Error _ -> None) |> Array.toList
+    let failures = results |> Array.choose (function Error f -> Some f | Ok _ -> None) |> Array.toList
+    
+    semaphore.Dispose()
+    
+    return { 
+        Successes = successes
+        Failures = failures
+        ProcessingTime = processingTime 
+    }
+}
+
+let workItems = [
+    for i in 1..10 -> { Id = i; Data = sprintf "item_%d" i }
+]
+
+async {
+    printfn "Processing %d items with max concurrency of 3..." workItems.Length
+    let! result = processConcurrently 3 workItems
+    
+    printfn "\nResults:"
+    printfn "Successes (%d):" result.Successes.Length
+    result.Successes |> List.iter (fun (id, msg) -> printfn "  %d: %s" id msg)
+    
+    printfn "Failures (%d):" result.Failures.Length  
+    result.Failures |> List.iter (fun (id, msg) -> printfn "  %d: %s" id msg)
+    
+    printfn "Processing time: %A" result.ProcessingTime
+} |> Async.RunSynchronously
+```
+
+Concurrent error handling enables parallel processing while maintaining  
+error isolation and collecting comprehensive results from all operations.  
+
+## Domain modeling with error types
+
+Model business domains using discriminated unions for errors that  
+represent specific business rules and validation constraints.  
+
+```F#
+open System
+
+type CustomerId = CustomerId of int
+type OrderId = OrderId of int  
+type ProductId = ProductId of int
+type Quantity = Quantity of int
+
+type BusinessError = 
+    | CustomerNotFound of CustomerId
+    | ProductNotFound of ProductId
+    | InsufficientStock of ProductId * requested: int * available: int
+    | InvalidQuantity of int
+    | OrderProcessingFailed of OrderId * string
+
+type Customer = { Id: CustomerId; Name: string; IsActive: bool }
+type Product = { Id: ProductId; Name: string; Price: decimal; Stock: int }
+type OrderItem = { ProductId: ProductId; Quantity: Quantity; Price: decimal }
+type Order = { Id: OrderId; CustomerId: CustomerId; Items: OrderItem list; Total: decimal }
+
+module Database =
+    let customers = [
+        { Id = CustomerId 1; Name = "John Doe"; IsActive = true }
+        { Id = CustomerId 2; Name = "Jane Smith"; IsActive = false }
+    ] |> List.map (fun c -> c.Id, c) |> Map.ofList
+    
+    let products = [
+        { Id = ProductId 1; Name = "Widget"; Price = 10.50m; Stock = 100 }
+        { Id = ProductId 2; Name = "Gadget"; Price = 25.00m; Stock = 5 }
+        { Id = ProductId 3; Name = "Tool"; Price = 15.75m; Stock = 0 }
+    ] |> List.map (fun p -> p.Id, p) |> Map.ofList
+
+module BusinessLogic =
+    let validateQuantity qty =
+        if qty > 0 && qty <= 1000 then Ok (Quantity qty)
+        else Error (InvalidQuantity qty)
+    
+    let findCustomer customerId =
+        match Database.customers |> Map.tryFind customerId with
+        | Some customer when customer.IsActive -> Ok customer
+        | Some _ -> Error (CustomerNotFound customerId)  // Inactive treated as not found
+        | None -> Error (CustomerNotFound customerId)
+    
+    let findProduct productId =
+        match Database.products |> Map.tryFind productId with
+        | Some product -> Ok product  
+        | None -> Error (ProductNotFound productId)
+    
+    let checkStock productId (Quantity qty) =
+        match findProduct productId with
+        | Ok product when product.Stock >= qty -> Ok product
+        | Ok product -> Error (InsufficientStock (productId, qty, product.Stock))
+        | Error err -> Error err
+    
+    let createOrderItem productId quantity = result {
+        let! validQty = validateQuantity quantity
+        let! product = checkStock productId validQty
+        return { ProductId = productId; Quantity = validQty; Price = product.Price }
+    }
+    
+    let processOrder customerId orderItems = result {
+        let! customer = findCustomer customerId
+        let! items = orderItems |> List.map (fun (pid, qty) -> createOrderItem pid qty) 
+                                |> List.fold (fun acc item ->
+                                    match acc, item with
+                                    | Ok items, Ok newItem -> Ok (newItem :: items)  
+                                    | Error err, _ -> Error err
+                                    | Ok _, Error err -> Error err) (Ok [])
+        let total = items |> List.sumBy (fun item -> 
+            let (Quantity qty) = item.Quantity
+            item.Price * decimal qty)
+        let orderId = OrderId (Random().Next(1000, 9999))
+        return { Id = orderId; CustomerId = customerId; Items = items; Total = total }
+    }
+
+let handleBusinessError = function
+    | CustomerNotFound (CustomerId id) -> sprintf "Customer %d not found or inactive" id
+    | ProductNotFound (ProductId id) -> sprintf "Product %d not found" id
+    | InsufficientStock (ProductId pid, requested, available) -> 
+        sprintf "Insufficient stock for product %d: requested %d, available %d" pid requested available
+    | InvalidQuantity qty -> sprintf "Invalid quantity: %d (must be 1-1000)" qty
+    | OrderProcessingFailed (OrderId id, msg) -> sprintf "Order %d processing failed: %s" id msg
+
+let testOrders = [
+    (CustomerId 1, [(ProductId 1, 5); (ProductId 2, 2)])  // Valid order
+    (CustomerId 2, [(ProductId 1, 3)])                    // Inactive customer
+    (CustomerId 1, [(ProductId 3, 1)])                    // Out of stock
+    (CustomerId 1, [(ProductId 1, 2000)])                 // Invalid quantity
+    (CustomerId 99, [(ProductId 1, 1)])                   // Customer not found
+]
+
+testOrders |> List.iter (fun (customerId, items) ->
+    match BusinessLogic.processOrder customerId items with
+    | Ok order -> printfn "Order created: %A" order
+    | Error err -> printfn "Order failed: %s" (handleBusinessError err))
+```
+
+Domain modeling with error types creates a self-documenting system where  
+business rules are encoded in the type system and errors represent  
+specific business scenarios.  
